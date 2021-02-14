@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+    <link href="css/signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+
+    <main class="form-signin">
+        <form id="form" method="post">
+            <div class="card">
+                <div class="card-body p-4">
+          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+          <div class="form-outline mb-4">
+          <label for="inputEmail" class="visually-hidden">User name</label>
+          <input id="inputEmail" class="form-control" placeholder="User name" required autofocus>
+        </div>
+        <div class="form-outline mb-4">
+          <label for="inputPassword" class="visually-hidden">Password</label>
+          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        </div>
+          <button class="w-100 btn btn-primary btn-block mb-4" type="submit">Sign in</button>
+        </div>
+        </div>
+        </form>
+      </main>
+    
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

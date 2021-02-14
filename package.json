@@ -1,0 +1,29 @@
+{
+  "name": "lims",
+  "version": "1.0.0",
+  "description": "laboratory information management system",
+  "main": "src/index.js",
+  "scripts": {
+    "local": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://priyadhanz@github.com/priyadhanz/lims.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/priyadhanz/lims/issues"
+  },
+  "homepage": "https://github.com/priyadhanz/lims#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
