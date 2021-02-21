@@ -4,6 +4,25 @@
 <head>
   <%- include('../partials/head'); %>
     <link href="css/signin.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready( () => {
+        $( "#form" ).submit( (event) => {
+          event.preventDefault();
+          $.ajax({
+            type: 'POST',
+            url: '/login',
+            data: $('#form').serialize(),
+            dataType: "json",
+            success: (response) => {
+              alert(JSON.stringify(response));
+                   },
+                   error: () => {
+                   }
+                 })
+        });
+      });
+    </script>
 </head>
 
 <body class="text-center">

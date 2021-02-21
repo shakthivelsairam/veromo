@@ -1,0 +1,13 @@
+const dbUsers = require("../db/users");
+
+exports.isValidLogin = async function (req, res) {
+    try {
+        const userName = req.body.userName;
+        const password = req.body.password;
+        const isValidLogin = dbUsers.isValidLogin(userName, password);
+        return isValidLogin;
+    } catch(error) {
+        console.error("controllers.users isValidLogin = ", error)
+    }
+	return false;
+}
