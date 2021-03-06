@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(() => {
+        $("#form").submit((event) => {
+          event.preventDefault();
+          $.ajax({
+            type: 'POST',
+            url: '/testCreation',
+            data: $('#form').serialize(),
+            dataType: "json",
+            success: (response) => {
+              Snackbar.show({ pos: "top-center", showAction: false, backgroundColor: "#398C09", text: "Saved Successfully" });
+              $('#form')[0].reset();
+            },
+            error: (error) => {
+              Snackbar.show({ pos: "top-center", showAction: false, backgroundColor: "#ED4F32", text: "Failed to Save." });
+            }
+          })
+        });
+      });
+    </script>
+</head>
+
+<body>
+  <%- include('../partials/header'); %>
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('../partials/sidebar'); %>
+            <main method="post" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+              <h1 class="h2">Test Creation</h1>
+              <form class="row g-1" id="form" method="POST">
+                <div class="row g-2">
+                  <div class="col-5">
+                    <input type="text" class="form-control" name="testName" placeholder="Test Name">
+                  </div>
+                  <div class="col-5">
+                    <input type="text" class="form-control" name="testCode" placeholder="Test Code">
+                  </div>
+                </div>
+                <div class="row g-2">
+                  <div class="col-5">
+                    <input type="text" class="form-control" name="billingName" placeholder="Billing Name">
+                  </div>
+                  <div class="col-5">
+                    <input type="text" class="form-control" name="internalName" placeholder="Internal Name">
+                  </div>
+                </div>
+                <div class="row g-2">
+                  <div class="col-5">
+                    <input type="text" class="form-control" name="reportName" id="reportName" placeholder="Report Name">
+                  </div>
+                  <div class="col-5">
+                    <input type="text" class="form-control" name="shortCode" id="shortCode" placeholder="Short Code">
+                  </div>
+                </div>
+                <div class="row g-2">
+
+                  <div class="col-5">
+                    <input type="checkbox" name="isActive" id="isActive"> Active
+                  </div>
+                </div>
+                <div class="row g-2">
+                  <div class="col-5">
+                    <button class="btn btn-primary btn-block mb-5" type="submit">Save</button>
+                    <button class="btn btn-primary btn-block mb-5" type="button">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </main>
+        </div>
+      </div>
+    </section>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
