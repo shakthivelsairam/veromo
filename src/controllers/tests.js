@@ -8,15 +8,12 @@ exports.saveTest = async function (req, res) {
         const internalName = req.body.internalName;
         const reportName = req.body.reportName;
         const shortCode = req.body.shortCode;
-        const isActive = req.body.isActive;
-        isActive=0;
-        if (isActive=="on") isActive=1;
-        // const tenent_id = req.session.user;
-        // const created_by=req.cookies.user_sid; 
-        // const updated_by=req.cookies.user_sid; 
-        const isSave = tests.saveTest(testName, testCode, billingName,internalName, reportName, shortCode, isActive);
+        const isActive = req.body.isActive === "on" ? true : false;
+        const sessionUser = req.session.user;
+        const tenantId=sessionUser.tenant_id;
+        const user_name=sessionUser.user_name;
+        const isSave = await tests.saveTest(testName, testCode, billingName,internalName, reportName, shortCode, isActive, tenantId, user_name, user_name);
         return isSave;
-
     } 
     catch (error) {
         console.error("controllers.tests isSave = ", error)

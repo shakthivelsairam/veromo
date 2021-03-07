@@ -54,15 +54,14 @@ var sessionChecker = (req, res, next) => {
 };
 
 app.post('/login', async (req, res) => {
-    console.log('Request for post login page recieved = ', req.body);
     const users = await usersController.isValidLogin(req, res);
-    console.log("app isValidLogin = ", users)
     if (users) {
-      req.session.user = users
-      res.status(200).json({ "message": "Login Success!" });
+        req.session.user = users
+        res.status(200).json({});
+    } else {
+        res.status(401);
     }
-    res.status(401).json({ "message": "Login Failed!" });
-  });
+});
 
 app.use('/', sessionChecker, routes);
 
