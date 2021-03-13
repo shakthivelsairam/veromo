@@ -10,7 +10,7 @@
           $("#btnSave").html("Please Wait...");
           $.ajax({
             type: 'POST',
-            url: '/testCreation',
+            url: '/department',
             data: $('#form').serialize(),
             dataType: "json",
             success: (response) => {
@@ -40,30 +40,22 @@
         <div class="row">
           <%- include('../partials/sidebar'); %>
             <main method="post" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-              <h1 class="h2">Test Creation</h1>
+              <h1 class="h2">Departments</h1>
               <form class="row g-1" id="form" method="POST">
                 <div class="row g-2">
                   <div class="col-5">
-                    <input type="text" class="form-control" name="testName" required placeholder="Test Name">
+                    <input type="text" class="form-control" name="deptName" required placeholder="Department Name">
                   </div>
                   <div class="col-5">
-                    <input type="text" class="form-control" name="testCode" required placeholder="Test Code">
+                    <input type="text" class="form-control" name="deptCode" required placeholder="Department Code">
                   </div>
                 </div>
                 <div class="row g-2">
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="billingName" required placeholder="Billing Name">
-                  </div>
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="internalName" required placeholder="Internal Name">
-                  </div>
-                </div>
-                <div class="row g-2">
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="reportName" required placeholder="Report Name">
-                  </div>
                   <div class="col-5">
                     <input type="text" class="form-control" name="shortCode" required placeholder="Short Code">
+                  </div>
+                  <div class="col-5">
+                    <input type="number" class="form-control" name="sequenceNo" required placeholder="Sequence Number">
                   </div>
                 </div>
                 <div class="row g-2">

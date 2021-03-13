@@ -10,7 +10,7 @@
           $("#btnSave").html("Please Wait...");
           $.ajax({
             type: 'POST',
-            url: '/testCreation',
+            url: '/roleMaintenance',
             data: $('#form').serialize(),
             dataType: "json",
             success: (response) => {
@@ -40,38 +40,19 @@
         <div class="row">
           <%- include('../partials/sidebar'); %>
             <main method="post" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-              <h1 class="h2">Test Creation</h1>
+              <h1 class="h2">Role Maintenance</h1>
               <form class="row g-1" id="form" method="POST">
                 <div class="row g-2">
                   <div class="col-5">
-                    <input type="text" class="form-control" name="testName" required placeholder="Test Name">
+                    <input type="text" class="form-control" name="roleName" required placeholder="Role Name">
                   </div>
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="testCode" required placeholder="Test Code">
                   </div>
-                </div>
                 <div class="row g-2">
                   <div class="col-5">
-                    <input type="text" class="form-control" name="billingName" required placeholder="Billing Name">
-                  </div>
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="internalName" required placeholder="Internal Name">
+                    <input type="text" class="form-control" name="roleCode" required placeholder="Role Code">
                   </div>
                 </div>
-                <div class="row g-2">
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="reportName" required placeholder="Report Name">
-                  </div>
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="shortCode" required placeholder="Short Code">
-                  </div>
-                </div>
-                <div class="row g-2">
-
-                  <div class="col-5">
-                    <input type="checkbox" name="isActive" id="isActive"> Active
-                  </div>
-                </div>
+               
                 <div class="row g-2">
                   <div class="col-5">
                     <button class="btn btn-primary btn-block mb-5" type="submit" id="btnSave">Save</button>
