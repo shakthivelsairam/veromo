@@ -29,6 +29,9 @@
         $("#btncancel").click(function() {
           $('#form')[0].reset();
         });
+        $("#btnAdd").click(function() {
+          window.location.href = "/department";
+        });
       });
     </script>
 </head>
@@ -40,35 +43,41 @@
         <div class="row">
           <%- include('../partials/sidebar'); %>
             <main method="post" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-              <h1 class="h2">Departments</h1>
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h5 class="h5">Departments</h5>
+              </div>
               <form class="row g-1" id="form" method="POST">
-                <div class="row g-2">
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="deptName" required placeholder="Department Name">
-                  </div>
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="deptCode" required placeholder="Department Code">
-                  </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button id="btnAdd" class="btn btn-primary me-md-2" type="button">Add</button>
+                  <button id="btnDelete" class="btn btn-danger" type="button">Delete</button>
                 </div>
-                <div class="row g-2">
-                  <div class="col-5">
-                    <input type="text" class="form-control" name="shortCode" required placeholder="Short Code">
-                  </div>
-                  <div class="col-5">
-                    <input type="number" class="form-control" name="sequenceNo" required placeholder="Sequence Number">
-                  </div>
-                </div>
-                <div class="row g-2">
-
-                  <div class="col-5">
-                    <input type="checkbox" name="isActive" id="isActive"> Active
-                  </div>
-                </div>
-                <div class="row g-2">
-                  <div class="col-5">
-                    <button class="btn btn-primary btn-block mb-5" type="submit" id="btnSave">Save</button>
-                    <button class="btn btn-primary btn-block mb-5" type="reset" id="btncancel">Cancel</button>
-                  </div>
+                <div class="table-responsive">
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th><input class="form-check-input" type="checkbox" value="" id="chkDeptAll"></th>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>Short Code</th>
+                        <th>Sequence No</th>
+                        <th>Active</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% var count = 0; %>
+                      <% data.forEach((dept)=>{  %>
+                        <tr data-index="<%= count %>">
+                          <td><input class="form-check-input" type="checkbox" value="" id="chkDept<%= count %>"></td>
+                          <td><%= dept.name %></td>
+                          <td><%= dept.code %></td>
+                          <td><%= dept.short_code %></td>
+                          <td><%= dept.sequence_no %></td>
+                          <td><%= dept.active %></td>
+                        </tr>
+                      <% count +=1; %>
+                      <% }) %>
+                    </tbody>
+                  </table>
                 </div>
               </form>
             </main>

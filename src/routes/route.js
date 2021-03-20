@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const testsController = require("../controllers/tests");
 const roleController = require("../controllers/role");
-const deptController = require("../controllers/dept");
+const departmentController = require("../controllers/departments");
 
 router.get(['/','/login'], (req, res) => {
   res.render('pages/login');
@@ -22,6 +22,9 @@ router.get('/logout', (req, res) => {
 
 router.get('/home', (req, res) => {
   res.render('pages/home');
+});
+router.get('/registration', (req, res) => {
+  res.render('pages/registration');
 });
 // route for Admin page
 // Test Creation 
@@ -61,7 +64,7 @@ router.post('/testCreation', async (req, res) => {
       }
     }); 
   // Department Maintenance
-  router.get('/department', (req, res) => {
+ /* router.get('/department', (req, res) => {
     res.render('pages/departments');
   });
   router.post('/department', async (req, res) => {
@@ -77,5 +80,8 @@ router.post('/testCreation', async (req, res) => {
       } else {
         res.status(500).json({});
       }
-    }); 
+    });*/
+router.route("/departments").get(departmentController.list)
+router.route("/department").get(departmentController.newIndex)
+router.route("/departments").post(departmentController.add)
 module.exports = router;

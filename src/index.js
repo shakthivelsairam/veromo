@@ -46,6 +46,7 @@ app.use((req, res, next) => {
 var sessionChecker = (req, res, next) => {
     console.log("req.session.user = ", req.session.user)
     console.log("req.cookies.user_sid = ", req.cookies.user_sid)
+    console.log("req.body = ", req.body)
     if (req.session.user && req.cookies.user_sid) {
         next();
     } else {
