@@ -45,39 +45,42 @@ export const newIndex = async (req, res) => {
  * @returns 
  */
 export const list = async (req, res) => {
+    console.log("req.query = ", req.query)
     let result = null
     try {
-        let limit = 100
-        let offset = 0
+        let length = 10
+        let start = 0
         if (req.query) {
-            if (req.query.limit != null && isNaN(req.query.limit)) {
+            if (req.query.length != null && isNaN(req.query.length)) {
                 const badInputResp = apiResponse.createBadInput(
-                "Pagination attribute limit should be number."
+                "Pagination attribute length should be number."
                 )
                 return apiResponse.sendResponse(res, badInputResp)
             }
-            if (req.query.offset != null && isNaN(req.query.offset)) {
+            if (req.query.start != null && isNaN(req.query.start)) {
                 const badInputResp = apiResponse.createBadInput(
-                "Pagination attribute offset should be number."
+                "Pagination attribute start should be number."
                 )
                 return apiResponse.sendResponse(res, badInputResp)
             }
-            if (req.query.limit > config.PAGINATION_MAX_LIMIT) {
+            if (req.query.length > config.PAGINATION_MAX_LIMIT) {
                 const badInputResp = apiResponse.createBadInput(
-                `Pagination attribute limit should be less than ${config.PAGINATION_MAX_LIMIT}.`
+                `Pagination attribute length should be less than ${config.PAGINATION_MAX_LIMIT}.`
                 )
                 return apiResponse.sendResponse(res, badInputResp)
             }
-            if (req.query.limit) {
-                limit = req.query.limit
+            if (req.query.length) {
+                length = parseInt(req.query.length)
             }
-            if (req.query.offset) {
-                offset = req.query.offset
+            if (req.query.start) {
+                start = parseInt(req.query.start)
             }
         }
-        result = await dbDepartments.get(limit, offset)
+        result = await dbDepartments.get(length, start, req.query.order)
+        result.draw = req.query.draw
+        console.log("Get list of departments result = ", result)
     } catch (error) {
-        logger.error("Get list of departments - Error: ", error)
+        console.error("Get list of departments - Error: ", error)
     }
-    res.render('pages/departments', result)
+    res.send(JSON.stringify(result))
 }

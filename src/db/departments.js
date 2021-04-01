@@ -14,19 +14,28 @@ export const add = async (dName,dCode,shortCode,sequenceNo,isActive,tenant_id,cr
 	return false;
 }
 
-export const get = async (limit, offset) => {
+export const get = async (limit, offset, order) => {
     let result = {
-        "totalRecords": 0,
-        "fetchedRecords": 0,
+        "recordsTotal": 0,
+        "recordsFiltered": 0,
         "data": []
     }
     try {
         const pool = await dbPool.getPool()
+        let query = `SELECT * FROM departments`
+        let orderBy = ""
+        for (let i=0; i < order.length; i++) {
+            orderBy += (parseInt(order[i].column) + 1) + " " + order[i].dir
+        }
+        if (orderBy) {
+            query = query + ` ORDER BY ` + orderBy
+        }
+        query = query + ` LIMIT ${limit} OFFSET ${offset}`
         let dbCountResult = await pool.query(`SELECT COUNT(1) as total_count FROM departments`)
-        result.totalRecords = dbCountResult.total_count
-        let dbResult = await pool.query(`SELECT * FROM departments LIMIT ? OFFSET ?`,[limit, offset])
+        result.recordsTotal = dbCountResult[0].total_count
+        let dbResult = await pool.query(query)
         if (dbResult && dbResult.length > 0) {
-            result.fetchedRecords = dbResult.length
+            result.recordsFiltered = dbResult.length
             result.data = dbResult
         }
     } catch(error) {

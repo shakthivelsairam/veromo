@@ -81,7 +81,10 @@ router.post('/testCreation', async (req, res) => {
         res.status(500).json({});
       }
     });*/
-router.route("/departments").get(departmentController.list)
+router.get('/departments', (req, res) => {
+  res.render('pages/departments');
+});
+router.route("/departments/list").get(departmentController.list)
 router.route("/department").get(departmentController.newIndex)
 router.route("/departments").post(departmentController.add)
 module.exports = router;

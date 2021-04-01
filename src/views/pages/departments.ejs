@@ -5,10 +5,60 @@
   <%- include('../partials/head'); %>
     <script type="text/javascript">
       $(document).ready(() => {
+        $('#tblDepartments').DataTable({
+            "paging": true,
+            "pageLength": 10,
+            "processing": true,
+            "serverSide": true,
+            'ajax': {
+                'type': 'GET',
+                'url': '/departments/list'
+            },
+            'columns':
+                [
+                { 'data': '' },
+                { 'data': 'name', "defaultContent": "", 'name': 'Dept Name' },
+                { 'data': 'code', "defaultContent": "", 'name': 'Dept Code' },
+                { 'data': 'short_code', "defaultContent": "", 'name': 'Short Code' },
+                { 'data': 'sequence_no', "defaultContent": "", 'name': 'Sequence No' },
+                { 'data': 'active', "defaultContent": "", 'name': 'Active' },
+                ],
+                'columnDefs': [{
+                  'targets': 0,
+                  'searchable':false,
+                  'orderable':false,
+                  'className': 'dt-body-center',
+                  'render': function (data, type, full, meta){
+                      return '<input type="checkbox" name="id[]" value="'
+                          + $('<div/>').text(data).html() + '">';
+                  }
+                }],
+              'order': [1, 'asc']
+        });
+        // Handle click on "Select all" control
+        $('#tblDepartments-select-all').on('click', function(){
+              // Check/uncheck all checkboxes in the table
+              var rows = table.rows({ 'search': 'applied' }).nodes();
+              $('input[type="checkbox"]', rows).prop('checked', this.checked);
+          });
+
+          // Handle click on checkbox to set state of "Select all" control
+          $('#tblDepartments tbody').on('change', 'input[type="checkbox"]', function(){
+              // If checkbox is not checked
+              if(!this.checked){
+                var el = $('#tblDepartments-select-all').get(0);
+                // If "Select all" control is checked and has 'indeterminate' property
+                if(el && el.checked && ('indeterminate' in el)){
+                    // Set visual state of "Select all" control 
+                    // as 'indeterminate'
+                    el.indeterminate = true;
+                }
+              }
+          });
         $("#form").submit((event) => {
           event.preventDefault();
           $("#btnSave").html("Please Wait...");
-          $.ajax({
+          /*$.ajax({
             type: 'POST',
             url: '/department',
             data: $('#form').serialize(),
@@ -23,7 +73,7 @@
               console.log("Error");
               Snackbar.show({ pos: "top-center", showAction: false, backgroundColor: "#ED4F32", text: JSON.parse($.parseJSON(myJSON).responseText).errorMessage });
             }
-          })
+          })*/
           $("#btnSave").html("Save");
         });
         $("#btncancel").click(function() {
@@ -52,10 +102,10 @@
                   <button id="btnDelete" class="btn btn-danger" type="button">Delete</button>
                 </div>
                 <div class="table-responsive">
-                  <table class="table table-sm">
+                  <table id="tblDepartments" class="table table-sm">
                     <thead>
                       <tr>
-                        <th><input class="form-check-input" type="checkbox" value="" id="chkDeptAll"></th>
+                        <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>
                         <th>Name</th>
                         <th>Code</th>
                         <th>Short Code</th>
@@ -64,18 +114,6 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <% var count = 0; %>
-                      <% data.forEach((dept)=>{  %>
-                        <tr data-index="<%= count %>">
-                          <td><input class="form-check-input" type="checkbox" value="" id="chkDept<%= count %>"></td>
-                          <td><%= dept.name %></td>
-                          <td><%= dept.code %></td>
-                          <td><%= dept.short_code %></td>
-                          <td><%= dept.sequence_no %></td>
-                          <td><%= dept.active %></td>
-                        </tr>
-                      <% count +=1; %>
-                      <% }) %>
                     </tbody>
                   </table>
                 </div>
