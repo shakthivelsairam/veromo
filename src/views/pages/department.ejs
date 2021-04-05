@@ -6,24 +6,26 @@
     <script type="text/javascript">
       $(document).ready(() => {
         $("#form").submit((event) => {
+          let apiURL = "/department"
+          if ($("#deptId").val()) {
+            apiURL = "/department/" + $("#deptId").val()
+          }
           event.preventDefault();
-          $("#btnSave").html("Please Wait...");
           $.ajax({
             type: 'POST',
-            url: '/departments',
+            url: apiURL,
             data: $('#form').serialize(),
             dataType: "json",
             success: (response) => {
               console.log("Success");
               Snackbar.show({ pos: "top-center", showAction: false, backgroundColor: "#398C09", text: response.message });
-              $('#form')[0].reset();
+              setTimeout(() => {  location.reload(); }, 1500);
             },
             error: (xhr, status, error) => {
               console.log("Error");
               Snackbar.show({ pos: "top-center", showAction: false, backgroundColor: "#ED4F32", text: xhr.responseJSON.message });
             }
           })
-          $("#btnSave").html("Save");
         });
         $("#btncancel").click(function() {
           $('#form')[0].reset();
@@ -40,34 +42,35 @@
           <%- include('../partials/sidebar'); %>
           <main method="post" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h5 class="h5">Add Department</h5>
+              <h5 class="h5"><%= dept.id ? "Edit" : "Add" %> Department</h5>
             </div>
               <form class="row g-1" id="form" method="POST">
                 <div class="row g-2">
                   <div class="col-5">
-                    <input type="text" class="form-control" name="deptName" required placeholder="Department Name">
+                    <input id="deptId" type="hidden" class="form-control" name="deptId" value="<%= dept.id %>">
+                    <input type="text" class="form-control" name="deptName" required placeholder="Department Name" value="<%= dept.name %>">
                   </div>
                   <div class="col-5">
-                    <input type="text" class="form-control" name="deptCode" required placeholder="Department Code">
+                    <input type="text" class="form-control" name="deptCode" required placeholder="Department Code" value='<%= dept.code %>'>
                   </div>
                 </div>
                 <div class="row g-2">
                   <div class="col-5">
-                    <input type="text" class="form-control" name="shortCode" required placeholder="Short Code">
+                    <input type="text" class="form-control" name="shortCode" required placeholder="Short Code" value='<%= dept.short_code %>'>
                   </div>
                   <div class="col-5">
-                    <input type="number" class="form-control" name="sequenceNo" required placeholder="Sequence Number">
+                    <input type="number" class="form-control" name="sequenceNo" required placeholder="Sequence Number"  value='<%= dept.sequence_no %>'>
                   </div>
                 </div>
                 <div class="row g-2">
 
                   <div class="col-5">
-                    <input type="checkbox" name="isActive" id="isActive"> Active
+                    <input type="checkbox" name="isActive" id="isActive" <%= dept.active == "1" ? "checked" : "" %>> Active
                   </div>
                 </div>
                 <div class="row g-2">
                   <div class="col-5">
-                    <button class="btn btn-primary btn-block mb-5" type="submit" id="btnSave">Save</button>
+                    <button class="btn btn-primary btn-block mb-5" type="submit" id="btnSave"><%= dept && dept.id ? "Update" : "Save" %></button>
                     <button class="btn btn-primary btn-block mb-5" type="reset" id="btncancel">Cancel</button>
                   </div>
                 </div>

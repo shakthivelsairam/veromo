@@ -84,7 +84,10 @@ router.post('/testCreation', async (req, res) => {
 router.get('/departments', (req, res) => {
   res.render('pages/departments');
 });
-router.route("/departments/list").get(departmentController.list)
-router.route("/department").get(departmentController.newIndex)
-router.route("/departments").post(departmentController.add)
+router.get("/departments/list", departmentController.list)
+router.get("/department", departmentController.newIndex)
+router.get("/department/:id", departmentController.get)
+router.post("/department", departmentController.add)
+router.post("/department/:id", departmentController.update)
+router.delete("/department/:id", departmentController.remove)
 module.exports = router;
