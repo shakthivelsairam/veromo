@@ -1,10 +1,10 @@
 import express, {Request, Response} from "express";
-import { Departments } from "../models/departments.interface";
-import * as departmentService from "../services/department.service";
-const oRouter = express.Router();
+import * as orderModel from "../models/order";
+import {Order, BasicOrder} from "../types/order";
+const orderRouter = express.Router();
 
-oRouter.get("/", async (req: Request, res: Response) => {
-    departmentService.findAll((err: Error, orders: Departments[]) => {
+orderRouter.get("/", async (req: Request, res: Response) => {
+  orderModel.findAll((err: Error, orders: Order[]) => {
     if (err) {
       return res.status(500).json({"errorMessage": err.message});
     }
@@ -13,7 +13,7 @@ oRouter.get("/", async (req: Request, res: Response) => {
   });
 });
 
-oRouter.post("/", async (req: Request, res: Response) => {
+orderRouter.post("/", async (req: Request, res: Response) => {
   const newOrder: BasicOrder = req.body;
   orderModel.create(newOrder, (err: Error, orderId: number) => {
     if (err) {
@@ -24,7 +24,7 @@ oRouter.post("/", async (req: Request, res: Response) => {
   });
 });
 
-oRouter.get("/:id", async (req: Request, res: Response) => {
+orderRouter.get("/:id", async (req: Request, res: Response) => {
   const orderId: number = Number(req.params.id);
   orderModel.findOne(orderId, (err: Error, order: Order) => {
     if (err) {
@@ -34,7 +34,7 @@ oRouter.get("/:id", async (req: Request, res: Response) => {
   })
 });
 
-oRouter.put("/:id", async (req: Request, res: Response) => {
+orderRouter.put("/:id", async (req: Request, res: Response) => {
   const order: Order = req.body;
   orderModel.update(order, (err: Error) => {
     if (err) {
@@ -45,4 +45,4 @@ oRouter.put("/:id", async (req: Request, res: Response) => {
   })
 });
 
-export {oRouter};
+export {orderRouter};
