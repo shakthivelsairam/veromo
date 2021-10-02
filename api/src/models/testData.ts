@@ -6,7 +6,7 @@ import exp from "constants";
 
 // Fetch all test codes
 export const fetchAllTests = (callback:Function) => {
-  const queryString = 'SELECT name,code,report_name,tenant_id FROM tests where active=1'
+  const queryString = 'SELECT ts.id,ts.name,ts.code,ts.report_name,tn.name FROM tests ts,tenants tn where ts.active=1 and ts.tenant_id=tn.id'
   db.query(queryString, (err, result) => {
     if (err) {callback(err)}
 
@@ -15,10 +15,11 @@ export const fetchAllTests = (callback:Function) => {
 
     rows.forEach(row => {
       const testMaster: testMaster =  {
+        rowid : row.id,
         testName : row.name,
         testCode : row.code,
         report_name : row.report_name,
-        tenant_id : row.tenant_id,
+        tenant_name : row.name,
         active : row.active
       }
       testMasters.push(testMaster);

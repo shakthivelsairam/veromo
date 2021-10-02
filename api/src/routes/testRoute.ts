@@ -33,7 +33,7 @@ testRouter.get("/",async (req: Request, res: Response) => {
     }
     else
     {
-      res.status(200).json({"status":400, "msg": testDatas});
+      res.status(200).json({"status":200,"msg": testDatas});
     }
   })
 });

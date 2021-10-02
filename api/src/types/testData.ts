@@ -6,9 +6,10 @@ export interface testCode {
     active : boolean
   }
   export interface testMaster extends testCode {
+    rowid : number,
     testName : string,
     report_name : string,
-    tenant_id : number,
+    tenant_name : string,
     active : boolean
   }
   
