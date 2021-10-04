@@ -1,6 +1,9 @@
 import React from 'react';
 import Departments from "./departments/index"
 import Registration from './Registration'
+import MetaData from './MetaData'
+import PriceMaster from './masters/PriceForm'
+import ClientMaster from './masters/clientForm'
 
 const Home: React.FC = () => {
   return (
@@ -38,6 +41,23 @@ const Routes = [
     sidebarName: 'Registration',
     component: Registration
   },
+  {
+    path: '/metadata',
+    sidebarName: 'Meta Data',
+    component: MetaData
+  },
+  {
+    path: '/pricemaster',
+    sidebarName: 'Price Master',
+    component: PriceMaster
+  },
+  {
+    path: '/clientmaster',
+    sidebarName: 'Client Master',
+    component: ClientMaster
+  },
+  
+  
 ];
 
 export default Routes;

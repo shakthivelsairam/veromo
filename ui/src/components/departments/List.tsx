@@ -5,7 +5,7 @@ import {
     Route,
     useRouteMatch
   } from 'react-router-dom'
-import { DataGrid } from '@material-ui/data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import DepartmentForm from "./Form";
 
 export default function DepartmentList(){
