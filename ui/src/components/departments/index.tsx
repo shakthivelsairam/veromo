@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid } from '@mui/material';
 import DepartmentForm from "./Form";
 import DepartmentList from "./List";
 

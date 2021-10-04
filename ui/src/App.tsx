@@ -31,7 +31,9 @@ function App() {
       <Switch>
         {Routes.map((route: any) => (
           <Route exact path={route.path} key={route.path}>
+            <div style={{margin: 10}}>
             <route.component />
+            </div>
           </Route>
         ))}
       </Switch>

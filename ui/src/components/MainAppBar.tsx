@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react"
-import { AppBar, Drawer, IconButton, List, ListItem, ListItemButton, Toolbar, ListItemIcon, ListItemText, Typography, Chip, Button, dividerClasses } from "@material-ui/core"
-import { Menu as MenuIcon, Home as HomeIcon, AccountCircle, Logout as LogoutIcon, Dashboard as DashboardIcon } from "@material-ui/icons"
+import { AppBar, Drawer, IconButton, List, ListItem, ListItemButton, Toolbar, ListItemIcon, ListItemText, Typography, Chip, Button, dividerClasses } from "@mui/material"
+import { Menu as MenuIcon, Home as HomeIcon, AccountCircle, Logout as LogoutIcon, Dashboard as DashboardIcon } from "@mui/icons-material"
 import { Link, withRouter,RouteComponentProps } from "react-router-dom"
-import { createStyles, makeStyles } from "@material-ui/styles"
-import { Theme } from "@material-ui/core/styles"
+import { createStyles, makeStyles } from "@mui/styles"
+import { Theme } from "@mui/material/styles"
 import Routes from './Routes'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -80,9 +80,6 @@ function MainAppBar(props: any){
     </List>
                 </div>
             </Drawer>
-            <main>
-                {props.children}
-            </main>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
-import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography } from '@material-ui/core';
+import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography } from '@mui/material';
 
 function DepartmentForm(props: any){
     return(

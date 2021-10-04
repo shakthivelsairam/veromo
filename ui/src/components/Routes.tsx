@@ -1,5 +1,6 @@
 import React from 'react';
 import Departments from "./departments/index"
+import Registration from './Registration'
 
 const Home: React.FC = () => {
   return (
@@ -33,9 +34,9 @@ const Routes = [
     component: Departments
   },
   {
-    path: '/teams',
-    sidebarName: 'Teams',
-    component: Teams
+    path: '/registration',
+    sidebarName: 'Registration',
+    component: Registration
   },
 ];
 
