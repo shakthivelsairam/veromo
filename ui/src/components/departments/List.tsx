@@ -19,7 +19,7 @@ export default function DepartmentList(){
     { field: 'report_name', headerName: 'Report Name',width: 250, },
     { field: 'tenant_id', headerName: 'Tenent Name',width: 250, },
   ];
- 
+ /*
   useEffect(() => {
     async function fetchMyAPI() {
      let dataRows:any = [];
@@ -45,7 +45,7 @@ export default function DepartmentList(){
     fetchMyAPI()
     
   }, [])
-
+*/
   
   // 
   const rows = [
