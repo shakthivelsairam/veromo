@@ -1,9 +1,9 @@
 import React from 'react';
 import Departments from "./departments/index"
 import Registration from './Registration'
-import MetaData from './MetaData'
-import PriceMaster from './masters/PriceForm'
-import ClientMaster from './masters/clientForm'
+import MetaData from './masters/metaIndex'
+import PriceMaster from './masters/priceIndex'
+import ClientMaster from './masters/clientIndex'
 
 const Home: React.FC = () => {
   return (

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
 import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography,MenuItem,Select,InputLabel,FormControl,Autocomplete } from '@mui/material';
-import MetaForm from "./masters/Form";
+import MetaForm from "./masters/metaForm";
 
 function MetaData(props: any){
     return(

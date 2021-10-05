@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+asdfimport React, {useEffect, useState} from "react";
 import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
 import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography,MenuItem,Select,InputLabel,FormControl,Autocomplete } from '@mui/material';
 
@@ -17,9 +17,7 @@ function PatientForm(props: any){
   const [metaTitle, setMetaTitle] = useState("");
     return(
         <React.Fragment>
-           <Typography component="h1" variant="h5">
-          Price Master
-        </Typography>
+          
         <Grid container spacing={5} style={{ marginLeft:40}}>
           <Grid item xs={true}  style={{marginLeft:20}}>
             <FormControl variant="standard">

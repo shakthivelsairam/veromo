@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
 import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography,MenuItem,Select,InputLabel,FormControl,Autocomplete } from '@mui/material';
 
-function PatientForm(props: any){
+function MetaForm(props: any){
   const [titles, setTitles] = React.useState('0');
   const [gender, setGender] = React.useState('');
   const [ageValue, setAgeValue] = React.useState('Year(s)');
@@ -18,7 +18,9 @@ function PatientForm(props: any){
     return(
         <React.Fragment>
         <Grid container spacing={3}>
-          <Grid item xs={12} >
+        <Grid item xs={4} >
+          </Grid>
+          <Grid item xs={8} >
             <FormControl variant="standard">
               
             <InputLabel id="paymentMethod-label">Select type</InputLabel>
@@ -28,8 +30,7 @@ function PatientForm(props: any){
                 label="Select type"
                 style={{width: 350, marginRight: 15}}
                 size="small"
-                value={selectData}
-                onChange={(ev) => setSelectData(ev.target.value)}
+              
               >
                 <MenuItem key="0" value="0">--Select--</MenuItem>
                 <MenuItem key="1" value="saluation">Saluation</MenuItem>
@@ -39,7 +40,9 @@ function PatientForm(props: any){
               </Select>
             </FormControl>
             </Grid>
-            <Grid item xs={12} >
+            <Grid item xs={4} >
+          </Grid>
+            <Grid item xs={8} >
             <TextField
                   required
                   id="metaCode"
@@ -50,7 +53,9 @@ function PatientForm(props: any){
                   style={{width: 350, marginRight:15}}
                 />
                 </Grid>
-                <Grid item xs={12} >
+                <Grid item xs={4} >
+                      </Grid>
+                <Grid item xs={8} >
           <TextField
                   required
                   id="metaDescription"
@@ -61,11 +66,21 @@ function PatientForm(props: any){
                   style={{width: 350, marginRight:15}}
                 />
                 </Grid>
-                <Grid item xs={12} >
+                <Grid item xs={4} >
+                  </Grid>
+                <Grid item xs={8} >
                   <FormControlLabel control={<Checkbox defaultChecked />} label="Is Active" />
           </Grid>
        </Grid>
+       <Grid container spacing={6} style={{marginTop: 1}}>
+          <Grid item xs={5} style={{textAlign:"right"}}>
+            <Button variant="contained" color="success" onClick={props.togglePage}>Save</Button>
+          </Grid>
+          <Grid item xs={5} style={{textAlign:"left"}}>
+            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
+          </Grid>
+        </Grid>
       </React.Fragment>
     )
 }
-export default withRouter(PatientForm)
+export default withRouter(MetaForm)

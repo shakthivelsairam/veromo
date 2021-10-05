@@ -27,9 +27,6 @@ function PatientForm(props: any){
   const [clientType, setClientType] = useState("");
     return(
         <React.Fragment>
-          <Typography component="h1" variant="h5">
-          Price Master
-        </Typography>
         <Grid container spacing={5} style={{ marginLeft:40}}>
           <Grid item xs={true}  style={{marginLeft:20}}>
           <FormControl variant="standard">
