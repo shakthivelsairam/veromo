@@ -4,6 +4,8 @@ import Registration from './Registration'
 import MetaData from './masters/metaIndex'
 import PriceMaster from './masters/priceIndex'
 import ClientMaster from './masters/clientIndex'
+import SampleCollectionList from "./sample-collection/List"
+import ResultEntryList from "./result-entry/List"
 
 const Home: React.FC = () => {
   return (
@@ -56,8 +58,16 @@ const Routes = [
     sidebarName: 'Client Master',
     component: ClientMaster
   },
-  
-  
+  {
+    path: '/samplecollection',
+    sidebarName: 'Sample Collection',
+    component: SampleCollectionList
+  },
+  {
+    path: '/resultentry',
+    sidebarName: 'Result Entry',
+    component: ResultEntryList
+  },
 ];
 
 export default Routes;
