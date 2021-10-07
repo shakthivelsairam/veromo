@@ -6,6 +6,7 @@ import PriceMaster from './masters/priceIndex'
 import ClientMaster from './masters/clientIndex'
 import SampleCollectionList from "./sample-collection/List"
 import ResultEntryList from "./result-entry/List"
+import TestMasterList from "./masters/test/List"
 
 const Home: React.FC = () => {
   return (
@@ -39,14 +40,14 @@ const Routes = [
     component: Departments
   },
   {
-    path: '/registration',
-    sidebarName: 'Registration',
-    component: Registration
-  },
-  {
     path: '/metadata',
     sidebarName: 'Meta Data',
     component: MetaData
+  },
+  {
+    path: '/testmaster',
+    sidebarName: 'Test Master',
+    component: TestMasterList
   },
   {
     path: '/pricemaster',
@@ -57,6 +58,11 @@ const Routes = [
     path: '/clientmaster',
     sidebarName: 'Client Master',
     component: ClientMaster
+  },
+  {
+    path: '/registration',
+    sidebarName: 'Registration',
+    component: Registration
   },
   {
     path: '/samplecollection',
