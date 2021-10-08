@@ -7,6 +7,7 @@ import ClientMaster from './masters/clientIndex'
 import SampleCollectionList from "./sample-collection/List"
 import ResultEntryList from "./result-entry/List"
 import TestMasterList from "./masters/test/List"
+import InstrumentMaster from "./masters/instrumentIndex"
 
 const Home: React.FC = () => {
   return (
@@ -58,6 +59,11 @@ const Routes = [
     path: '/clientmaster',
     sidebarName: 'Client Master',
     component: ClientMaster
+  },
+  {
+    path: '/instrumentmaster',
+    sidebarName: 'Instrument Master',
+    component: InstrumentMaster
   },
   {
     path: '/registration',
