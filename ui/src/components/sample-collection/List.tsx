@@ -41,7 +41,7 @@ export default function SampleCollectionList(){
       {id: 2, lab_number: "180304806", patient_name: 'Mr.Kumar', patient_details:"M | 32 Y", ref_doctor: "Self", bill_date: "28-Nov-2021 12:17 PM" },
     ];
     setSampleCollectionData(rows)
-  })
+  },[])
 
     return(
       <div>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
-import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography,MenuItem,Select,InputLabel,FormControl,Autocomplete } from '@mui/material';
+import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography,MenuItem,Select,InputLabel,FormControl,Autocomplete,Table,TableBody,TableCell,TableContainer,TableHead,TableRow } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function TestMasterForm(props: any){
@@ -145,11 +145,45 @@ function TestMasterForm(props: any){
           </Grid>
         </Grid>
         <Grid container spacing={3} style={{marginTop: 5}}>
-          <Grid item xs={12} style={{textAlign:"center"}}>
+        <Grid item xs={5} style={{textAlign:"right"}}>
             <Button variant="contained" color="success" onClick={props.togglePage}>Save</Button>
+          </Grid>
+          <Grid item xs={5} style={{textAlign:"left"}}>
             <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
           </Grid>
         </Grid>
+        <Grid container spacing={6} style={{marginTop:1}}>
+          <Grid item xs={3} style={{textAlign:"right"}}>
+            
+          </Grid>
+          <Grid item xs={5} style={{textAlign:"left"}}>
+          <InputLabel id="method-label">Associated Analyst</InputLabel>
+          <Table sx={{ minWidth: 250 }} size="small" aria-label="a dense table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">Analyt Code</TableCell>
+                  <TableCell align="left">Analyt Name</TableCell>
+                  <TableCell align="left">Header ?</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              <TableRow>
+              <TableCell align="left">Analyst Code 2</TableCell>
+              <TableCell align="left">Analyst Name 3</TableCell>
+              <TableCell align="left">No</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell align="left">Analyst Code 1</TableCell>
+              <TableCell align="left">Analyst Name 1</TableCell>
+              <TableCell align="left">Yes</TableCell>
+            </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
+          <Grid item xs={4} style={{textAlign:"right"}}>
+            
+          </Grid>
+          </Grid>
       </React.Fragment>
     )
 }

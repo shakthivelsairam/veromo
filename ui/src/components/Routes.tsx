@@ -8,6 +8,7 @@ import SampleCollectionList from "./sample-collection/List"
 import ResultEntryList from "./result-entry/List"
 import TestMasterList from "./masters/test/List"
 import InstrumentMaster from "./masters/instrumentIndex"
+import AnalyteMasterList from "./masters/analyteList"
 
 const Home: React.FC = () => {
   return (
@@ -65,6 +66,12 @@ const Routes = [
     sidebarName: 'Instrument Master',
     component: InstrumentMaster
   },
+  {
+    path: '/analystMaster',
+    sidebarName: 'Analyst Master',
+    component: AnalyteMasterList
+  },
+  
   {
     path: '/registration',
     sidebarName: 'Registration',
