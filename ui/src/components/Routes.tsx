@@ -14,6 +14,7 @@ import SampleMaster from "./masters/sample/List"
 import ContainerMaster from './masters/container/List';
 import TariffMaster from './masters/tariff/List';
 import ClientTariffMapping from './masters/client-tariff/List';
+import UserMaster from './masters/users/List';
 
 const Home: React.FC = () => {
   return (
@@ -90,6 +91,11 @@ const Routes = [
     path: '/instrumentmaster',
     sidebarName: 'Instrument Master',
     component: InstrumentMaster
+  },
+  {
+    path: '/usermaster',
+    sidebarName: 'User Master',
+    component: UserMaster
   },
   {
     path: '/analystMaster',
