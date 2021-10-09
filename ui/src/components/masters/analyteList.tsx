@@ -43,7 +43,7 @@ export default function TestMasterList(){
       {id:2, code: "IM0096", billing_name: "	1.25 VD (OS)", report_name: '1.25 Dihydroxy Vitamin D', test_performed:"Outsource", dept: "Hematology", status: "Inactive" },
     ];
     setTestMasterData(rows)
-  })
+  }, [])
 
     return(
       <div>

@@ -11,7 +11,7 @@ function SampleCollectionForm(props: any){
       {sample_type: "EDTA - Plasma", test_name: "HbA1c", processing_facility: 'Chennai' },
     ];
     setSampleCollectionData(rows)
-  })
+  }, [])
     return(
         <React.Fragment>
           <Typography component="h1" variant="h5">

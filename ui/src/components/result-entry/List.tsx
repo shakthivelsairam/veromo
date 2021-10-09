@@ -41,7 +41,7 @@ export default function ResultEntryList(){
       {id: 2, lab_number: "180304806", patient_name: 'Mr.Kumar', patient_details:"M | 32 Y", priority: "Routine", registration_date: "28-Nov-2021 12:17 PM" },
     ];
     setResultEntryData(rows)
-  })
+  }, [])
 
     return(
       <div>

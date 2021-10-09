@@ -4,7 +4,7 @@ import {Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from '
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import TestMasterForm from "./Form";
+import InstrumentAnalyteMappingForm from "./Form";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -26,9 +26,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function TestMasterList(){
+export default function InstrumentAnalyteMapping(){
 
-  const [testMasterData, setTestMasterData] = useState([] as any)
+  const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [showList, setShowList] = useState(true)
       const togglePage = () => {
@@ -38,23 +38,23 @@ export default function TestMasterList(){
 
   useEffect(()=>{
     const rows = [
-      {id:1, code: "MS002", billing_name: "HBV-DNA (OS)", report_name: 'HBV-DNA detection by PCR', test_performed:"Inhouse", dept: "Biochemistry", status: "Active" },
-      {id:2, code: "IM0096", billing_name: "	1.25 VD (OS)", report_name: '1.25 Dihydroxy Vitamin D', test_performed:"Outsource", dept: "Hematology", status: "Inactive" },
+      {id:1, instrument_name: "Device 1", analyte_name: "HBV-DNA detection by PCR", assay_code: 'HBV', status: "Active" },
+      {id:2, instrument_name: "Device 2", analyte_name: "1.25 Dihydroxy Vitamin D", assay_code: 'DVD', status: "Inactive" },
     ];
-    setTestMasterData(rows)
+    setData(rows)
   }, [])
 
     return(
       <div>
         {showForm &&
-        <TestMasterForm togglePage={togglePage}/>
+        <InstrumentAnalyteMappingForm togglePage={togglePage}/>
         }
         {showList &&
         <React.Fragment>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <Typography component="h1" variant="h5">
-                Test Master
+              Instrument Analyte Mapping
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
@@ -65,25 +65,21 @@ export default function TestMasterList(){
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>Test Code</StyledTableCell>
-                  <StyledTableCell>Billing Name</StyledTableCell>
-                  <StyledTableCell>Report Name</StyledTableCell>
-                  <StyledTableCell>Test Performed</StyledTableCell>
-                  <StyledTableCell>Department</StyledTableCell>
+                  <StyledTableCell>Instrument Name</StyledTableCell>
+                  <StyledTableCell>Analyte Name</StyledTableCell>
+                  <StyledTableCell>Assay Code</StyledTableCell>
                   <StyledTableCell>Status</StyledTableCell>
                   <StyledTableCell align="center">Action</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {testMasterData.map((row:any) => (
+                {data.map((row:any) => (
                   <StyledTableRow key={row.id}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.code}
+                    <StyledTableCell>
+                      {row.instrument_name}
                     </StyledTableCell>
-                    <StyledTableCell>{row.billing_name}</StyledTableCell>
-                    <StyledTableCell>{row.report_name}<br/>{row.patient_details}</StyledTableCell>
-                    <StyledTableCell>{row.test_performed}</StyledTableCell>
-                    <StyledTableCell>{row.dept}</StyledTableCell>
+                    <StyledTableCell>{row.analyte_name}</StyledTableCell>
+                    <StyledTableCell>{row.assay_code}</StyledTableCell>
                     <StyledTableCell>{row.status}</StyledTableCell>
                     <StyledTableCell align="center"><Button size="small" onClick={togglePage}><EditIcon fontSize="small"></EditIcon></Button><Button size="small" onClick={togglePage}><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>

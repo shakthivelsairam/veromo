@@ -1,14 +1,19 @@
 import React from 'react';
-import Departments from "./departments/index"
+import DepartmentList from "./departments/List"
 import Registration from './Registration'
 import MetaData from './masters/metaIndex'
-import PriceMaster from './masters/priceIndex'
+import PriceMaster from './masters/price/List'
 import ClientMaster from './masters/clientIndex'
 import SampleCollectionList from "./sample-collection/List"
 import ResultEntryList from "./result-entry/List"
 import TestMasterList from "./masters/test/List"
 import InstrumentMaster from "./masters/instrumentIndex"
 import AnalyteMasterList from "./masters/analyteList"
+import InstrumentAnalyteMapping from "./masters/instrument-analyte/List"
+import SampleMaster from "./masters/sample/List"
+import ContainerMaster from './masters/container/List';
+import TariffMaster from './masters/tariff/List';
+import ClientTariffMapping from './masters/client-tariff/List';
 
 const Home: React.FC = () => {
   return (
@@ -39,7 +44,17 @@ const Routes = [
   {
     path: '/department',
     sidebarName: 'Departments',
-    component: Departments
+    component: DepartmentList
+  },
+  {
+    path: '/sample',
+    sidebarName: 'Sample Master',
+    component: SampleMaster
+  },
+  {
+    path: '/container',
+    sidebarName: 'Container Master',
+    component: ContainerMaster
   },
   {
     path: '/metadata',
@@ -52,7 +67,17 @@ const Routes = [
     component: TestMasterList
   },
   {
-    path: '/pricemaster',
+    path: '/tariff',
+    sidebarName: 'Tariff Master',
+    component: TariffMaster
+  },
+  {
+    path: '/clienttariff',
+    sidebarName: 'Client Tariff Mapping',
+    component: ClientTariffMapping
+  },
+  {
+    path: '/price',
     sidebarName: 'Price Master',
     component: PriceMaster
   },
@@ -71,7 +96,11 @@ const Routes = [
     sidebarName: 'Analyst Master',
     component: AnalyteMasterList
   },
-  
+  {
+    path: '/instrumentanalyte',
+    sidebarName: 'Instrument Analyte Mapping',
+    component: InstrumentAnalyteMapping
+  },
   {
     path: '/registration',
     sidebarName: 'Registration',

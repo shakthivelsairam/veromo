@@ -14,7 +14,7 @@ function ResultEntryForm(props: any){
       {test_name: "HbA1c", result: '8.2', uom: '%', range: "4.2 - 5.5", status: "" },
     ];
     setResultEntryData(rows)
-  })
+  }, [])
     return(
         <React.Fragment>
           <Typography component="h1" variant="h5">
