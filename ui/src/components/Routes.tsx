@@ -15,6 +15,7 @@ import ContainerMaster from './masters/container/List';
 import TariffMaster from './masters/tariff/List';
 import ClientTariffMapping from './masters/client-tariff/List';
 import UserMaster from './masters/users/List';
+import RoleMaster from './masters/roles/List';
 
 const Home: React.FC = () => {
   return (
@@ -97,6 +98,12 @@ const Routes = [
     sidebarName: 'User Master',
     component: UserMaster
   },
+  {
+    path: '/rolemaster',
+    sidebarName: 'Role Master',
+    component: RoleMaster
+  },
+  
   {
     path: '/analystMaster',
     sidebarName: 'Analyst Master',
