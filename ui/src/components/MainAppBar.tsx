@@ -55,7 +55,7 @@ function MainAppBar(props: any){
                     </Typography>
                     <React.Fragment>
                         <div>
-                            Processing Location
+                            Processing Facility
                         </div>
                         <Chip icon={<AccountCircle/>} variant="outlined" label={"Hi, Admin"} style={{border:0, color:"inherit", paddingLeft:"10px"}}/>
                         <IconButton color="inherit">

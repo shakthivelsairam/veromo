@@ -8,7 +8,7 @@ import SampleCollectionList from "./sample-collection/List"
 import ResultEntryList from "./result-entry/List"
 import TestMasterList from "./masters/test/List"
 import InstrumentMaster from "./masters/instrumentIndex"
-import AnalyteMasterList from "./masters/analyteList"
+import AnalyteMasterList from "./masters/analyte/List"
 import InstrumentAnalyteMapping from "./masters/instrument-analyte/List"
 import SampleMaster from "./masters/sample/List"
 import ContainerMaster from './masters/container/List';
@@ -103,10 +103,9 @@ const Routes = [
     sidebarName: 'Role Master',
     component: RoleMaster
   },
-  
   {
-    path: '/analystMaster',
-    sidebarName: 'Analyst Master',
+    path: '/analytemaster',
+    sidebarName: 'Analyte Master',
     component: AnalyteMasterList
   },
   {

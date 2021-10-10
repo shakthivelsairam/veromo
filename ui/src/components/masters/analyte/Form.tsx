@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
 import { Tabs, Tab, Box, Grid, TextField, FormControlLabel,Checkbox,Button,Typography,MenuItem,Select,InputLabel,FormControl,Autocomplete,Table,TableBody,TableContainer,TableHead,TableRow } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 
@@ -58,37 +59,51 @@ function a11yProps(index: number) {
   };
 }
 
-function TestMasterForm(props: any){
+function AnalyteMasterForm(props: any){
   const [dept, setDept] = React.useState('0');
-  const [testPerformed, setTestPerformed] = React.useState('0');
   const [sample, setSample] = React.useState('0');
   const [container, setContainer] = React.useState('0');
   const [method, setMethod] = React.useState('0');
+  const [uom, setUom] = React.useState('0');
   const [value, setValue] = React.useState(0);
-  const analyteList = [
-    { label: 'HBV-DNA detection by PCR', value: "1" },
-    { label: '1.25 Dihydroxy Vitamin D', value: "2" },
+  const [gender, setGender] = React.useState(0);
+  const [ageType, setAgeType] = React.useState(0);
+  const [ageRange, setAgeRange] = React.useState(0);
+  const [valueRange, setValueRange] = React.useState(0);
+  const [valueType, setValueType] = React.useState(0);
+  const rangeTypeList = [
+    { label: 'Reference Range', value: "1" },
+    { label: 'Domain Range', value: "2" },
+  ];
+  const genderList = [
+    { label: 'Male', value: "1" },
+    { label: 'Female', value: "2" },
   ];
   const [data, setData] = useState([] as any)
+  const [associatedTestData, setAssociatedTestData] = useState([] as any)
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
   useEffect(()=>{
     const rows = [
-      {id:1, analyte_name: "HBV-DNA detection by PCR", sequence_no: '1', is_header: "No", status: "Active" },
-      {id:2, analyte_name: "1.25 Dihydroxy Vitamin D", sequence_no: '2', is_header: "No", status: "Inactive" },
+      {id:1, range_type: "Reference Range", gender: '-', age_type: "-", age_range: "-", value_type:"Number", value_range:"Between", value:"1-4" },
     ];
     setData(rows)
+    const associatedTestRows = [
+      {id:1, test_code: "T001", billing_name: 'CBC', report_name: "CBC", status: "Active" },
+    ];
+    setAssociatedTestData(associatedTestRows)
   }, [])
     return(
         <React.Fragment>
           <Typography component="h1" variant="h5">
-          Test Master
+          Analyte Master
         </Typography>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="General" {...a11yProps(0)} />
-          <Tab label="Associate Analyte" {...a11yProps(1)} />
+          <Tab label="Reference Range" {...a11yProps(1)} />
+          <Tab label="Associated Tests" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -96,9 +111,9 @@ function TestMasterForm(props: any){
           <Grid item xs={3}>
           <TextField
                   required
-                  id="testCode"
-                  name="testCode"
-                  label="Test Code"
+                  id="analyteCode"
+                  name="analyteCode"
+                  label="Analyte Code"
                   size="small"
                   variant="standard"
                   style={{width: 250}}
@@ -145,23 +160,6 @@ function TestMasterForm(props: any){
           </Grid>
         </Grid>
         <Grid container spacing={3} style={{marginTop:5}}>
-          <Grid item xs={3}>
-          <FormControl variant="standard">
-                <InputLabel id="testPerformed-label">Test Performed</InputLabel>
-                <Select
-                  labelId="testPerformed-label"
-                  id="testPerformed"
-                  value={testPerformed}
-                  label="Test Performed"
-                  size="small"
-                  style={{width: 250}}
-                >
-                  <MenuItem value="0">--Select--</MenuItem>
-                  <MenuItem value="inhouse">Inhouse</MenuItem>
-                  <MenuItem value="outsource">Outsource</MenuItem>
-                </Select>
-              </FormControl>
-          </Grid>
           <Grid item xs={3}>
           <FormControl variant="standard">
                 <InputLabel id="sample-label">Sample</InputLabel>
@@ -213,13 +211,30 @@ function TestMasterForm(props: any){
                 </Select>
               </FormControl>
           </Grid>
-        </Grid>
-        <Grid container spacing={3} style={{marginTop:5}}>
           <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes" />}
               label="Active"
             />
+          </Grid>
+        </Grid>
+        <Grid container spacing={3} style={{marginTop:5}}>
+          <Grid item xs={3}>
+            <FormControl variant="standard">
+                <InputLabel id="uom-label">UOM</InputLabel>
+                <Select
+                  labelId="uom-label"
+                  id="uom"
+                  value={uom}
+                  label="UOM"
+                  size="small"
+                  style={{width: 250}}
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="ml">ml</MenuItem>
+                  <MenuItem value="mg">mg</MenuItem>
+                </Select>
+              </FormControl>
           </Grid>
         </Grid>
         <Grid container spacing={3} style={{marginTop: 5}}>
@@ -235,35 +250,120 @@ function TestMasterForm(props: any){
       <Grid container spacing={2}>
           <Grid item xs={3}>
             <Autocomplete
-                id="analyteName"
-                options={analyteList}
+                id="rangeType"
+                options={rangeTypeList}
                 sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Analyte Name" variant="standard" />}
+                renderInput={(params) => <TextField {...params} label="Type" variant="standard" />}
               />
           </Grid>
           <Grid item xs={3}>
-            <TextField
+          <FormControl variant="standard">
+                <InputLabel id="gender-label">Gender</InputLabel>
+                <Select
+                  labelId="gender-label"
+                  id="gender"
+                  value={gender}
+                  label="Gender"
+                  size="small"
+                  style={{width: 250}}
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="male">Male</MenuItem>
+                  <MenuItem value="female">Female</MenuItem>
+                </Select>
+              </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+          <FormControl variant="standard">
+                <InputLabel id="age-label">Age Type</InputLabel>
+                <Select
+                  labelId="age-label"
+                  id="age"
+                  value={ageType}
+                  label="Age"
+                  size="small"
+                  style={{width: 250}}
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="day">Day(s)</MenuItem>
+                  <MenuItem value="month">Month(s)</MenuItem>
+                  <MenuItem value="week">Week(s)</MenuItem>
+                  <MenuItem value="year">Year(s)</MenuItem>
+                </Select>
+              </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+          <FormControl variant="standard">
+              <InputLabel id="ageRange-label">Age Range</InputLabel>
+                <Select
+                  labelId="ageRange-label"
+                  id="ageRange"
+                  value={ageRange}
+                  label=""
+                  size="small"
+                  style={{width: 250}}
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="<">{"<"}</MenuItem>
+                  <MenuItem value="<=">{"<="}</MenuItem>
+                  <MenuItem value=">">{">"}</MenuItem>
+                  <MenuItem value=">=">{">="}</MenuItem>
+                  <MenuItem value="=">{"="}</MenuItem>
+                  <MenuItem value="Between">Between</MenuItem>
+                </Select>
+              </FormControl>
+          </Grid>
+          </Grid>
+          <Grid container spacing={2} style={{marginTop: 5}}>
+          <Grid item xs={3}>
+            <FormControl variant="standard">
+              <InputLabel id="valueType-label">Value Type</InputLabel>
+                <Select
+                  labelId="valueType-label"
+                  id="valueType"
+                  value={valueType}
+                  label=""
+                  size="small"
+                  style={{width: 250}}
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="number">Number</MenuItem>
+                  <MenuItem value="alpha">Alpha Numberic</MenuItem>
+                </Select>
+              </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+          <FormControl variant="standard">
+              <InputLabel id="valueRange-label">Value Range</InputLabel>
+                <Select
+                  labelId="valueRange-label"
+                  id="valueRange"
+                  value={valueRange}
+                  label=""
+                  size="small"
+                  style={{width: 250}}
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="<">{"<"}</MenuItem>
+                  <MenuItem value="<=">{"<="}</MenuItem>
+                  <MenuItem value=">">{">"}</MenuItem>
+                  <MenuItem value=">=">{">="}</MenuItem>
+                  <MenuItem value="=">{"="}</MenuItem>
+                  <MenuItem value="Between">Between</MenuItem>
+                </Select>
+              </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
                   required
-                  id="sequenceNumber"
-                  name="sequenceNumber"
-                  label="Sequence Number"
+                  id="rangeValue"
+                  name="rangeValue"
+                  label="Value"
                   size="small"
                   variant="standard"
                   style={{width: 250}}
                 />
-          </Grid>
-          <Grid item xs={3}>
-          <FormControlLabel
-              control={<Checkbox color="secondary" name="isHeader" value="yes" />}
-              label="Is Header"
-            />
-          </Grid>
-          <Grid item xs={3}>
-          <FormControlLabel
-              control={<Checkbox color="secondary" name="active" value="yes" />}
-              label="Active"
-            />
-          </Grid>
+            </Grid>
           </Grid>
           <Grid container spacing={3} style={{marginTop: 5}}>
         <Grid item xs={5} style={{textAlign:"right"}}>
@@ -279,10 +379,13 @@ function TestMasterForm(props: any){
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>Analyte Name</StyledTableCell>
-                  <StyledTableCell>Sequence Number</StyledTableCell>
-                  <StyledTableCell>Is Header</StyledTableCell>
-                  <StyledTableCell>Status</StyledTableCell>
+                  <StyledTableCell>Type</StyledTableCell>
+                  <StyledTableCell>Gender</StyledTableCell>
+                  <StyledTableCell>Age Type</StyledTableCell>
+                  <StyledTableCell>Age Range</StyledTableCell>
+                  <StyledTableCell>Value Type</StyledTableCell>
+                  <StyledTableCell>Value Range</StyledTableCell>
+                  <StyledTableCell>Value</StyledTableCell>
                   <StyledTableCell align="center">Action</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -290,12 +393,15 @@ function TestMasterForm(props: any){
                 {data.map((row:any) => (
                   <StyledTableRow key={row.id}>
                     <StyledTableCell>
-                      {row.analyte_name}
+                      {row.range_type}
                     </StyledTableCell>
-                    <StyledTableCell>{row.sequence_no}</StyledTableCell>
-                    <StyledTableCell>{row.is_header}</StyledTableCell>
-                    <StyledTableCell>{row.status}</StyledTableCell>
-                    <StyledTableCell align="center"><Button size="small"><EditIcon fontSize="small"></EditIcon></Button></StyledTableCell>
+                    <StyledTableCell>{row.gender}</StyledTableCell>
+                    <StyledTableCell>{row.age_type}</StyledTableCell>
+                    <StyledTableCell>{row.age_range}</StyledTableCell>
+                    <StyledTableCell>{row.value_type}</StyledTableCell>
+                    <StyledTableCell>{row.value_range}</StyledTableCell>
+                    <StyledTableCell>{row.value}</StyledTableCell>
+                    <StyledTableCell align="center"><Button size="small"><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
@@ -304,7 +410,33 @@ function TestMasterForm(props: any){
           </Grid>
           </Grid>
       </TabPanel>
+      <TabPanel value={value} index={2}>
+      <div style={{ width: '100%', marginTop: 5 }}>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Test Code</StyledTableCell>
+                  <StyledTableCell>Billing Name</StyledTableCell>
+                  <StyledTableCell>Report Name</StyledTableCell>
+                  <StyledTableCell>Status</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {associatedTestData.map((row:any) => (
+                  <StyledTableRow key={row.id}>
+                    <StyledTableCell>
+                      {row.test_code}
+                    </StyledTableCell>
+                    <StyledTableCell>{row.billing_name}</StyledTableCell>
+                    <StyledTableCell>{row.report_name}</StyledTableCell>
+                    <StyledTableCell>{row.status}</StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+      </TabPanel>
       </React.Fragment>
     )
 }
-export default withRouter(TestMasterForm)
+export default withRouter(AnalyteMasterForm)

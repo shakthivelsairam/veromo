@@ -66,33 +66,22 @@ export default function BasicTabs(props:any) {
     </Typography>
     <Grid container spacing={3}>
           <Grid item xs={3}>
-          <FormControl variant="standard">
-                <InputLabel id="dept-label">Role</InputLabel>
-                <Select
-                  labelId="dept-label"
-                  id="dept"
-                  label="Role"
-                  size="small"
-                  value={role}
-                  onChange={(ev) => setRole(ev.target.value)}
-                  style={{width: 250}}
-                >
-                  <MenuItem value="0">--Select--</MenuItem>
-                  <MenuItem value="1">Administrator</MenuItem>
-                  <MenuItem value="2">Accession</MenuItem>
-                  <MenuItem value="3">Client</MenuItem>
-                  <MenuItem value="3">Client Controller</MenuItem>
-                  <MenuItem value="3">Lab Manager</MenuItem>
-                </Select>
-              </FormControl>
-                
-          </Grid>
-          <Grid item xs={3}>
           <TextField
                   required
                   id="rolename"
                   name="rolename"
                   label="Role Name"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  required
+                  id="roleDisplayName"
+                  name="roleDisplayName"
+                  label="Role Display Name"
                   size="small"
                   variant="standard"
                   style={{width: 250}}
