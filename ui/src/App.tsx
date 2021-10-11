@@ -4,7 +4,6 @@ import MainAppBar from './components/MainAppBar';
 import Login from './components/Login';
 import { Router, Route, Switch} from "react-router-dom"
 import history from './history';
-import Departments from './components/departments/index';
 import Routes from './components/Routes'
 
 function App() {

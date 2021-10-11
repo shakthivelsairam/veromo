@@ -1,5 +1,5 @@
 import React from 'react';
-import DepartmentList from "./departments/List"
+import DepartmentList from "./masters/departments/List"
 import Registration from './Registration'
 import MetaData from './masters/metaIndex'
 import PriceMaster from './masters/price/List'
@@ -16,6 +16,8 @@ import TariffMaster from './masters/tariff/List';
 import ClientTariffMapping from './masters/client-tariff/List';
 import UserMaster from './masters/users/List';
 import RoleMaster from './masters/roles/List';
+import TenantList from './masters/tenant/List';
+import FacilityList from './masters/facility/List';
 
 const Home: React.FC = () => {
   return (
@@ -42,6 +44,16 @@ const Routes = [
     path: '/',
     sidebarName: 'Home',
     component: Home
+  },
+  {
+    path: '/tenant',
+    sidebarName: 'Tenants',
+    component: TenantList
+  },
+  {
+    path: '/facility',
+    sidebarName: 'Facility',
+    component: FacilityList
   },
   {
     path: '/department',
