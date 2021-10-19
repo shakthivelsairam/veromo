@@ -4,6 +4,7 @@ import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography,MenuItem,S
 import PatientForm from "./patient/Form"
 import RegistrationTestForm from "./tests/RegistrationTestForm";
 import PaymentForm from "./payments/PaymentForm";
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from '@mui/material';
 
 function Registration(props: any){
     return(
@@ -20,14 +21,10 @@ function Registration(props: any){
                 <PaymentForm/>
           </Grid>
         </Grid>
-        <Grid container spacing={3} style={{marginTop: 1}}>
-          <Grid item xs={6} style={{textAlign:"right"}}>
-            <Button variant="contained" color="success" onClick={props.togglePage}>Save</Button>
-          </Grid>
-          <Grid item xs={6} style={{textAlign:"left"}}>
-            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
-          </Grid>
-        </Grid>
+        <DialogActions>
+                <Button variant="contained" onClick={props.togglePage} style={{backgroundColor:"lightgray", color:"black"}}>Cancel</Button>
+                <Button variant="contained" onClick={props.togglePage} color="primary">Save</Button>
+              </DialogActions>
       </React.Fragment>
     )
 }

@@ -96,9 +96,7 @@ function AnalyteMasterForm(props: any){
   }, [])
     return(
         <React.Fragment>
-          <Typography component="h1" variant="h5">
-          Analyte Master
-        </Typography>
+          
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="General" {...a11yProps(0)} />
