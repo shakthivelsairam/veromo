@@ -7,7 +7,7 @@ import ClientMaster from './masters/clientIndex'
 import SampleCollectionList from "./sample-collection/List"
 import ResultEntryList from "./result-entry/List"
 import TestMasterList from "./masters/test/List"
-import InstrumentMaster from "./masters/instrumentIndex"
+import InstrumentMaster from "./masters/instrument/List"
 import AnalyteMasterList from "./masters/analyte/List"
 import InstrumentAnalyteMapping from "./masters/instrument-analyte/List"
 import SampleMaster from "./masters/sample/List"
