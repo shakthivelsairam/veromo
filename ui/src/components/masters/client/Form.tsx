@@ -27,8 +27,8 @@ function PatientForm(props: any){
   const [clientType, setClientType] = useState("");
     return(
         <React.Fragment>
-        <Grid container spacing={5} style={{ marginLeft:40}}>
-          <Grid item xs={true}  style={{marginLeft:20}}>
+        <Grid container spacing={5}>
+          <Grid item xs={true}  style={{marginLeft:1}}>
           <FormControl variant="standard">
               <InputLabel id="titles-label">Client Type</InputLabel>
               <Select
@@ -85,7 +85,7 @@ function PatientForm(props: any){
            </Grid>
             
         </Grid>
-        <Grid container spacing={5} style={{ marginLeft:60,paddingTop:10}}>
+        <Grid container spacing={5} style={{ paddingTop:10}}>
         <Grid item xs={true}>
         <FormControl variant="standard">
               <Autocomplete
@@ -127,7 +127,7 @@ function PatientForm(props: any){
                 value={businessType}
                 onChange={(ev) => setBusinessType(ev.target.value)}
                 label="Business Type"
-                style={{width: 200, marginRight:15}}
+                style={{width: 200, marginRight:2}}
                 size="small"
               >
                 <MenuItem value="0">--Select--</MenuItem>
@@ -138,7 +138,7 @@ function PatientForm(props: any){
           </Grid>
           </Grid>
 
-          <Grid container spacing={5} style={{ marginLeft:60,paddingTop:10}}>
+          <Grid container spacing={5} style={{ paddingTop:10}}>
         <Grid item xs={true}>
         <TextField
               id="amount"
@@ -163,14 +163,6 @@ function PatientForm(props: any){
           </Grid>
           </Grid>
 
-        <Grid container spacing={6} style={{marginTop: 1}}>
-          <Grid item xs={5} style={{textAlign:"right"}}>
-            <Button variant="contained" color="success" onClick={props.togglePage}>Save</Button>
-          </Grid>
-          <Grid item xs={5} style={{textAlign:"left"}}>
-            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
-          </Grid>
-        </Grid>
         
       </React.Fragment>
     )

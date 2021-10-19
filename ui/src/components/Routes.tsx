@@ -3,7 +3,7 @@ import DepartmentList from "./masters/departments/List"
 import Registration from './Registration'
 import MetaData from './masters/meta/List'
 import PriceMaster from './masters/price/List'
-import ClientMaster from './masters/clientIndex'
+import ClientMaster from './masters/client/List'
 import SampleCollectionList from "./sample-collection/List"
 import ResultEntryList from "./result-entry/List"
 import TestMasterList from "./masters/test/List"

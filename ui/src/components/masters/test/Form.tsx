@@ -82,9 +82,6 @@ function TestMasterForm(props: any){
   }, [])
     return(
         <React.Fragment>
-          <Typography component="h1" variant="h5">
-          Test Master
-        </Typography>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="General" {...a11yProps(0)} />
@@ -222,14 +219,7 @@ function TestMasterForm(props: any){
             />
           </Grid>
         </Grid>
-        <Grid container spacing={3} style={{marginTop: 5}}>
-        <Grid item xs={5} style={{textAlign:"right"}}>
-            <Button variant="contained" color="success" onClick={props.togglePage}>Save</Button>
-          </Grid>
-          <Grid item xs={5} style={{textAlign:"left"}}>
-            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
-          </Grid>
-        </Grid>
+       
       </TabPanel>
       <TabPanel value={value} index={1}>
       <Grid container spacing={2}>

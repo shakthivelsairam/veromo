@@ -6,9 +6,6 @@ function TenantForm(props: any){
   const [facilityType, setFacilityType] = React.useState('0');
     return(
         <React.Fragment>
-          <Typography component="h1" variant="h5">
-          Facility
-        </Typography>
         <Grid container spacing={2}>
         <Grid item xs={3}>
             <TextField
@@ -64,14 +61,6 @@ function TenantForm(props: any){
               control={<Checkbox color="secondary" name="status" value="yes" />}
               label="Status"
             />
-          </Grid>
-        </Grid>
-        <Grid container spacing={2} style={{marginTop: 10}}>
-          <Grid item xs={6} style={{textAlign:"right"}}>
-            <Button variant="contained" color="success" onClick={props.togglePage}>Save</Button>
-          </Grid>
-          <Grid item xs={6} style={{textAlign:"left"}}>
-            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
           </Grid>
         </Grid>
       </React.Fragment>

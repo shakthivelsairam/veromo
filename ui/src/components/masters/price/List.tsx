@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { styled } from '@mui/material/styles';
 import {Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -30,11 +31,14 @@ export default function TariffMaster(){
 
   const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
-  const [showList, setShowList] = useState(true)
-      const togglePage = () => {
-        setShowForm(!showForm)
-        setShowList(!showList)
-      }
+  const [editForm, setEditForm] = useState(false)
+  const togglePage = () => {
+    setShowForm(!showForm)
+  }
+  const pageType = (editForm: boolean) => {
+    togglePage()
+    setEditForm(editForm)
+  }
 
   useEffect(()=>{
     const rows = [
@@ -46,20 +50,26 @@ export default function TariffMaster(){
 
     return(
       <div>
-        {showForm &&
-        <PriceMasterForm togglePage={togglePage}/>
-        }
-        {showList &&
         <React.Fragment>
-          <Grid container spacing={2}>
+        <Grid container spacing={2}>
             <Grid item xs={6}>
               <Typography component="h1" variant="h5">
-              Price Master
+                Price Master
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={togglePage}>Add</Button>
+              <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
             </Grid>
+            <Dialog fullWidth={true} maxWidth={false} open={showForm}>
+              <DialogTitle>{editForm ? "Edit" : "Add"} Price</DialogTitle>
+              <DialogContent dividers>
+                <PriceMasterForm togglePage={togglePage}/>
+              </DialogContent>
+              <DialogActions>
+                <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={togglePage}>Cancel</Button>
+                <Button variant="contained" color="primary" onClick={togglePage}>{editForm ? "Update" : "Save"}</Button>
+              </DialogActions>
+            </Dialog>
         </Grid>
           <div style={{ height: 400, width: '100%', marginTop: 5 }}>
             <Table size="small">
@@ -81,14 +91,13 @@ export default function TariffMaster(){
                     <StyledTableCell>{row.test_name}</StyledTableCell>
                     <StyledTableCell>{row.price}</StyledTableCell>
                     <StyledTableCell>{row.status}</StyledTableCell>
-                    <StyledTableCell align="center"><Button size="small" onClick={togglePage}><EditIcon fontSize="small"></EditIcon></Button><Button size="small" onClick={togglePage}><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
         </React.Fragment>
-        }
       </div>
     )
 }
