@@ -12,6 +12,7 @@ import AnalyteMasterList from "./masters/analyte/List"
 import InstrumentAnalyteMapping from "./masters/instrument-analyte/List"
 import SampleMaster from "./masters/sample/List"
 import ContainerMaster from './masters/container/List';
+import MethodMaster from './masters/method/List';
 import TariffMaster from './masters/tariff/List';
 import ClientTariffMapping from './masters/client-tariff/List';
 import UserMaster from './masters/users/List';
@@ -22,27 +23,14 @@ import FacilityList from './masters/facility/List';
 const Home: React.FC = () => {
   return (
       <div>
-    Home</div>
-  );
-};
-
-const Standings: React.FC = () => {
-  return (
-    <h1>Standings</h1>
-  );
-};
-
-const Teams: React.FC = () => {
-  return (
-      <div>
-    Teams</div>
+    Dashboard</div>
   );
 };
 
 const Routes = [
   {
     path: '/',
-    sidebarName: 'Home',
+    sidebarName: 'Dashboard',
     component: Home
   },
   {
@@ -69,6 +57,11 @@ const Routes = [
     path: '/container',
     sidebarName: 'Container Master',
     component: ContainerMaster
+  },
+  {
+    path: '/method',
+    sidebarName: 'Method Master',
+    component: MethodMaster
   },
   {
     path: '/metadata',

@@ -37,6 +37,17 @@ function DepartmentForm(props: any){
             />
           </Grid>
           <Grid item xs={3}>
+          <TextField
+              id="mnemonicCode"
+              name="mnemonicCode"
+              label="Mnemonic Code"
+              fullWidth
+              variant="standard"
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="printSeparately" value="yes" />}
               label="Print separately in report"

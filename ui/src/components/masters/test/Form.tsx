@@ -115,7 +115,7 @@ function TestMasterForm(props: any){
                   required
                   id="billingName"
                   name="billingName"
-                  label="Billing Name"
+                  label="Order Name"
                   size="small"
                   variant="standard"
                   style={{width: 250}}
@@ -238,7 +238,6 @@ function TestMasterForm(props: any){
           </Grid>
           <Grid item xs={3}>
           <TextField
-                  required
                   id="nemonicShortCode"
                   name="nemonicShortCode"
                   label="Loinc Short Code"
@@ -249,7 +248,6 @@ function TestMasterForm(props: any){
           </Grid>
           <Grid item xs={3}>
           <TextField
-                  required
                   id="nemonicShortDesc"
                   name="nemonicShortDesc"
                   label="Loinc Short Description"
@@ -325,10 +323,10 @@ function TestMasterForm(props: any){
           </Grid>
           <Grid container spacing={3} style={{marginTop: 5}}>
         <Grid item xs={5} style={{textAlign:"right"}}>
-            <Button variant="contained" color="success" onClick={props.togglePage}>Save</Button>
+            <Button variant="contained" color="success">Add</Button>
           </Grid>
           <Grid item xs={5} style={{textAlign:"left"}}>
-            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
+            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}}>Cancel</Button>
           </Grid>
         </Grid>
           <Grid container spacing={2} style={{marginTop:5}}>

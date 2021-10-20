@@ -122,7 +122,7 @@ function AnalyteMasterForm(props: any){
                   required
                   id="billingName"
                   name="billingName"
-                  label="Billing Name"
+                  label="Order Name"
                   size="small"
                   variant="standard"
                   style={{width: 250}}
@@ -233,14 +233,6 @@ function AnalyteMasterForm(props: any){
                   <MenuItem value="mg">mg</MenuItem>
                 </Select>
               </FormControl>
-          </Grid>
-        </Grid>
-        <Grid container spacing={3} style={{marginTop: 5}}>
-        <Grid item xs={5} style={{textAlign:"right"}}>
-            <Button variant="contained" color="success" onClick={props.togglePage}>Save</Button>
-          </Grid>
-          <Grid item xs={5} style={{textAlign:"left"}}>
-            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
           </Grid>
         </Grid>
       </TabPanel>
@@ -364,7 +356,6 @@ function AnalyteMasterForm(props: any){
             </Grid>
             <Grid item xs={3}>
           <TextField
-                  required
                   id="rangeValue"
                   name="rangeValue"
                   label="Printable Range"
@@ -376,14 +367,14 @@ function AnalyteMasterForm(props: any){
           </Grid>
           <Grid container spacing={3} style={{marginTop: 5}}>
         <Grid item xs={5} style={{textAlign:"right"}}>
-            <Button variant="contained" color="success" onClick={props.togglePage}>Save</Button>
+            <Button variant="contained" color="success">Add</Button>
           </Grid>
           <Grid item xs={5} style={{textAlign:"left"}}>
-            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
+            <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}}>Cancel</Button>
           </Grid>
         </Grid>
           <Grid container spacing={2} style={{marginTop:5}}>
-          <Grid item xs={8} style={{alignItems:"center"}}>
+          <Grid item xs={12} style={{alignItems:"center"}}>
           <div style={{ width: '100%', marginTop: 5 }}>
             <Table size="small">
               <TableHead>
@@ -425,7 +416,7 @@ function AnalyteMasterForm(props: any){
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Test Code</StyledTableCell>
-                  <StyledTableCell>Billing Name</StyledTableCell>
+                  <StyledTableCell>Order Name</StyledTableCell>
                   <StyledTableCell>Report Name</StyledTableCell>
                   <StyledTableCell>Status</StyledTableCell>
                 </TableRow>

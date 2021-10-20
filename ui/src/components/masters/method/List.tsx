@@ -5,7 +5,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AnalyteMasterForm from "./Form";
+import MethodMasterForm from "./Form";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -27,7 +27,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function AnalyteMasterList(){
+export default function MethodMaster(){
 
   const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
@@ -42,8 +42,8 @@ export default function AnalyteMasterList(){
 
   useEffect(()=>{
     const rows = [
-      {id:1, code: "MS002", billing_name: "HBV-DNA (OS)", report_name: 'HBV-DNA detection by PCR', test_performed:"Inhouse", dept: "Biochemistry", status: "Active" },
-      {id:2, code: "IM0096", billing_name: "	1.25 VD (OS)", report_name: '1.25 Dihydroxy Vitamin D', test_performed:"Outsource", dept: "Hematology", status: "Inactive" },
+      {id:1, code: "method1", name: "Method 1", status: "Active" },
+      {id:2, code: "method2", name: "Method 2", status: "Inactive" },
     ];
     setData(rows)
   }, [])
@@ -54,16 +54,16 @@ export default function AnalyteMasterList(){
         <Grid container spacing={2}>
             <Grid item xs={6}>
               <Typography component="h1" variant="h5">
-                Analyte Master
+              Method Master
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
               <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
             </Grid>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle>{editForm ? "Edit" : "Add"} Analyte</DialogTitle>
+              <DialogTitle>{editForm ? "Edit" : "Add"} Method</DialogTitle>
               <DialogContent dividers>
-                <AnalyteMasterForm togglePage={togglePage}/>
+                <MethodMasterForm togglePage={togglePage}/>
               </DialogContent>
               <DialogActions>
                 <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={togglePage}>Cancel</Button>
@@ -72,13 +72,11 @@ export default function AnalyteMasterList(){
             </Dialog>
         </Grid>
           <div style={{ height: 400, width: '100%', marginTop: 5 }}>
-          <Table size="small">
+            <Table size="small">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>Analyte Code</StyledTableCell>
-                  <StyledTableCell>Order Name</StyledTableCell>
-                  <StyledTableCell>Report Name</StyledTableCell>
-                  <StyledTableCell>Department</StyledTableCell>
+                  <StyledTableCell>Method Code</StyledTableCell>
+                  <StyledTableCell>Method Name</StyledTableCell>
                   <StyledTableCell>Status</StyledTableCell>
                   <StyledTableCell align="center">Action</StyledTableCell>
                 </TableRow>
@@ -86,12 +84,10 @@ export default function AnalyteMasterList(){
               <TableBody>
                 {data.map((row:any) => (
                   <StyledTableRow key={row.id}>
-                    <StyledTableCell component="th" scope="row">
+                    <StyledTableCell>
                       {row.code}
                     </StyledTableCell>
-                    <StyledTableCell>{row.billing_name}</StyledTableCell>
-                    <StyledTableCell>{row.report_name}<br/>{row.patient_details}</StyledTableCell>
-                    <StyledTableCell>{row.dept}</StyledTableCell>
+                    <StyledTableCell>{row.name}</StyledTableCell>
                     <StyledTableCell>{row.status}</StyledTableCell>
                     <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>

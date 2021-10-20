@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from '@mui/material';
 import Logo from "../images/eliza_logo.png"
 
 function Copyright(props: any) {
@@ -26,6 +27,10 @@ function Copyright(props: any) {
 }
 
 export default function Login(props: {onSubmit:(event: React.FormEvent<HTMLFormElement>)=> void}) {
+  const [showForm, setShowForm] = useState(false)
+  const togglePage = () => {
+    setShowForm(!showForm)
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -67,7 +72,7 @@ export default function Login(props: {onSubmit:(event: React.FormEvent<HTMLFormE
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="#" variant="body2" onClick={togglePage}>
                 Forgot password?
               </Link>
             </Grid>
@@ -75,6 +80,28 @@ export default function Login(props: {onSubmit:(event: React.FormEvent<HTMLFormE
         </Box>
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
+      <Dialog fullWidth={true} maxWidth={false} open={showForm}>
+        <DialogTitle>Forgot password</DialogTitle>
+        <DialogContent dividers>
+          <Grid container spacing={3}>
+            <Grid item xs={3}>
+              <TextField
+                    required
+                    id="userName"
+                    name="userName"
+                    label="User Name"
+                    size="small"
+                    variant="standard"
+                    style={{width: 250}}
+                  />
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={togglePage}>Cancel</Button>
+          <Button variant="contained" color="primary" onClick={togglePage}>Send Email</Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }

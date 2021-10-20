@@ -76,7 +76,7 @@ export default function TestMasterList(){
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Test Code</StyledTableCell>
-                  <StyledTableCell>Billing Name</StyledTableCell>
+                  <StyledTableCell>Order Name</StyledTableCell>
                   <StyledTableCell>Report Name</StyledTableCell>
                   <StyledTableCell>Test Performed</StyledTableCell>
                   <StyledTableCell>Department</StyledTableCell>
