@@ -69,10 +69,19 @@ function TestMasterForm(props: any){
     { label: 'HBV-DNA detection by PCR', value: "1" },
     { label: '1.25 Dihydroxy Vitamin D', value: "2" },
   ];
+  const mnemonicode = [
+    { label: 'POAKD', shotcode:"POAKD Code" ,value: 1 },
+    { label: 'ALWOJ', shotcode:"ALWOJ Code" ,value: 2 },
+    { label: 'ZXAPQ', shotcode:"ZXAPQ Code" ,value: 3 },
+  ]
+  const protocal = [
+    { label: 'Protocal 1',value: 1 },
+    { label: 'Protocal 2',value: 2 },
+  ]
   const [data, setData] = useState([] as any)
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  };
+  };  
   useEffect(()=>{
     const rows = [
       {id:1, analyte_name: "HBV-DNA detection by PCR", sequence_no: '1', is_header: "No", status: "Active" },
@@ -113,19 +122,26 @@ function TestMasterForm(props: any){
                 />
           </Grid>
           <Grid item xs={3}>
-             <TextField
-                  required
-                  id="reportName"
-                  name="reportName"
-                  label="Report Name"
+          <FormControl variant="standard">
+                <InputLabel id="dept-label">Department</InputLabel>
+                <Select
+                  labelId="dept-label"
+                  id="dept"
+                  value={dept}
+                  label="Department"
                   size="small"
-                  variant="standard"
                   style={{width: 250}}
-                />
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="bio">Biochemistry</MenuItem>
+                  <MenuItem value="hema">Hematology</MenuItem>
+                </Select>
+              </FormControl>
+            
           </Grid>
           <Grid item xs={3}>
             <FormControl variant="standard">
-                <InputLabel id="dept-label">Department</InputLabel>
+                <InputLabel id="dept-label">Sub Department</InputLabel>
                 <Select
                   labelId="dept-label"
                   id="dept"
@@ -212,7 +228,59 @@ function TestMasterForm(props: any){
           </Grid>
         </Grid>
         <Grid container spacing={3} style={{marginTop:5}}>
+        <Grid item xs={3}>
+        <Autocomplete
+                id="analyteName"
+                options={mnemonicode}
+                sx={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Loinc Code" variant="standard" />}
+              />
+          </Grid>
           <Grid item xs={3}>
+          <TextField
+                  required
+                  id="nemonicShortCode"
+                  name="nemonicShortCode"
+                  label="Loinc Short Code"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  required
+                  id="nemonicShortDesc"
+                  name="nemonicShortDesc"
+                  label="Loinc Short Description"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+          <Grid item xs={3}>
+          <Autocomplete
+                id="analyteName"
+                options={protocal}
+                sx={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Protocol" variant="standard" />}
+              />
+          </Grid>
+        </Grid>
+        <Grid container spacing={3} style={{marginTop:5}}>
+        
+        <Grid item xs={3}>
+          <TextField
+                  required
+                  id="reportName"
+                  name="reportName"
+                  label="Report Name"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+            </Grid>
+            <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes" />}
               label="Active"

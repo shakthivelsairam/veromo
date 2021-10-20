@@ -362,6 +362,17 @@ function AnalyteMasterForm(props: any){
                   style={{width: 250}}
                 />
             </Grid>
+            <Grid item xs={3}>
+          <TextField
+                  required
+                  id="rangeValue"
+                  name="rangeValue"
+                  label="Printable Range"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+            </Grid>
           </Grid>
           <Grid container spacing={3} style={{marginTop: 5}}>
         <Grid item xs={5} style={{textAlign:"right"}}>
