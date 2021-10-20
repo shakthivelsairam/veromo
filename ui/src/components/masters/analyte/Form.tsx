@@ -79,6 +79,11 @@ function AnalyteMasterForm(props: any){
     { label: 'Male', value: "1" },
     { label: 'Female', value: "2" },
   ];
+  const mnemonicode = [
+    { label: 'POAKD', shotcode:"POAKD Code" ,value: 1 },
+    { label: 'ALWOJ', shotcode:"ALWOJ Code" ,value: 2 },
+    { label: 'ZXAPQ', shotcode:"ZXAPQ Code" ,value: 3 },
+  ]
   const [data, setData] = useState([] as any)
   const [associatedTestData, setAssociatedTestData] = useState([] as any)
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -233,6 +238,34 @@ function AnalyteMasterForm(props: any){
                   <MenuItem value="mg">mg</MenuItem>
                 </Select>
               </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+        <Autocomplete
+                id="analyteName"
+                options={mnemonicode}
+                sx={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Loinc Code" variant="standard" />}
+              />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  id="nemonicShortCode"
+                  name="nemonicShortCode"
+                  label="Loinc Short Code"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  id="nemonicShortDesc"
+                  name="nemonicShortDesc"
+                  label="Loinc Short Description"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
           </Grid>
         </Grid>
       </TabPanel>

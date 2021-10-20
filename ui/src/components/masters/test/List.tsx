@@ -32,12 +32,16 @@ export default function TestMasterList(){
   const [testMasterData, setTestMasterData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
+  const [testCode, setTestCode] = useState('')
   const togglePage = () => {
     setShowForm(!showForm)
   }
-  const pageType = (editForm: boolean) => {
+  const pageType = (editForm: boolean,testCode: string) => {
     togglePage()
     setEditForm(editForm)
+    if(testCode!=="") {
+      setTestCode(" - " +testCode)
+    }
   }
 
   useEffect(()=>{
@@ -47,7 +51,13 @@ export default function TestMasterList(){
     ];
     setTestMasterData(rows)
   }, [])
-
+  const CustomTitleBar = () => {
+    return (
+        <span className="k-icon k-i-print">
+        {testCode}
+      </span>
+    );
+  };
     return(
       <div>
         <React.Fragment>
@@ -58,10 +68,10 @@ export default function TestMasterList(){
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
+              <Button variant="contained" onClick={()=>pageType(false,'')}>Add</Button>
             </Grid>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle>{editForm ? "Edit" : "Add"} Test</DialogTitle>
+              <DialogTitle>{editForm ? "Edit" : "Add"} Test {<CustomTitleBar />}</DialogTitle>
               <DialogContent dividers>
                 <TestMasterForm togglePage={togglePage}/>
               </DialogContent>
@@ -95,7 +105,7 @@ export default function TestMasterList(){
                     <StyledTableCell>{row.test_performed}</StyledTableCell>
                     <StyledTableCell>{row.dept}</StyledTableCell>
                     <StyledTableCell>{row.status}</StyledTableCell>
-                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.code)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

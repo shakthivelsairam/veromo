@@ -313,11 +313,19 @@ function TestMasterForm(props: any){
               control={<Checkbox color="secondary" name="isHeader" value="yes" />}
               label="Is Header"
             />
+            <FormControlLabel
+              control={<Checkbox color="secondary" name="isHeader" value="yes" />}
+              label="Is Mandatory"
+            />
           </Grid>
           <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes" />}
               label="Active"
+            />
+            <FormControlLabel
+              control={<Checkbox color="secondary" name="isHeader" value="yes" />}
+              label="Is Reportable"
             />
           </Grid>
           </Grid>
