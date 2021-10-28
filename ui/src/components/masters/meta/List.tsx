@@ -6,6 +6,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MetaDataForm from "./Form";
+import MetaTypes from "./MetaType";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,6 +33,7 @@ export default function TenantList(){
   const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
+  const [metaTypePage,setMetaTypePage] = useState(false)
   const togglePage = () => {
     setShowForm(!showForm)
   }
@@ -39,7 +41,9 @@ export default function TenantList(){
     togglePage()
     setEditForm(editForm)
   }
-
+  const metaType = () => {
+    setMetaTypePage(!metaTypePage)
+  }
   useEffect(()=>{
     const rows = [
       {id: 1, type: "Saluation", code: 'Mr', name: "Mr", status:"Active" },
@@ -54,14 +58,24 @@ export default function TenantList(){
     <div>
       <React.Fragment>
         <Grid container spacing={2}>
-            <Grid item xs={6}>
+        <Grid item xs={8}>
               <Typography component="h1" variant="h5">
-                Meta Data
+              Meta Master
               </Typography>
             </Grid>
-            <Grid item xs={6} style={{textAlign:"right"}}>
+            <Grid item xs={4} style={{textAlign:"right"}}>
+              <Button variant="contained" onClick={metaType} style={{marginRight:10}}>Add Meta Type</Button>
               <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
             </Grid>
+            <Dialog fullWidth={true} maxWidth={false} open={metaTypePage}>
+              <DialogTitle>Meta Types</DialogTitle>
+              <DialogContent dividers>
+                <MetaTypes/>
+              </DialogContent>
+              <DialogActions>
+                <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={metaType}>Close</Button>
+              </DialogActions>
+            </Dialog>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
               <DialogTitle>{editForm ? "Edit" : "Add"} Meta Data</DialogTitle>
               <DialogContent dividers>

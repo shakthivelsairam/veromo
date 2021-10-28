@@ -52,8 +52,8 @@ function MetaDataForm(props: any){
           </Grid>
           <Grid item xs={3}>
           <FormControlLabel
-              control={<Checkbox color="secondary" name="status" value="yes" />}
-              label="Status"
+              control={<Checkbox color="secondary" name="status" value="yes" checked/>}
+              label="Active"
             />
           </Grid>
         </Grid>

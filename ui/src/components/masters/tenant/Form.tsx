@@ -49,7 +49,7 @@ function TenantForm(props: any){
           </Grid>
           <Grid item xs={3}>
           <FormControlLabel
-              control={<Checkbox color="secondary" name="status" value="yes" />}
+              control={<Checkbox color="secondary" name="status" value="yes" checked />}
               label="Status"
             />
           </Grid>
@@ -120,9 +120,9 @@ function TenantForm(props: any){
           <Grid item xs={3}>
             <TextField
               required
-              id="fax"
-              name="fax"
-              label="Fax"
+              id="alternatephone"
+              name="alternatephone"
+              label="Alternate Phone"
               fullWidth
               variant="standard"
             />
@@ -138,6 +138,16 @@ function TenantForm(props: any){
             />
           </Grid>
           <Grid item xs={3}>
+            <TextField
+              required
+              id="aemail"
+              name="aemail"
+              label="Aternate Email"
+              fullWidth
+              variant="standard"
+            />
+          </Grid>
+          <Grid item xs={3}>
           <label htmlFor="contained-button-file">Documents&nbsp;
             <Input accept="image/*" id="contained-button-file" multiple type="file" />
             <Button variant="contained" component="span">
@@ -145,8 +155,6 @@ function TenantForm(props: any){
             </Button>
             </label>
           </Grid>
-        </Grid>
-        <Grid container spacing={2} style={{marginTop: 5}}>
           <Grid item xs={3}>
             <label htmlFor="contained-button-file">Logo&nbsp;
             <Input accept="image/*" id="contained-button-file" multiple type="file" />
@@ -155,6 +163,20 @@ function TenantForm(props: any){
             </Button>
             </label>
           </Grid>
+          <Grid item xs={3}>
+          <TextField
+              required
+              id="email"
+              name="email"
+              label="Remarks"
+              multiline
+              fullWidth
+              variant="standard"
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} style={{marginTop: 5}}>
+         
         </Grid>
       </React.Fragment>
     )

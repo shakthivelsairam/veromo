@@ -4,6 +4,10 @@ import { Tabs, Tab, Box, Grid, TextField, FormControlLabel,Checkbox,Button,Typog
 import EditIcon from '@mui/icons-material/Edit';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import TreeView from '@mui/lab/TreeView';
+import TreeItem from '@mui/lab/TreeItem';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -279,8 +283,25 @@ function TestMasterForm(props: any){
                 />
             </Grid>
             <Grid item xs={3}>
+          <TextField
+                  required
+                  id="testName"
+                  name="testName"
+                  label="Test Name"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+            </Grid>
+            <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes" />}
+              label="Create Same in Analyte"
+            />
+          </Grid>
+            <Grid item xs={3}>
+          <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes" checked />}
               label="Active"
             />
           </Grid>
