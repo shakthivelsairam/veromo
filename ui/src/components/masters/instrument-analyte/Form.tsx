@@ -41,12 +41,35 @@ function InstrumentAnalyteMappingForm(props: any){
                   style={{width: 250}}
                 />
           </Grid>
+         
+          <Grid item xs={3}>
+          <TextField
+                  id="method"
+                  name="method"
+                  label="Method"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  id="uom"
+                  name="uom"
+                  label="UOM"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+         
           <Grid item xs={3}>
           <FormControlLabel
-              control={<Checkbox color="secondary" name="active" value="yes" />}
+              control={<Checkbox color="secondary" name="active" value="yes" defaultChecked />}
               label="Active"
             />
           </Grid>
+       
         </Grid>
       </React.Fragment>
     )

@@ -106,7 +106,8 @@ function AnalyteMasterForm(props: any){
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="General" {...a11yProps(0)} />
           <Tab label="Reference Range" {...a11yProps(1)} />
-          <Tab label="Associated Tests" {...a11yProps(2)} />
+          <Tab label="Device Mapping" {...a11yProps(2)} />
+          <Tab label="Associated Tests" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -444,6 +445,48 @@ function AnalyteMasterForm(props: any){
           </Grid>
       </TabPanel>
       <TabPanel value={value} index={2}>
+      <Grid container spacing={3} style={{marginTop:5}}>
+          <Grid item xs={3}>
+          <FormControl variant="standard">
+                <InputLabel id="sample-label">Device Id</InputLabel>
+                <Select
+                  labelId="sample-label"
+                  id="sample"
+                  value={sample}
+                  label="Sample"
+                  size="small"
+                  style={{width: 250}}
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="device1">Device 1</MenuItem>
+                  <MenuItem value="device2">Device 2</MenuItem>
+                </Select>
+              </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  required
+                  id="rangeValue"
+                  name="rangeValue"
+                  label="Method"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+            </Grid>
+            <Grid item xs={3}>
+          <TextField
+                  id="rangeValue"
+                  name="rangeValue"
+                  label="UOM"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+            </Grid>
+          </Grid>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
       <div style={{ width: '100%', marginTop: 5 }}>
             <Table size="small">
               <TableHead>

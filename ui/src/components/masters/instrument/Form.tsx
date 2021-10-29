@@ -104,8 +104,28 @@ function InstrumentForm(props: any){
                 />
           </Grid>
           <Grid item xs={3}>
+            <TextField
+                  id="lastMaintenanceDate"
+                  name="lastMaintenanceDate"
+                  label="Last Maintenance date"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+          <Grid item xs={3}>
+            <TextField
+                  id="nxtMaintenanceDate"
+                  name="nxtMaintenanceDate"
+                  label="Next Maintenance date"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+          <Grid item xs={3}>
           <FormControlLabel
-              control={<Checkbox color="secondary" name="active" value="yes" />}
+              control={<Checkbox color="secondary" name="active" value="yes" defaultChecked />}
               label="Active"
             />
           </Grid>

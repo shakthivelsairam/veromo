@@ -82,6 +82,12 @@ function TestMasterForm(props: any){
     { label: 'Protocal 1',value: 1 },
     { label: 'Protocal 2',value: 2 },
   ]
+  const auths = [
+    { label: 'Dhana',value: 1 },
+    { label: 'Siva',value: 2 },
+    { label: 'Pari',value: 3 },
+  ]
+  
   const [data, setData] = useState([] as any)
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -261,12 +267,15 @@ function TestMasterForm(props: any){
                 />
           </Grid>
           <Grid item xs={3}>
-          <Autocomplete
-                id="analyteName"
-                options={protocal}
-                sx={{ width: 250 }}
-                renderInput={(params) => <TextField {...params} label="Protocol" variant="standard" />}
-              />
+          <TextField
+                  id="nemonicShortDesc"
+                  name="nemonicShortDesc"
+                  label="Output Pattern"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+         
           </Grid>
         </Grid>
         <Grid container spacing={3} style={{marginTop:5}}>
@@ -293,20 +302,137 @@ function TestMasterForm(props: any){
                   style={{width: 250}}
                 />
             </Grid>
+            
             <Grid item xs={3}>
+            <Autocomplete
+                id="analyteName"
+                options={protocal}
+                sx={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Protocol" variant="standard" />}
+              />
+          
+          </Grid>
+          <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes" />}
-              label="Create Same in Analyte"
-            />
-          </Grid>
-            <Grid item xs={3}>
-          <FormControlLabel
-              control={<Checkbox color="secondary" name="active" value="yes" checked />}
-              label="Active"
+              label="Create Analyte Copy"
             />
           </Grid>
         </Grid>
-       
+        <Grid container spacing={3} style={{marginTop: 5}}>
+         
+            <Grid item xs={3}>
+            <FormControlLabel
+                control={<Checkbox color="secondary" name="active" value="yes"  />}
+                label="Print separately ?"
+              />
+            </Grid>
+            <Grid item xs={3}>
+          <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes"  />}
+              label="Is Reportable ?"
+            />
+          </Grid>
+          <Grid item xs={3}>
+          <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes"  />}
+              label="Is Gender Based ?"
+            />
+          </Grid>
+          <Grid item xs={3}>
+          <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes" defaultChecked  />}
+              label="Active"
+            />
+          </Grid>
+          </Grid>
+        <TreeView
+      aria-label="file system navigator"
+      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultExpandIcon={<ChevronRightIcon />}
+      sx={{ height: 240, marginTop:5,flexGrow: 1, overflowY: 'auto' }}
+      >
+        <TreeItem nodeId="1" label="Optional Attributes">
+        <Grid container spacing={3} style={{marginTop: 5}}>
+         
+         <Grid item xs={3}>
+        <Autocomplete
+                id="analyteName"
+                options={protocal}
+                sx={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Protocol" variant="standard" />}
+              />  
+        
+        </Grid>
+        <Grid item xs={3}>
+        <FormControl variant="standard">
+                <InputLabel id="method-label">Method</InputLabel>
+                <Select
+                  labelId="method-label"
+                  id="method"
+                  value={method}
+                  label="Reporting Type"
+                  size="small"
+                  style={{width: 250}}
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="bio">Manual</MenuItem>
+                  <MenuItem value="hema">Default</MenuItem>
+                </Select>
+              </FormControl>
+        </Grid>
+        <Grid item xs={3}>
+        <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes"  />}
+              label="E-Mail ?"
+            />
+        
+        </Grid>
+        <Grid item xs={3}>
+        <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes"  />}
+              label="SMS ?"
+            />
+        
+        </Grid>
+          </Grid>
+
+        </TreeItem>
+        <TreeItem nodeId="2" label="Authorization" style={{marginTop:10}}>
+        <Grid container spacing={3} style={{marginTop: 5}}>
+         
+         <Grid item xs={3}>
+        <Autocomplete
+                id="authorizer"
+                options={auths}
+                sx={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Authorizer" variant="standard" />}
+              />  
+        
+        </Grid>
+        <Grid item xs={3}>
+        <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes"  />}
+              label="Oderable ?"
+            />
+        
+        </Grid>
+        <Grid item xs={3}>
+        <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes"  />}
+              label="Co-Authorizer required ?"
+            />
+        
+        </Grid>
+        <Autocomplete
+                id="coauthorizer"
+                options={auths}
+                sx={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Co-Authorizer" variant="standard" />}
+              />  
+        </Grid>
+        </TreeItem>
+    </TreeView>
       </TabPanel>
       <TabPanel value={value} index={1}>
       <Grid container spacing={2}>
