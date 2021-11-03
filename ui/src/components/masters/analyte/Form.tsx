@@ -84,6 +84,21 @@ function AnalyteMasterForm(props: any){
     { label: 'ALWOJ', shotcode:"ALWOJ Code" ,value: 2 },
     { label: 'ZXAPQ', shotcode:"ZXAPQ Code" ,value: 3 },
   ]
+  const inputPattern = [
+    { label: 'Free Text', shotcode:"POAKD Code" ,value: 1 },
+    { label: 'Free Text Multiline', shotcode:"ALWOJ Code" ,value: 2 },
+    { label: 'Drop Down', shotcode:"ZXAPQ Code" ,value: 3 },
+    
+  ]
+  const resultTypes = [
+    { label: 'Alphabet', shotcode:"Alphabet" ,value: 1 },
+    { label: 'Alphanumeric', shotcode:"Alphanumeric" ,value: 2 },
+    { label: 'Numeric', shotcode:"Numeric" ,value: 3 },
+    { label: 'Formule Expression', shotcode:"Formule Expression" ,value: 4 },
+    { label: 'Date', shotcode:"Date" ,value: 5 },
+    { label: 'Email', shotcode:"Email" ,value: 6 },
+    { label: 'Time', shotcode:"Time" ,value: 7 },
+  ]
   const [data, setData] = useState([] as any)
   const [associatedTestData, setAssociatedTestData] = useState([] as any)
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -263,6 +278,35 @@ function AnalyteMasterForm(props: any){
                   id="nemonicShortDesc"
                   name="nemonicShortDesc"
                   label="Loinc Short Description"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+        </Grid>
+        <Grid container spacing={3} style={{marginTop:5}}>
+          <Grid item xs={3}>
+          <Autocomplete
+                id="inputpattern"
+                options={inputPattern}
+                sx={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Input pattern" variant="standard" />}
+              />
+          </Grid>
+          <Grid item xs={3}>
+          <Autocomplete
+                id="inputpattern"
+                options={resultTypes}
+                sx={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Result Data Type" variant="standard" />}
+              />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  type={"number"}
+                  id="decimalDigit"
+                  name="deciamlDigit"
+                  label="Decimal Digits"
                   size="small"
                   variant="standard"
                   style={{width: 250}}
