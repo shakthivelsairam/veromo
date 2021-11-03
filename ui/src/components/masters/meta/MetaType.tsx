@@ -81,7 +81,7 @@ export default function InstrumentTypes(){
             <Button variant="contained">Add</Button>
           </Grid>
         </Grid>
-          <div style={{ height: 400, width: '100%', marginTop: 5 }}>
+          <div style={{ height: 300, width: '100%', marginTop: 5 }}>
             <Table size="small">
               <TableHead>
                 <TableRow>

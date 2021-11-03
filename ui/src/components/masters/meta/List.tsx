@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MetaDataForm from "./Form";
 import MetaTypes from "./MetaType";
+import custstyle  from  "../../style.module.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -68,8 +69,8 @@ export default function TenantList(){
               <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
             </Grid>
             <Dialog fullWidth={true} maxWidth={false} open={metaTypePage}>
-              <DialogTitle>Meta Types</DialogTitle>
-              <DialogContent dividers>
+              <DialogTitle className={custstyle.addeditmenu}>Meta Types</DialogTitle>
+              <DialogContent dividers className={custstyle.popupheight}>
                 <MetaTypes/>
               </DialogContent>
               <DialogActions>
@@ -77,8 +78,8 @@ export default function TenantList(){
               </DialogActions>
             </Dialog>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle>{editForm ? "Edit" : "Add"} Meta Data</DialogTitle>
-              <DialogContent dividers>
+              <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} Meta Data</DialogTitle>
+              <DialogContent dividers className={custstyle.popupheight}>
                 <MetaDataForm togglePage={togglePage}/>
               </DialogContent>
               <DialogActions>

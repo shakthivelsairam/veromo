@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InstrumentForm from "./Form";
 import InstrumentTypes from "./InstrumentType";
+import custstyle  from  "../../style.module.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -69,8 +70,8 @@ export default function InstrumentList(){
               <Button variant="contained" onClick={()=>pageType(false)}>Add Instrument</Button>
             </Grid>
             <Dialog fullWidth={true} maxWidth={false} open={instrumentTypePage}>
-              <DialogTitle>Instrument Types</DialogTitle>
-              <DialogContent dividers>
+              <DialogTitle className={custstyle.addeditmenu}>Instrument Types</DialogTitle>
+              <DialogContent dividers className={custstyle.popupheight}>
                 <InstrumentTypes/>
               </DialogContent>
               <DialogActions>
@@ -78,8 +79,8 @@ export default function InstrumentList(){
               </DialogActions>
             </Dialog>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle>{editForm ? "Edit" : "Add"} Instrument Master</DialogTitle>
-              <DialogContent dividers>
+              <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} Instrument Master</DialogTitle>
+              <DialogContent dividers className={custstyle.popupheight}>
                 <InstrumentForm/>
               </DialogContent>
               <DialogActions>

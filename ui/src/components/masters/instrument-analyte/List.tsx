@@ -6,6 +6,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InstrumentAnalyteMappingForm from "./Form";
+import custstyle  from  "../../style.module.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -61,8 +62,8 @@ export default function InstrumentAnalyteMapping(){
               <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
             </Grid>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle>{editForm ? "Edit" : "Add"} Instrument Analyte Mapping</DialogTitle>
-              <DialogContent dividers>
+              <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} Instrument Analyte Mapping</DialogTitle>
+              <DialogContent dividers className={custstyle.popupheight}>
                 <InstrumentAnalyteMappingForm togglePage={togglePage}/>
               </DialogContent>
               <DialogActions>

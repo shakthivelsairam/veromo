@@ -6,6 +6,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AnalyteMasterForm from "./Form";
+import custstyle  from  "../../style.module.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -61,8 +62,8 @@ export default function AnalyteMasterList(){
               <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
             </Grid>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle>{editForm ? "Edit" : "Add"} Analyte</DialogTitle>
-              <DialogContent dividers style={{minHeight:"420px"}}>
+              <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} Analyte</DialogTitle>
+              <DialogContent dividers style={{height:"420px"}}>
                 <AnalyteMasterForm togglePage={togglePage}/>
               </DialogContent>
               <DialogActions>
