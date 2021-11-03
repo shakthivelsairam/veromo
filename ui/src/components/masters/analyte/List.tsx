@@ -62,7 +62,7 @@ export default function AnalyteMasterList(){
             </Grid>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
               <DialogTitle>{editForm ? "Edit" : "Add"} Analyte</DialogTitle>
-              <DialogContent dividers>
+              <DialogContent dividers style={{minHeight:"420px"}}>
                 <AnalyteMasterForm togglePage={togglePage}/>
               </DialogContent>
               <DialogActions>

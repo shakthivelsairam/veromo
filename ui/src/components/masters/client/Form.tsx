@@ -279,30 +279,20 @@ function PatientForm(props: any){
               </Select>
             </FormControl>
             </Grid>
+            <Grid item xs={3}>
+            <FormControlLabel control={<Checkbox color="secondary" name="active" value="yes" />} label="Stationery ?" />
+            
+          </Grid>
           </Grid>
           </TabPanel>
           <TabPanel value={value} index={2}>
          
           <Grid container spacing={5} style={{ paddingTop:10}}>
           <Grid item xs={3}>
-          <TextField
-              id="amount"
-              name="amount"
-              label="Email"
-              size="small"
-              variant="standard"
-              sx={{ width: 200,marginRight: 2}}
-            />
+          <FormControlLabel control={<Checkbox color="secondary" name="active" value="yes" />} label="E-Mail" />
             </Grid>
             <Grid item xs={3}>
-          <TextField
-              id="amount"
-              name="amount"
-              label="SMS"
-              size="small"
-              variant="standard"
-              sx={{ width: 200,marginRight: 2}}
-            />
+            <FormControlLabel control={<Checkbox color="secondary" name="active" value="yes" />} label="SMS" />
             </Grid>
             </Grid>
             </TabPanel>

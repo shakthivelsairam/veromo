@@ -19,6 +19,9 @@ import UserMaster from './masters/users/List';
 import RoleMaster from './masters/roles/List';
 import TenantList from './masters/tenant/List';
 import FacilityList from './masters/facility/List';
+import Email from './masters/emailgateway/List';
+import Drug from './masters/drug/List';
+import Organism from './masters/organism/List';
 
 const Home: React.FC = () => {
   return (
@@ -32,6 +35,21 @@ const Routes = [
     path: '/',
     sidebarName: 'Dashboard',
     component: Home
+  },
+  {
+    path: '/email',
+    sidebarName: 'Email Gateway',
+    component: Email
+  },
+  {
+    path: '/drugs',
+    sidebarName: 'Drug Master',
+    component: Drug
+  },
+  {
+    path: '/organism',
+    sidebarName: 'Organism Master',
+    component: Organism
   },
   {
     path: '/tenant',

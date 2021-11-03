@@ -399,6 +399,45 @@ function AnalyteMasterForm(props: any){
                 />
             </Grid>
           </Grid>
+          <Grid container spacing={2} style={{marginTop: 5}}>
+          <Grid item xs={3}>
+          <FormControl variant="standard">
+                <InputLabel id="sample-label">Device Id</InputLabel>
+                <Select
+                  labelId="sample-label"
+                  id="sample"
+                  value={sample}
+                  label="Sample"
+                  size="small"
+                  style={{width: 250}}
+                >
+                  <MenuItem value="0">--Select--</MenuItem>
+                  <MenuItem value="device1">Device 1</MenuItem>
+                  <MenuItem value="device2">Device 2</MenuItem>
+                </Select>
+              </FormControl>
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  id="method"
+                  name="method"
+                  label="Method"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  id="uom"
+                  name="uom"
+                  label="UOM"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                />
+          </Grid>
+          </Grid>
           <Grid container spacing={3} style={{marginTop: 5}}>
         <Grid item xs={5} style={{textAlign:"right"}}>
             <Button variant="contained" color="success">Add</Button>
@@ -474,15 +513,27 @@ function AnalyteMasterForm(props: any){
                   style={{width: 250}}
                 />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={2}>
           <TextField
                   id="rangeValue"
                   name="rangeValue"
                   label="UOM"
                   size="small"
                   variant="standard"
-                  style={{width: 250}}
+                  style={{width: 200}}
                 />
+            </Grid>
+            <Grid item xs={2}>
+            <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes" />}
+              label="Uploadable ?"
+            />
+            </Grid>
+            <Grid item xs={2}>
+            <FormControlLabel
+              control={<Checkbox color="secondary" name="active" value="yes" />}
+              label="Downloadable ?"
+            />
             </Grid>
           </Grid>
       </TabPanel>
