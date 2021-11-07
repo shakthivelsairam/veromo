@@ -22,6 +22,8 @@ import FacilityList from './masters/facility/List';
 import Email from './masters/emailgateway/List';
 import Drug from './masters/drug/List';
 import Organism from './masters/organism/List';
+import DeliveryQueue from './delivery-queue/List';
+import SampleEnquiry from './sample-enquiry/List';
 
 const Home: React.FC = () => {
   return (
@@ -150,6 +152,16 @@ const Routes = [
     path: '/resultentry',
     sidebarName: 'Result Entry',
     component: ResultEntryList
+  },
+  {
+    path: '/deliveryqueue',
+    sidebarName: 'Delivery Queue',
+    component: DeliveryQueue
+  },
+  {
+    path: '/sampleenquiry',
+    sidebarName: 'Sample Enquiry',
+    component: SampleEnquiry
   },
 ];
 
