@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `analyte_assay_mapping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `analyte_assay_mapping` (
   `id` int NOT NULL AUTO_INCREMENT,
   `analyte_id` int NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `analyte_assay_mapping` (
   CONSTRAINT `fk_analyte_equipment_mapping_branch_id` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
   CONSTRAINT `fk_analyte_equipment_mapping_equipment_id` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`id`),
   CONSTRAINT `fk_analyte_equipment_mapping_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,7 +52,7 @@ CREATE TABLE `analyte_assay_mapping` (
 
 DROP TABLE IF EXISTS `analyte_possible_results`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `analyte_possible_results` (
   `id` int NOT NULL AUTO_INCREMENT,
   `analyte_id` int NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE `analyte_possible_results` (
   KEY `fk_analyte_possible_results_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_analyte_possible_results_analyte_id` FOREIGN KEY (`analyte_id`) REFERENCES `analytes` (`id`),
   CONSTRAINT `fk_analyte_possible_results_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +76,7 @@ CREATE TABLE `analyte_possible_results` (
 
 DROP TABLE IF EXISTS `analytes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `analytes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE `analytes` (
   KEY `fk_analytes_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_analytes_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`),
   CONSTRAINT `fk_analytes_test_id` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `analytes` (
 
 DROP TABLE IF EXISTS `bill_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `bill_details` (
   `id` int NOT NULL AUTO_INCREMENT,
   `visit_id` int NOT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE `bill_details` (
   CONSTRAINT `fk_bill_details_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`),
   CONSTRAINT `fk_bill_details_test_id` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`),
   CONSTRAINT `fk_bill_details_visit_id` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +144,7 @@ CREATE TABLE `bill_details` (
 
 DROP TABLE IF EXISTS `bills`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `bills` (
   `id` int NOT NULL AUTO_INCREMENT,
   `patient_id` int NOT NULL,
@@ -181,7 +181,7 @@ CREATE TABLE `bills` (
   CONSTRAINT `fk_bills_rate_id` FOREIGN KEY (`rate_id`) REFERENCES `rates` (`id`),
   CONSTRAINT `fk_bills_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`),
   CONSTRAINT `fk_bills_visit_id` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +190,7 @@ CREATE TABLE `bills` (
 
 DROP TABLE IF EXISTS `branches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `branches` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -217,7 +217,7 @@ CREATE TABLE `branches` (
   PRIMARY KEY (`id`),
   KEY `fk_branches_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_branches_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +226,7 @@ CREATE TABLE `branches` (
 
 DROP TABLE IF EXISTS `cities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `cities` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -240,7 +240,7 @@ CREATE TABLE `cities` (
   UNIQUE KEY `uc_cities_state_id_name` (`name`,`state_id`),
   KEY `fk_cities_state_id` (`state_id`),
   CONSTRAINT `fk_cities_state_id` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +249,7 @@ CREATE TABLE `cities` (
 
 DROP TABLE IF EXISTS `client_delivery_methods`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `client_delivery_methods` (
   `id` int NOT NULL AUTO_INCREMENT,
   `delivery_type` enum('Internet','Email','Print') NOT NULL,
@@ -267,7 +267,7 @@ CREATE TABLE `client_delivery_methods` (
   KEY `fk_client_delivery_methods_client_id` (`client_id`),
   CONSTRAINT `fk_client_delivery_methods_client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
   CONSTRAINT `fk_client_delivery_methods_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,7 +276,7 @@ CREATE TABLE `client_delivery_methods` (
 
 DROP TABLE IF EXISTS `client_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `client_types` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` varchar(255) NOT NULL,
@@ -290,7 +290,7 @@ CREATE TABLE `client_types` (
   PRIMARY KEY (`id`),
   KEY `fk_client_types_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_client_types_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,7 +299,7 @@ CREATE TABLE `client_types` (
 
 DROP TABLE IF EXISTS `clients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `clients` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -328,7 +328,7 @@ CREATE TABLE `clients` (
   KEY `fk_clients_branch_id` (`branch_id`),
   CONSTRAINT `fk_clients_branch_id` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
   CONSTRAINT `fk_clients_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,7 +337,7 @@ CREATE TABLE `clients` (
 
 DROP TABLE IF EXISTS `containers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `containers` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -352,7 +352,7 @@ CREATE TABLE `containers` (
   PRIMARY KEY (`id`),
   KEY `fk_containers_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_containers_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,7 +361,7 @@ CREATE TABLE `containers` (
 
 DROP TABLE IF EXISTS `countries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `countries` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -372,7 +372,7 @@ CREATE TABLE `countries` (
   `created_by` varchar(255) NOT NULL,
   `updated_by` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -381,7 +381,7 @@ CREATE TABLE `countries` (
 
 DROP TABLE IF EXISTS `departments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `departments` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -397,7 +397,7 @@ CREATE TABLE `departments` (
   PRIMARY KEY (`id`),
   KEY `fk_departments_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_departments_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,7 +406,7 @@ CREATE TABLE `departments` (
 
 DROP TABLE IF EXISTS `equipment_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `equipment_types` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` varchar(255) NOT NULL,
@@ -420,7 +420,7 @@ CREATE TABLE `equipment_types` (
   PRIMARY KEY (`id`),
   KEY `fk_equipment_types_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_equipment_types_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -429,7 +429,7 @@ CREATE TABLE `equipment_types` (
 
 DROP TABLE IF EXISTS `equipments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `equipments` (
   `id` int NOT NULL AUTO_INCREMENT,
   `manufacturer` varchar(255) NOT NULL,
@@ -451,7 +451,7 @@ CREATE TABLE `equipments` (
   CONSTRAINT `fk_equipments_branch_id` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
   CONSTRAINT `fk_equipments_service_group_id` FOREIGN KEY (`service_group_id`) REFERENCES `service_groups` (`id`),
   CONSTRAINT `fk_equipments_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -460,7 +460,7 @@ CREATE TABLE `equipments` (
 
 DROP TABLE IF EXISTS `login`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `login` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) NOT NULL,
@@ -478,7 +478,7 @@ CREATE TABLE `login` (
   PRIMARY KEY (`id`),
   KEY `fk_login_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_login_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -487,7 +487,7 @@ CREATE TABLE `login` (
 
 DROP TABLE IF EXISTS `login_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `login_roles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `login_id` int NOT NULL,
@@ -505,7 +505,7 @@ CREATE TABLE `login_roles` (
   CONSTRAINT `fk_login_roles_login_id` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`),
   CONSTRAINT `fk_login_roles_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
   CONSTRAINT `fk_login_roles_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -514,7 +514,7 @@ CREATE TABLE `login_roles` (
 
 DROP TABLE IF EXISTS `menu_headers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `menu_headers` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` int NOT NULL,
@@ -527,7 +527,7 @@ CREATE TABLE `menu_headers` (
   PRIMARY KEY (`id`),
   KEY `fk_menu_headers_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_menu_headers_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -536,7 +536,7 @@ CREATE TABLE `menu_headers` (
 
 DROP TABLE IF EXISTS `menus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `menus` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` int NOT NULL,
@@ -555,7 +555,7 @@ CREATE TABLE `menus` (
   CONSTRAINT `fk_menus_menu_header_id` FOREIGN KEY (`menu_header_id`) REFERENCES `menu_headers` (`id`),
   CONSTRAINT `fk_menus_page_id` FOREIGN KEY (`page_id`) REFERENCES `pages` (`id`),
   CONSTRAINT `fk_menus_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -564,7 +564,7 @@ CREATE TABLE `menus` (
 
 DROP TABLE IF EXISTS `meta_data_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `meta_data_types` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` enum('gender','title') NOT NULL,
@@ -579,7 +579,7 @@ CREATE TABLE `meta_data_types` (
   UNIQUE KEY `uc_meta_data_types_tenant_id_type` (`tenant_id`,`type`),
   KEY `fk_meta_data_types_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_meta_data_types_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -588,7 +588,7 @@ CREATE TABLE `meta_data_types` (
 
 DROP TABLE IF EXISTS `methods`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `methods` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -602,7 +602,7 @@ CREATE TABLE `methods` (
   PRIMARY KEY (`id`),
   KEY `fk_methods_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_methods_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -611,7 +611,7 @@ CREATE TABLE `methods` (
 
 DROP TABLE IF EXISTS `number_patterns`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `number_patterns` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -621,7 +621,7 @@ CREATE TABLE `number_patterns` (
   `created_by` varchar(255) NOT NULL,
   `updated_by` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -630,7 +630,7 @@ CREATE TABLE `number_patterns` (
 
 DROP TABLE IF EXISTS `ordered_analyte_results`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `ordered_analyte_results` (
   `id` int NOT NULL AUTO_INCREMENT,
   `visit_id` int NOT NULL,
@@ -674,7 +674,7 @@ CREATE TABLE `ordered_analyte_results` (
   CONSTRAINT `fk_ordered_analyte_results_test_id` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`),
   CONSTRAINT `fk_ordered_analyte_results_visit_id` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`),
   CONSTRAINT `fk_ordered_analyte_results_worksheet_id` FOREIGN KEY (`worksheet_id`) REFERENCES `worksheets` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -683,7 +683,7 @@ CREATE TABLE `ordered_analyte_results` (
 
 DROP TABLE IF EXISTS `ordered_tests`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `ordered_tests` (
   `id` int NOT NULL AUTO_INCREMENT,
   `visit_id` int NOT NULL,
@@ -709,7 +709,7 @@ CREATE TABLE `ordered_tests` (
   CONSTRAINT `fk_ordered_tests_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`),
   CONSTRAINT `fk_ordered_tests_test_id` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`),
   CONSTRAINT `fk_ordered_tests_visit_id` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -718,7 +718,7 @@ CREATE TABLE `ordered_tests` (
 
 DROP TABLE IF EXISTS `page_actions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `page_actions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `page_id` int NOT NULL,
@@ -733,7 +733,7 @@ CREATE TABLE `page_actions` (
   PRIMARY KEY (`id`),
   KEY `fk_page_actions_page_id` (`page_id`),
   CONSTRAINT `fk_page_actions_page_id` FOREIGN KEY (`page_id`) REFERENCES `pages` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -742,7 +742,7 @@ CREATE TABLE `page_actions` (
 
 DROP TABLE IF EXISTS `pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `pages` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -753,7 +753,7 @@ CREATE TABLE `pages` (
   `created_by` varchar(255) NOT NULL,
   `updated_by` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -762,7 +762,7 @@ CREATE TABLE `pages` (
 
 DROP TABLE IF EXISTS `patient_samples`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `patient_samples` (
   `id` int NOT NULL AUTO_INCREMENT,
   `visit_id` int NOT NULL,
@@ -790,7 +790,7 @@ CREATE TABLE `patient_samples` (
   CONSTRAINT `fk_patient_samples_sample_id` FOREIGN KEY (`sample_id`) REFERENCES `samples` (`id`),
   CONSTRAINT `fk_patient_samples_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`),
   CONSTRAINT `fk_patient_samples_visit_id` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -799,7 +799,7 @@ CREATE TABLE `patient_samples` (
 
 DROP TABLE IF EXISTS `patients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `patients` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -830,7 +830,7 @@ CREATE TABLE `patients` (
   CONSTRAINT `fk_patients_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`),
   CONSTRAINT `fk_patients_state_id` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`),
   CONSTRAINT `fk_patients_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -839,7 +839,7 @@ CREATE TABLE `patients` (
 
 DROP TABLE IF EXISTS `rates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `rates` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -853,7 +853,7 @@ CREATE TABLE `rates` (
   PRIMARY KEY (`id`),
   KEY `fk_prices_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_prices_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -862,7 +862,7 @@ CREATE TABLE `rates` (
 
 DROP TABLE IF EXISTS `refering_doctors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `refering_doctors` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -878,7 +878,7 @@ CREATE TABLE `refering_doctors` (
   UNIQUE KEY `uc_refering_doctors_tenant_id_code` (`code`,`tenant_id`),
   KEY `fk_refering_doctors_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_refering_doctors_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -887,7 +887,7 @@ CREATE TABLE `refering_doctors` (
 
 DROP TABLE IF EXISTS `role_menus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `role_menus` (
   `id` int NOT NULL AUTO_INCREMENT,
   `role_id` int NOT NULL,
@@ -904,7 +904,7 @@ CREATE TABLE `role_menus` (
   CONSTRAINT `fk_role_menus_menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`),
   CONSTRAINT `fk_role_menus_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
   CONSTRAINT `fk_role_menus_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -913,7 +913,7 @@ CREATE TABLE `role_menus` (
 
 DROP TABLE IF EXISTS `role_page_actions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `role_page_actions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `role_id` int NOT NULL,
@@ -930,7 +930,7 @@ CREATE TABLE `role_page_actions` (
   CONSTRAINT `fk_role_page_actions_page_action_id` FOREIGN KEY (`page_action_id`) REFERENCES `page_actions` (`id`),
   CONSTRAINT `fk_role_page_actions_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
   CONSTRAINT `fk_role_page_actions_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -939,7 +939,7 @@ CREATE TABLE `role_page_actions` (
 
 DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `roles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -952,7 +952,7 @@ CREATE TABLE `roles` (
   PRIMARY KEY (`id`),
   KEY `fk_roles_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_roles_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -961,7 +961,7 @@ CREATE TABLE `roles` (
 
 DROP TABLE IF EXISTS `samples`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `samples` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -976,7 +976,7 @@ CREATE TABLE `samples` (
   PRIMARY KEY (`id`),
   KEY `fk_samples_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_samples_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -985,7 +985,7 @@ CREATE TABLE `samples` (
 
 DROP TABLE IF EXISTS `service_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `service_groups` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1000,7 +1000,7 @@ CREATE TABLE `service_groups` (
   PRIMARY KEY (`id`),
   KEY `fk_service_groups_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_service_groups_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1009,7 +1009,7 @@ CREATE TABLE `service_groups` (
 
 DROP TABLE IF EXISTS `states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `states` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1023,7 +1023,7 @@ CREATE TABLE `states` (
   UNIQUE KEY `uc_states_country_id_name` (`name`,`country_id`),
   KEY `fk_states_country_id` (`country_id`),
   CONSTRAINT `fk_states_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1032,7 +1032,7 @@ CREATE TABLE `states` (
 
 DROP TABLE IF EXISTS `sub_departments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `sub_departments` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1048,7 +1048,7 @@ CREATE TABLE `sub_departments` (
   PRIMARY KEY (`id`),
   KEY `fk_sub_departments_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_sub_departments_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1057,7 +1057,7 @@ CREATE TABLE `sub_departments` (
 
 DROP TABLE IF EXISTS `tenant_number_patterns`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `tenant_number_patterns` (
   `id` int NOT NULL AUTO_INCREMENT,
   `number_pattern_id` int NOT NULL,
@@ -1075,7 +1075,7 @@ CREATE TABLE `tenant_number_patterns` (
   KEY `fk_tenant_number_patterns_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_tenant_number_patterns_number_pattern_id` FOREIGN KEY (`number_pattern_id`) REFERENCES `number_patterns` (`id`),
   CONSTRAINT `fk_tenant_number_patterns_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1084,7 +1084,7 @@ CREATE TABLE `tenant_number_patterns` (
 
 DROP TABLE IF EXISTS `tenants`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `tenants` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1095,7 +1095,7 @@ CREATE TABLE `tenants` (
   `created_by` varchar(255) NOT NULL,
   `updated_by` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1104,7 +1104,7 @@ CREATE TABLE `tenants` (
 
 DROP TABLE IF EXISTS `test_branch_mapping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `test_branch_mapping` (
   `id` int NOT NULL AUTO_INCREMENT,
   `test_id` int NOT NULL,
@@ -1137,7 +1137,7 @@ CREATE TABLE `test_branch_mapping` (
   CONSTRAINT `fk_test_branch_mapping_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`),
   CONSTRAINT `fk_test_branch_mapping_test_id` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`),
   CONSTRAINT `fk_test_branch_mapping_uom_id` FOREIGN KEY (`uom_id`) REFERENCES `uom` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1146,7 +1146,7 @@ CREATE TABLE `test_branch_mapping` (
 
 DROP TABLE IF EXISTS `tests`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `tests` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1164,7 +1164,7 @@ CREATE TABLE `tests` (
   PRIMARY KEY (`id`),
   KEY `fk_tests_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_tests_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1173,7 +1173,7 @@ CREATE TABLE `tests` (
 
 DROP TABLE IF EXISTS `uom`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `uom` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1183,7 +1183,7 @@ CREATE TABLE `uom` (
   `created_by` varchar(255) NOT NULL,
   `updated_by` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1192,7 +1192,7 @@ CREATE TABLE `uom` (
 
 DROP TABLE IF EXISTS `visits`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `visits` (
   `id` int NOT NULL AUTO_INCREMENT,
   `patient_id` int NOT NULL,
@@ -1216,7 +1216,7 @@ CREATE TABLE `visits` (
   CONSTRAINT `fk_visits_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`),
   CONSTRAINT `fk_visits_refering_doctor_id` FOREIGN KEY (`refering_doctor_id`) REFERENCES `refering_doctors` (`id`),
   CONSTRAINT `fk_visits_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1225,7 +1225,7 @@ CREATE TABLE `visits` (
 
 DROP TABLE IF EXISTS `worksheets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `worksheets` (
   `id` int NOT NULL AUTO_INCREMENT,
   `worksheet_number` varchar(255) NOT NULL,
@@ -1241,7 +1241,7 @@ CREATE TABLE `worksheets` (
   KEY `fk_worksheets_tenant_id` (`tenant_id`),
   CONSTRAINT `fk_worksheets_branch_id` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
   CONSTRAINT `fk_worksheets_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

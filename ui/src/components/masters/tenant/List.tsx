@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TenantForm from "./Form";
 import custstyle  from  "../../style.module.css";
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,10 +43,11 @@ export default function TenantList(){
   }
 
   useEffect(()=>{
-    const rows = [
-      {id: 1, code: "HM", name: 'Eliza', display_name: "Eliza", status:"Active" },
-    ];
-    setData(rows)
+    async function getTenants() {
+      const tenants = await api.getTenants()
+      setData(tenants)
+    }
+    getTenants()
   }, [])
 
   return(
