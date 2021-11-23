@@ -42,12 +42,11 @@ export default function TenantList(){
     setEditForm(editForm)
   }
 
-  useEffect(()=>{
-    async function getTenants() {
+  useEffect(() => {
+    (async () => {
       const tenants = await api.getTenants()
       setData(tenants)
-    }
-    getTenants()
+    })()
   }, [])
 
   return(
@@ -85,7 +84,7 @@ export default function TenantList(){
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row:any) => (
+              {data && data.map((row:any) => (
                 <StyledTableRow key={row.id}>
                   <StyledTableCell>
                     {row.code}

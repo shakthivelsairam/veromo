@@ -1089,12 +1089,29 @@ CREATE TABLE `tenants` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `code` varchar(255) NOT NULL,
+  `display_name` varchar(255) NOT NULL,
+  `pincode` int NOT NULL,
+  `city_id` int NOT NULL,
+  `state_id` int NOT NULL,
+  `country_id` int NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `alt_phone` varchar(255) NULL,
+  `email` varchar(255) NOT NULL,
+  `alt_email` varchar(255) NULL,
+  `remarks` varchar(255) NULL,
+  `logo` varchar(255) NULL,
   `active` tinyint DEFAULT '1',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `created_by` varchar(255) NOT NULL,
   `updated_by` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_tenants_city_id` (`city_id`),
+  KEY `fk_tenants_state_id` (`state_id`),
+  KEY `fk_tenants_country_id` (`country_id`),
+  CONSTRAINT `fk_tenants_city_id` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`),
+  CONSTRAINT `fk_tenants_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`),
+  CONSTRAINT `fk_tenants_state_id` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 

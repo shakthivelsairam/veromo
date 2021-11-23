@@ -19,7 +19,6 @@ export function getPool() {
   }
   
   pool = mysql.createPool(connectionDetails)
-  console.log("pool ", pool)
   return pool
 }
 
