@@ -11,6 +11,7 @@
     "@mui/styles": "^5.0.1",
     "@mui/x-data-grid": "^4.0.1",
     "date-fns": "^2.25.0",
+    "env-cmd": "^10.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
@@ -21,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "local": "REACT_APP_BUILD=$(git rev-parse HEAD) env $(cat .EnvLocal | xargs) npm start",
+    "local": "env-cmd -f .EnvLocal npm start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
