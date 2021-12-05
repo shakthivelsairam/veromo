@@ -43,3 +43,67 @@ let apiBaseURL = env.getBackendAPI() + "/api/v1"
           throw new Error("Unauthorized")
       }
   }
+
+// Facility API
+
+export async function getFacility() {
+  try {
+   
+      console.log("getFacility apiBaseURL = ", apiBaseURL)
+        const response = await wrappedFetch(`${apiBaseURL}/facilities`, {
+            method: "GET",
+        })
+        console.log("getFacility response = ", response)
+        if (response.status === 401) {
+            throw new Error("Unauthorized")
+        } else {
+            return response.json()
+        }
+       
+    } catch (error) {
+        console.error("getFacility error: ", error)
+        throw new Error("Unauthorized")
+    }
+}
+
+export async function getSingleFacility(id) {
+    try {
+     
+        console.log("getFacility apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/facilities/`+id, {
+              method: "GET",
+          })
+          console.log("getFacility response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getFacility error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  
+export async function setFacility(facilityData) {
+  try {
+     //const facility = {FCode: "Sakthi"};
+     console.log("API HERE");
+     console.log(facilityData);
+      console.log("getFacility apiBaseURL = ", apiBaseURL)
+        const response = await wrappedFetch(`${apiBaseURL}/facilities`, {
+            method: "POST",
+            body: JSON.stringify(facilityData)
+        })
+        console.log("getFacility response = ", response)
+        if (response.status === 401) {
+            throw new Error("Unauthorized")
+        } else {
+            return response
+        }
+    } catch (error) {
+        console.error("getFacility error: ", error)
+        throw new Error("Unauthorized")
+    }
+}

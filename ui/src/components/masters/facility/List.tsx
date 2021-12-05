@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FacilityForm from "./Form";
 import custstyle  from  "../../style.module.css";
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -28,27 +29,48 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+
 export default function FacilityList(){
+
+ 
 
   const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
+  const [row, setRow] = useState(0)
+
+  // All Set all fields data
   const togglePage = () => {
     setShowForm(!showForm)
+    console.log("save here = "+editForm)
   }
-  const pageType = (editForm: boolean) => {
+  const pageType = (editForm: boolean,rowId:number) => {
     togglePage()
-    setEditForm(editForm)
+    setShowForm(!showForm)
+    setRow(rowId)
   }
-
-
-  useEffect(()=>{
-    const rows = [
-      {id: 1, code: "CHN", name: 'Chennai 1', display_name: "Chennai 1", type:"Processing Facility", status:"Active" },
-    ];
-    setData(rows)
-  }, [])
-
+  
+  
+  const validateForm = async(pValues:any ) => {
+    // API CLAL
+    // const data =  new FormData ();
+    // data.append ('a', 1);
+    // data.append ('b', 2);
+    const fName = 'sakthivel';
+    const fCode = 'FCODE';
+    const facility = await api.setFacility(
+      {a: fName, b: fCode}
+      )
+    console.log("SD");
+  }
+ 
+  useEffect(() => {
+    (async () => {
+       const facilitydata = await api.getFacility()
+      setData(facilitydata)
+    })()
+  }, [showForm])
+  
   return(
     <div>
       <React.Fragment>
@@ -59,18 +81,11 @@ export default function FacilityList(){
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
+              <Button variant="contained" onClick={()=>pageType(false,0)}>Add</Button>
             </Grid>
-            <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} Facility</DialogTitle>
-              <DialogContent dividers className={custstyle.popupheight}>
-                <FacilityForm togglePage={togglePage}/>
-              </DialogContent>
-              <DialogActions>
-                <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={togglePage}>Cancel</Button>
-                <Button variant="contained" color="primary" onClick={togglePage}>{editForm ? "Update" : "Save"}</Button>
-              </DialogActions>
-            </Dialog>
+            
+                <FacilityForm showForm={showForm} editrow={row} togglePage={togglePage}/>
+            
         </Grid>
           <div style={{ height: 400, width: '100%', marginTop: 5 }}>
           <Table size="small">
@@ -85,18 +100,18 @@ export default function FacilityList(){
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row:any) => (
+              {data?data.map((row:any) => (
                 <StyledTableRow key={row.id}>
                   <StyledTableCell>
-                    {row.code}
+                    {row.fcode}
                   </StyledTableCell>
                   <StyledTableCell>{row.name}</StyledTableCell>
-                  <StyledTableCell>{row.display_name}</StyledTableCell>
+                  <StyledTableCell>{row.displayname}</StyledTableCell>
                   <StyledTableCell>{row.type}</StyledTableCell>
-                  <StyledTableCell>{row.status}</StyledTableCell>
-                  <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                  <StyledTableCell>{row.active===1?"Yes":"No"}</StyledTableCell>
+                  <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                 </StyledTableRow>
-              ))}
+              )) : "No Facilities found!!!"}
             </TableBody>
           </Table>
         </div>
