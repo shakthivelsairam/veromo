@@ -40,3 +40,13 @@ export async function update(req, res) {
         res.status(500).json()
     }
 }
+
+export async function lookup(req, res) {
+    try {
+        const tenants = await tenantDB.lookup()
+        res.status(200).json(tenants)
+    } catch (err) {
+        console.error("controller.tenant.list - Error: " + JSON.stringify(err))
+        res.status(500).json()
+    }
+}

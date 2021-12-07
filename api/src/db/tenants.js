@@ -55,3 +55,17 @@ export async function update(tenantId, tenant) {
     }
     return null
 }
+export async function lookup() {
+  const dbPool = await db.getPool()
+  try {
+    const sqlQuery = 'SELECT id as value,name as label FROM tenants'
+    const sqlResult = await dbPool.query(sqlQuery)
+    if (sqlResult && sqlResult.length > 0) {
+      console.log("tenant details = " + JSON.stringify(sqlResult))
+      return sqlResult
+    }
+  } catch (err) {
+    console.error("db.tenants.list error = ", JSON.stringify(err))
+  }
+  return null
+}

@@ -24,5 +24,9 @@ router.route("/departments").get(departmentController.list)
 router.route("/departments").post(departmentController.add)
 router.route("/departments/:id").put(departmentController.update)
 
+// Lookup routes
+
+router.route("/tenantslookup").get(tenantController.lookup)
+
 // Export API routes
 export const apiRoutes = router

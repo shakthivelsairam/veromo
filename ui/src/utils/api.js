@@ -165,3 +165,23 @@ export async function getSingleDept(id) {
           throw new Error("Unauthorized")
       }
   }
+  export async function getLookupTenant() {
+    try {
+     
+        console.log("tenenat apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/tenantslookup`, {
+              method: "GET",
+          })
+          console.log("tenent response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("tenenat error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  

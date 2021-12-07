@@ -1,32 +1,27 @@
 import React, {useEffect, useState} from "react";
 import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
-import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography } from '@mui/material';
+import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography,Autocomplete } from '@mui/material';
 import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from '@mui/material';
 import custstyle  from  "../../style.module.css";
 import * as api from "../../../utils/api"
 
 function DepartmentForm(props: any){
  
-  
-  const [formData, setFormData] = useState({
-    drowid:0,
-    dcode:'',
-    dname:'',
-    dshortcode:'',
-    dmnemonicCode:'',
-    dsequenceno:'',
-    dtenantid:'',
-    dactive:false,
-    dprintSep:false
-  });
-
+  const [ options, setOptions ] = React.useState([]);
   const [depts, setDepts] = useState([]);
   useEffect(() => {
     clearInputs(0)
      console.log("Show form "+props.showForm)
       DeptsGet(props.editrow)
+      TenantsGet()
   }, [props.showForm])
-  
+  const TenantsGet = () => {
+    (async () => {
+        const tenants = await api.getLookupTenant()
+      console.log(tenants);
+      setOptions(tenants)
+    })()
+  }
   const DeptsGet = (rowid) => {
     (async () => {
       if (rowid!==0)
@@ -58,16 +53,11 @@ function DepartmentForm(props: any){
   const [dshortcode,setDshortcode] = useState('');	
   const [dmnemonic,setDmnemonic] = useState('');	
   const [dseqNo,setDseqNo] = useState('');		
-  const [dtenantid,setDtenantid] = useState('');	
+  const [dtenantid,setDtenantid] = useState(0);	
   const [dactive,setDactive] = useState(true);		
   const [dprintSep,setDprintSep] = useState(false);	
 
-  const handleFormChange = async(event:any) => {
-    let data = formData;
-    data[event.target.name] = event.target.value;
-    setFormData(data);
-    console.log(data);
-  }
+  
   const handleSubmit = async(event:any ) => {
     
     event.preventDefault();
@@ -100,12 +90,19 @@ function DepartmentForm(props: any){
     setDshortcode('')
     setDmnemonic('')
     setDseqNo('')
-    setDtenantid('')
+    setDtenantid(0)
     setDactive(true)
     setDprintSep(false)
   }
 
-
+  const handleFormChangeAuto = (event:any, values:any) => {
+    setDtenantid(0)
+    if (values!=null)
+    {
+      setDtenantid(values.value)
+    }
+   }
+  
     return(
         <React.Fragment>
           <Dialog fullWidth={true} maxWidth={false} open={props.showForm}>
@@ -120,7 +117,7 @@ function DepartmentForm(props: any){
               label="Dept Code"
               fullWidth
               variant="standard"
-              onChange={(e) => {setDdeptcode(e.target.value); handleFormChange(e); }}
+              onChange={(e) => {setDdeptcode(e.target.value); }}
               value={ddeptcode}
             />
           </Grid>
@@ -132,7 +129,7 @@ function DepartmentForm(props: any){
               label="Dept name"
               fullWidth
               variant="standard"
-              onChange={(e) => {setDdeptname(e.target.value); handleFormChange(e); }}
+              onChange={(e) => {setDdeptname(e.target.value); }}
               value={ddeptname}
             />
           </Grid>
@@ -144,7 +141,7 @@ function DepartmentForm(props: any){
               label="Short Code"
               fullWidth
               variant="standard"
-              onChange={(e) => {setDshortcode(e.target.value); handleFormChange(e); }}
+              onChange={(e) => {setDshortcode(e.target.value); }}
               value={dshortcode}
             />
           </Grid>
@@ -155,7 +152,7 @@ function DepartmentForm(props: any){
               label="Mnemonic Code"
               fullWidth
               variant="standard"
-              onChange={(e) => {setDmnemonic(e.target.value); handleFormChange(e); }}
+              onChange={(e) => {setDmnemonic(e.target.value);  }}
               value={dmnemonic}
             />
           </Grid>
@@ -168,33 +165,34 @@ function DepartmentForm(props: any){
               label="Sequence No"
               fullWidth
               variant="standard"
-              onChange={(e) => {setDseqNo(e.target.value); handleFormChange(e); }}
+              onChange={(e) => {setDseqNo(e.target.value);  }}
               value={dseqNo}
             />
           </Grid>
           <Grid item xs={3}>
-        <TextField
-              id="tenantid"
-              name="tenantid"
-              label="Tenant Id"
-              fullWidth
-              variant="standard"
-              onChange={(e) => {setDtenantid(e.target.value); handleFormChange(e); }}
-              value={dtenantid}
+         
+        
+            <Autocomplete
+               id="tenantid"
+              options={options}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Tenants" variant="standard" />}
+              onChange={handleFormChangeAuto}
+              
             />
           </Grid>
           <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="status" id="status" />}
               label="Active" checked={dactive}
-              onClick={(e) => {setDactive(!dactive); handleFormChange(e); }}
+              onClick={(e) => {setDactive(!dactive);  }}
             />
           </Grid>
           <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="printSeparately" id="printSeparately" />}
               label="Print separately in report"  checked={dprintSep}
-              onClick={(e) => {setDprintSep(!dprintSep); handleFormChange(e); }}
+              onClick={(e) => {setDprintSep(!dprintSep); }}
             />
           </Grid>
         </Grid>
