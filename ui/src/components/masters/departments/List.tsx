@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DepartmentForm from "./Form";
 import custstyle  from  "../../style.module.css";
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,24 +31,25 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function DepartmentList(){
 
-  const [deptData, setDeptData] = useState([] as any)
+  const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
+  const [row, setRow] = useState(0)
   const togglePage = () => {
     setShowForm(!showForm)
   }
-  const pageType = (editForm: boolean) => {
+  const pageType = (editForm: boolean,rowId:number) => {
     togglePage()
     setEditForm(editForm)
+    setRow(rowId)
   }
 
-  useEffect(()=>{
-    const rows = [
-      {id: 1, code: "HM", name: 'HEMATOLOGY', sequenceNo: 1, printSeparately: "No" },
-    {id: 2, code: "BC", name: 'BIOCHEMISTRY', sequenceNo: 2, printSeparately: "No" },
-    ];
-    setDeptData(rows)
-  }, [])
+  useEffect(() => {
+    (async () => {
+       const deptdata = await api.getDepartment()
+      setData(deptdata)
+    })()
+  }, [showForm])
 
   return(
     <div>
@@ -59,18 +61,11 @@ export default function DepartmentList(){
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
+              <Button variant="contained" onClick={()=>pageType(false,0)}>Add</Button>
             </Grid>
-            <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} Department</DialogTitle>
-              <DialogContent dividers className={custstyle.popupheight}>
-                <DepartmentForm togglePage={togglePage}/>
-              </DialogContent>
-              <DialogActions>
-                <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={togglePage}>Cancel</Button>
-                <Button variant="contained" color="primary" onClick={togglePage}>{editForm ? "Update" : "Save"}</Button>
-              </DialogActions>
-            </Dialog>
+            
+                <DepartmentForm showForm={showForm} editrow={row} togglePage={togglePage}/>
+              
         </Grid>
           <div style={{ height: 400, width: '100%', marginTop: 5 }}>
           <Table size="small">
@@ -79,22 +74,22 @@ export default function DepartmentList(){
                 <StyledTableCell>Dept Code</StyledTableCell>
                 <StyledTableCell>Dept Name</StyledTableCell>
                 <StyledTableCell>Sequence No</StyledTableCell>
+                <StyledTableCell>Active</StyledTableCell>
                 <StyledTableCell>Print Separately</StyledTableCell>
                 <StyledTableCell align="center">Action</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {deptData.map((row:any) => (
+            {data?data.map((row:any) => (
                 <StyledTableRow key={row.id}>
-                  <StyledTableCell>
-                    {row.code}
-                  </StyledTableCell>
+                  <StyledTableCell>{row.code}</StyledTableCell>
                   <StyledTableCell>{row.name}</StyledTableCell>
-                  <StyledTableCell>{row.sequenceNo}</StyledTableCell>
-                  <StyledTableCell>{row.printSeparately}</StyledTableCell>
-                  <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                  <StyledTableCell>{row.sequence_no}</StyledTableCell>
+                  <StyledTableCell>{row.active===1?"Yes":"No"}</StyledTableCell>
+                  <StyledTableCell>{row.isprintable===1?"Yes":"No"}</StyledTableCell>
+                  <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                 </StyledTableRow>
-              ))}
+              )) : "No Departments found!!!"}
             </TableBody>
           </Table>
         </div>

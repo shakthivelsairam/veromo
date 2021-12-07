@@ -116,13 +116,6 @@ function TenantForm(props: any){
     //const facility = await api.setFacility(data)
   }
  
-  const handleEmailChange = async(event:any ) => {
-    // setEmail(event.target.value)
-    // console.log("Email Set");
-    // console.log(email);
-    
-  };
-
   const handleSubmit = async(event:any ) => {
     
     event.preventDefault();

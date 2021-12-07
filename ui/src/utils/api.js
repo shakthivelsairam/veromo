@@ -88,8 +88,6 @@ export async function getSingleFacility(id) {
   
 export async function setFacility(facilityData) {
   try {
-     //const facility = {FCode: "Sakthi"};
-     console.log("API HERE");
      console.log(facilityData);
       console.log("getFacility apiBaseURL = ", apiBaseURL)
         const response = await wrappedFetch(`${apiBaseURL}/facilities`, {
@@ -107,3 +105,63 @@ export async function setFacility(facilityData) {
         throw new Error("Unauthorized")
     }
 }
+
+// Department
+
+export async function getDepartment() {
+    try {
+     
+        console.log("getDepartment apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/departments`, {
+              method: "GET",
+          })
+          console.log("getDepartment response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getDepartment error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+export async function getSingleDept(id) {
+    try {
+     
+        console.log("getSingleDept apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/departments/`+id, {
+              method: "GET",
+          })
+          console.log("getSingleDept response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getSingleDept error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  export async function setDepartment(deptData) {
+    try {
+        console.log("setDepartment apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/departments`, {
+              method: "POST",
+              body: JSON.stringify(deptData)
+          })
+          console.log("setDepartment response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("setDepartment error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
