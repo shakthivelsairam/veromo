@@ -5,6 +5,7 @@ const router = express.Router()
 import * as tenantController from "../controllers/tenants"
 import * as facilityController from "../controllers/facility"
 import * as departmentController from "../controllers/department"
+import * as sampleController from "../controllers/sample"
 
 // tenant routes
 router.route("/tenants/:id").get(tenantController.get)
@@ -23,6 +24,13 @@ router.route("/departments/:id").get(departmentController.get)
 router.route("/departments").get(departmentController.list)
 router.route("/departments").post(departmentController.add)
 router.route("/departments/:id").put(departmentController.update)
+
+//Sample routes
+router.route("/samples/:id").get(sampleController.get)
+router.route("/samples").get(sampleController.list)
+router.route("/samples").post(sampleController.add)
+router.route("/samples/:id").put(sampleController.update)
+
 
 // Lookup routes
 

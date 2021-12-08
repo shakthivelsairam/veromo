@@ -165,6 +165,70 @@ export async function getSingleDept(id) {
           throw new Error("Unauthorized")
       }
   }
+  
+  // Samples
+
+
+  export async function getSample() {
+    try {
+     
+        console.log("getSample apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/samples`, {
+              method: "GET",
+          })
+          console.log("getSample response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getSample error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+export async function getSingleSample(id) {
+    try {
+     
+        console.log("getSingleSample apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/samples/`+id, {
+              method: "GET",
+          })
+          console.log("getSingleSample response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getSingleSample error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  export async function setSample(deptData) {
+    try {
+        console.log("setSample apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/samples`, {
+              method: "POST",
+              body: JSON.stringify(deptData)
+          })
+          console.log("setSample response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("setSample error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+   // Lookup data API's
+
   export async function getLookupTenant() {
     try {
      
