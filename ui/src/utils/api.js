@@ -227,6 +227,67 @@ export async function getSingleSample(id) {
       }
   }
 
+  // Container
+
+
+  export async function getContainer() {
+    try {
+     
+        console.log("getContainer apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/containers`, {
+              method: "GET",
+          })
+          console.log("getContainer response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getContainer error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+export async function getSingleContainer(id) {
+    try {
+     
+        console.log("getSingleContainer apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/containers/`+id, {
+              method: "GET",
+          })
+          console.log("getSingleContainer response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getSingleContainer error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  export async function setContainer(deptData) {
+    try {
+        console.log("setContainer apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/containers`, {
+              method: "POST",
+              body: JSON.stringify(deptData)
+          })
+          console.log("setContainer response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("setContainer error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
    // Lookup data API's
 
   export async function getLookupTenant() {

@@ -6,6 +6,8 @@ import * as tenantController from "../controllers/tenants"
 import * as facilityController from "../controllers/facility"
 import * as departmentController from "../controllers/department"
 import * as sampleController from "../controllers/sample"
+import * as containerController from "../controllers/container"
+
 
 // tenant routes
 router.route("/tenants/:id").get(tenantController.get)
@@ -31,6 +33,12 @@ router.route("/samples").get(sampleController.list)
 router.route("/samples").post(sampleController.add)
 router.route("/samples/:id").put(sampleController.update)
 
+
+//Containers routes
+router.route("/containers/:id").get(containerController.get)
+router.route("/containers").get(containerController.list)
+router.route("/containers").post(containerController.add)
+router.route("/containers/:id").put(containerController.update)
 
 // Lookup routes
 

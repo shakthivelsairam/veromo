@@ -43,7 +43,7 @@ export async function add(sample) {
       }
       else if (sample.rowid===0)
       {
-        const sqlQuery = 'INSERT INTO samples (name,code,tenant_id,created_by,updated_by) values (?,?,?,?,?)'
+        const sqlQuery = 'INSERT INTO samples (name,code,active,tenant_id,created_by,updated_by) values (?,?,?,?,?)'
         const sqlResult = await dbPool.query(sqlQuery, [sample.samplename,sample.samplecode,sample.sampleactive,sample.sampletenant, "system", "system"])
         console.log("db.samples.add sqlResult = " + JSON.stringify(sqlResult))
         return sqlResult
