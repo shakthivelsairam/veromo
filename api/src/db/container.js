@@ -43,8 +43,8 @@ export async function add(container) {
       }
       else if (container.rowid===0)
       {
-        const sqlQuery = 'INSERT INTO containers (name,code,short_code,active,tenant_id,created_by,updated_by) values (?,?,?,?,?)'
-        const sqlResult = await dbPool.query(sqlQuery, [container.containername,container.containercode,container.containeractive,container.containershortcode,container.containertenant, "system", "system"])
+        const sqlQuery = 'INSERT INTO containers (name,code,short_code,active,tenant_id,created_by,updated_by) values (?,?,?,?,?,?,?)'
+        const sqlResult = await dbPool.query(sqlQuery, [container.containername,container.containercode,container.containershortcode,container.containeractive,container.containertenant, "system", "system"])
         console.log("db.containers.add sqlResult = " + JSON.stringify(sqlResult))
         return sqlResult
       }
