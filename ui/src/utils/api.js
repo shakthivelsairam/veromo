@@ -349,6 +349,88 @@ export async function getSingleMethod(id) {
       }
   }
 
+  export async function setMetaType(metadata) {
+    try {
+     
+        console.log("tenenat apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/metatypes`, {
+            method: "POST",
+            body: JSON.stringify(metadata)
+          })
+          console.log("tenent response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("tenenat error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  
+  
+  export async function getMetaTypes() {
+    try {
+     
+        console.log("getMetaTypes apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/metatypes`, {
+              method: "GET",
+          })
+          console.log("getMetaTypes response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getMetaTypes error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  
+  export async function setMetaData(metadata) {
+    try {
+     
+        console.log("setMetaData apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/metadatas`, {
+            method: "POST",
+            body: JSON.stringify(metadata)
+          })
+          console.log("setMetaData response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("setMetaData error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  
+  export async function getMetaData() {
+    try {
+     
+        console.log("getMetaData apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/metadatas`, {
+              method: "GET",
+          })
+          console.log("getMetaData response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getMetaData error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
    // Lookup data API's
 
   export async function getLookupTenant() {
@@ -370,4 +452,27 @@ export async function getSingleMethod(id) {
           throw new Error("Unauthorized")
       }
   }
+
+  // Lookup meta_types
+
+    export async function getLookupMetaTypes() {
+    try {
+     
+        console.log("Meta types apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/metatypeslookup`, {
+              method: "GET",
+          })
+          console.log("tenent response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("tenenat error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+     
   

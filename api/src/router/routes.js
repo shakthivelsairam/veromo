@@ -8,6 +8,7 @@ import * as departmentController from "../controllers/department"
 import * as sampleController from "../controllers/sample"
 import * as containerController from "../controllers/container"
 import * as methodController from "../controllers/method"
+import * as metatypeController from "../controllers/metatype"
 
 
 // tenant routes
@@ -47,10 +48,18 @@ router.route("/methods").get(methodController.list)
 router.route("/methods").post(methodController.add)
 router.route("/methods/:id").put(methodController.update)
 
+// Metattypes Routes
+router.route("/metatypes").post(metatypeController.add)
+router.route("/metatypes").get(metatypeController.list)
+
+// Meta data Routes
+router.route("/metadatas").post(metatypeController.addmeta)
+router.route("/metadatas").get(metatypeController.listmeta)
+
 
 // Lookup routes
 
 router.route("/tenantslookup").get(tenantController.lookup)
-
+router.route("/metatypeslookup").get(metatypeController.lookup)
 // Export API routes
 export const apiRoutes = router
