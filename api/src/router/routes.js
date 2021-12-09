@@ -7,6 +7,7 @@ import * as facilityController from "../controllers/facility"
 import * as departmentController from "../controllers/department"
 import * as sampleController from "../controllers/sample"
 import * as containerController from "../controllers/container"
+import * as methodController from "../controllers/method"
 
 
 // tenant routes
@@ -39,6 +40,13 @@ router.route("/containers/:id").get(containerController.get)
 router.route("/containers").get(containerController.list)
 router.route("/containers").post(containerController.add)
 router.route("/containers/:id").put(containerController.update)
+
+//Containers routes
+router.route("/methods/:id").get(methodController.get)
+router.route("/methods").get(methodController.list)
+router.route("/methods").post(methodController.add)
+router.route("/methods/:id").put(methodController.update)
+
 
 // Lookup routes
 

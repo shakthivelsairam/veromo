@@ -288,6 +288,67 @@ export async function getSingleContainer(id) {
       }
   }
 
+  // Metho
+
+
+  export async function getMethod() {
+    try {
+     
+        console.log("getMethod apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/methods`, {
+              method: "GET",
+          })
+          console.log("getMethod response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getMethod error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+export async function getSingleMethod(id) {
+    try {
+     
+        console.log("getSingleMethod apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/methods/`+id, {
+              method: "GET",
+          })
+          console.log("getSingleMethod response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getSingleMethod error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  export async function setMethod(deptData) {
+    try {
+        console.log("setMethod apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/methods`, {
+              method: "POST",
+              body: JSON.stringify(deptData)
+          })
+          console.log("setMethod response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("setMethod error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
    // Lookup data API's
 
   export async function getLookupTenant() {
