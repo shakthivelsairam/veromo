@@ -5,25 +5,38 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from
 import custstyle  from  "../../style.module.css";
 import * as api from "../../../utils/api"
 
-function DepartmentForm(props: any){
+function DepartmentForm(props:any){
  
-  const [ options, setOptions ] = React.useState([]);
+    const [ options, setOptions ] = React.useState([{label:"",value:0}]);
+  const [selectedtenantId, setSelectedtenantId] = useState(0);
   const [depts, setDepts] = useState([]);
+  const [drowid,setDrowid] = useState(0);	
+  const [ddeptcode,setDdeptcode] = useState('');	
+  const [ddeptname,setDdeptname] = useState('');	
+  const [dshortcode,setDshortcode] = useState('');	
+  const [dmnemonic,setDmnemonic] = useState('');	
+  const [dseqNo,setDseqNo] = useState('');		
+  const [dtenantid,setDtenantid] = useState({label:"",value:0});	
+  const [dactive,setDactive] = useState(true);		
+  const [dprintSep,setDprintSep] = useState(false);	
+
   useEffect(() => {
-    clearInputs(0)
-     console.log("Show form "+props.showForm)
-      DeptsGet(props.editrow)
-      TenantsGet()
+    clearInputs(0);
+     //console.log("Show form "+props.showForm)
+     (async () => {
+        
+        await TenantsGet()
+        await DeptsGet(props.editrow)
+    })()
+     
   }, [props.showForm])
-  const TenantsGet = () => {
-    (async () => {
+  const TenantsGet = async() => {
         const tenants = await api.getLookupTenant()
       console.log(tenants);
       setOptions(tenants)
-    })()
   }
-  const DeptsGet = (rowid) => {
-    (async () => {
+  const DeptsGet = async(rowid) => {
+    
       if (rowid!==0)
       {
         const deptData = await api.getSingleDept(rowid)
@@ -35,30 +48,33 @@ function DepartmentForm(props: any){
         setDshortcode(deptData.short_code)
         setDmnemonic(deptData.mnemonicCode)
         setDseqNo(deptData.sequence_no)
-        setDtenantid(deptData.tenant_id)
+        //setDtenantid(deptData.tenant_id)
+
+        // console.log(options.find(v => v.value[0]));
+        console.log("optiobs")
+        console.log(options)
+        const ee = options.find(v => v.value==deptData.tenant_id)
+        console.log("ee")
+        console.log(ee)
+        if (ee) 
+        {
+          setDtenantid(ee)
+        }
+        //{Options.find(v => v.label[0])} 
+        
+        // setDtenantid({label:"Sai",value:2});
         setDactive(deptData.active)
         setDprintSep(deptData.isprintable)			
-       						
 
       }
       
       console.log("New two = "+rowid);
-     
-
-    })()
+   
   }
-  const [drowid,setDrowid] = useState(0);	
-  const [ddeptcode,setDdeptcode] = useState('');	
-  const [ddeptname,setDdeptname] = useState('');	
-  const [dshortcode,setDshortcode] = useState('');	
-  const [dmnemonic,setDmnemonic] = useState('');	
-  const [dseqNo,setDseqNo] = useState('');		
-  const [dtenantid,setDtenantid] = useState(0);	
-  const [dactive,setDactive] = useState(true);		
-  const [dprintSep,setDprintSep] = useState(false);	
+
 
   
-  const handleSubmit = async(event:any ) => {
+  const handleSubmit = async(event:any) => {
     
     event.preventDefault();
     var deptdata = {
@@ -90,16 +106,16 @@ function DepartmentForm(props: any){
     setDshortcode('')
     setDmnemonic('')
     setDseqNo('')
-    setDtenantid(0)
+    // setDtenantid(0)
     setDactive(true)
     setDprintSep(false)
   }
 
   const handleFormChangeAuto = (event:any, values:any) => {
-    setDtenantid(0)
+    // setDtenantid(0)
     if (values!=null)
     {
-      setDtenantid(values.value)
+      setDtenantid(values)
     }
    }
   
@@ -178,6 +194,7 @@ function DepartmentForm(props: any){
               sx={{ width: 300 }}
               renderInput={(params) => <TextField {...params} label="Tenants" variant="standard" />}
               onChange={handleFormChangeAuto}
+              value={dtenantid}
               
             />
           </Grid>
