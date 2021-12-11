@@ -9,7 +9,6 @@ function DepartmentForm(props:any){
  
     const [ options, setOptions ] = React.useState([{label:"",value:0}]);
   const [selectedtenantId, setSelectedtenantId] = useState(0);
-  const [depts, setDepts] = useState([]);
   const [drowid,setDrowid] = useState(0);	
   const [ddeptcode,setDdeptcode] = useState('');	
   const [ddeptname,setDdeptname] = useState('');	
@@ -48,21 +47,12 @@ function DepartmentForm(props:any){
         setDshortcode(deptData.short_code)
         setDmnemonic(deptData.mnemonicCode)
         setDseqNo(deptData.sequence_no)
-        //setDtenantid(deptData.tenant_id)
-
-        // console.log(options.find(v => v.value[0]));
-        console.log("optiobs")
-        console.log(options)
-        const ee = options.find(v => v.value==deptData.tenant_id)
-        console.log("ee")
-        console.log(ee)
+        setSelectedtenantId(deptData.tenant_id)
+        const ee = options.find(v => v.value===deptData.tenant_id)
         if (ee) 
         {
           setDtenantid(ee)
         }
-        //{Options.find(v => v.label[0])} 
-        
-        // setDtenantid({label:"Sai",value:2});
         setDactive(deptData.active)
         setDprintSep(deptData.isprintable)			
 
@@ -84,7 +74,7 @@ function DepartmentForm(props:any){
       'dshortcode': dshortcode,
       'dmnemonic': dmnemonic,
       'dseqNo': dseqNo,
-      'dtenantid': dtenantid,
+      'dtenantid': selectedtenantId,
       'dactive': dactive,
       'dprintSep': dprintSep
 
@@ -106,7 +96,7 @@ function DepartmentForm(props:any){
     setDshortcode('')
     setDmnemonic('')
     setDseqNo('')
-    // setDtenantid(0)
+    setSelectedtenantId(0)
     setDactive(true)
     setDprintSep(false)
   }
@@ -116,6 +106,7 @@ function DepartmentForm(props:any){
     if (values!=null)
     {
       setDtenantid(values)
+      setSelectedtenantId(values.value)
     }
    }
   
