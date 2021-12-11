@@ -79,7 +79,7 @@ export async function addmeta(metadata) {
 export async function listmeta() {
   const dbPool = await db.getPool()
   try {
-    const sqlQuery = `SELECT mt.name as typename,md.code,md.code,md.name,md.active FROM meta_data md,meta_types mt where md.type=mt.id`
+    const sqlQuery = `SELECT md.id as id, mt.name as typename,md.code,md.code,md.name,md.active FROM meta_data md,meta_types mt where md.type=mt.id`
     const sqlResult = await dbPool.query(sqlQuery)
     if (sqlResult && sqlResult.length > 0) {
       console.log("metatype details = " + JSON.stringify(sqlResult))
@@ -87,6 +87,20 @@ export async function listmeta() {
     }
   } catch (err) {
     console.error("db.metatype.list error = ", JSON.stringify(err))
+  }
+  return null
+}
+export async function get(metadataid) {
+  const dbPool = await db.getPool()
+  try {
+    const sqlQuery = `SELECT * FROM meta_data WHERE id=?`
+    const sqlResult = await dbPool.query(sqlQuery, [metadataid])
+    if (sqlResult && sqlResult.length > 0) {
+      console.log("tenant details = " + JSON.stringify(sqlResult))
+      return sqlResult[0]
+    }
+  } catch (err) {
+    console.error("db.meta_data.get error = ", JSON.stringify(err))
   }
   return null
 }

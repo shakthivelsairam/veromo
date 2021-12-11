@@ -48,3 +48,13 @@ export async function listmeta(req, res) {
         res.status(500).json()
     }
 }
+export async function get(req, res) {
+    try {
+        const tenant = await metatypeDB.get(req.params.id)
+        res.status(200).json(tenant)
+    } catch (err) {
+        console.error("controller.tenant.get - Error: " + JSON.stringify(err))
+        res.status(500).json()
+    }
+}
+

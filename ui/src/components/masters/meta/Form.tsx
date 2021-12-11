@@ -14,30 +14,49 @@ const Input = styled('input')({
 function MetaDataForm(props: any){
 
   const [rowid,setRowid] = useState(0);	
-  const [type,setType] = useState(0);	
+  const [type,setType] = useState({label:"",value:0});
   const [code,setCode] = useState('');	
   const [name,setName] = useState('');	
   const [active,setActive] = useState(true);	
-  const [ options, setOptions ] = React.useState([]);
+  const [ options, setOptions ] = React.useState([{label:"",value:0}]);
+  const [sltType,setSltType] = useState(0);		
   
   useEffect(() => {
     clearInputs(true)
-     console.log("Show form "+props.showFormMetadata)
-      //MethodGet(props.editrow)
       GetMetaTypes()
+      LoadSingleMetadata(props.editmetadata)
   }, [props.showFormMetadata])
   const GetMetaTypes = () => {
     (async () => {
         const tenants = await api.getLookupMetaTypes()
-      console.log(tenants);
       setOptions(tenants)
     })()
   }
+  const LoadSingleMetadata = async(rowid) => {
+    
+    if (rowid!==0)
+    {
+      const metaData = await api.getSingleMetadata(rowid)
+      setRowid(rowid);
+      setCode(metaData.code);
+      setName(metaData.name);
+      setActive(false);
+      if (metaData.active===1) setActive(true);
+       setSltType(metaData.type)
+        const ee = options.find(v => v.value===metaData.type)
+        if (ee) 
+        {
+          setType(ee)
+        }
+    }
+     
+}
   const clearInputs = (flag) => {
     setRowid(0);
-    setType(0);
+    setSltType(0);
     setCode('');
     setName('');
+    setType({label:"",value:0});
     setActive(flag);
   }
   const handleSubmit = async(event:any ) => {
@@ -45,28 +64,23 @@ function MetaDataForm(props: any){
     event.preventDefault();
     var sampledata = {
       'rowid':rowid,
-      'type': type,
+      'type': sltType,
       'code': code,
       'name': name,
       'active': active
     }
-    console.log("data");
     console.log(sampledata);
     const metatypes = await api.setMetaData(sampledata)
-    console.log("API Response");
     console.log(metatypes);
-    console.log("API Response Nds here");
     clearInputs(0)
     props.togglePageMeta()
   }
 
   const handleFormChangeAuto = (event:any, values:any) => {
-    setType(0)
     if (values!=null)
     {
-      //setTenant(values.value)
-      setType(values.value);
-
+      setSltType(values.value)
+      setType(values);
     }
    }
 
@@ -84,7 +98,7 @@ function MetaDataForm(props: any){
            sx={{ width: 300 }}
            renderInput={(params) => <TextField {...params} label="Meta Type" variant="standard"/>}
            onChange={handleFormChangeAuto}
-           
+           value={type}
            
          />
           </Grid>

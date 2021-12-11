@@ -53,8 +53,10 @@ router.route("/metatypes").post(metatypeController.add)
 router.route("/metatypes").get(metatypeController.list)
 
 // Meta data Routes
+router.route("/metadatas/:id").get(metatypeController.get)
 router.route("/metadatas").post(metatypeController.addmeta)
 router.route("/metadatas").get(metatypeController.listmeta)
+
 
 
 // Lookup routes

@@ -431,6 +431,26 @@ export async function getSingleMethod(id) {
           throw new Error("Unauthorized")
       }
   }
+  export async function getSingleMetadata(id) {
+    try {
+     
+        console.log("getSingleMetadata apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/metadatas/`+id, {
+              method: "GET",
+          })
+          console.log("getSingleMetadata response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getSingleMetadata error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  
    // Lookup data API's
 
   export async function getLookupTenant() {

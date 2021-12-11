@@ -84,7 +84,7 @@ export default function TenantList(){
               <Button variant="contained" onClick={()=>metaType(false,0)}>Add</Button>
             </Grid>
             <MetaTypes showForm={showForm} editrow={row} togglePage={togglePage}/>
-            <MetaDataForm showFormMetadata={showFormMetadata} editmetadata={row} togglePageMeta={togglePageMeta}/>
+            <MetaDataForm showFormMetadata={showFormMetadata} editmetadata={metaRow} togglePageMeta={togglePageMeta}/>
           
         </Grid>
           <div style={{ height: 400, width: '100%', marginTop: 5 }}>
@@ -105,7 +105,7 @@ export default function TenantList(){
                   <StyledTableCell>{row.code}</StyledTableCell>
                   <StyledTableCell>{row.name}</StyledTableCell>
                   <StyledTableCell>{row.active===1?"Active":"In-Active"}</StyledTableCell>
-                  <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                  <StyledTableCell align="center"><Button size="small" onClick={()=>metaType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                 </StyledTableRow>
               )) : "No Method record found!!!"}
             </TableBody>
