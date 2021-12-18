@@ -6,8 +6,8 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TenantForm from "./Form";
-import custstyle  from  "../../style.module.css";
 import * as api from "../../../utils/api"
+import set from "date-fns/fp/set/index";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,18 +34,46 @@ export default function TenantList(){
   const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
+  const [tenantId, setTenantId] = useState(0)
+  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false)
   const togglePage = () => {
     setShowForm(!showForm)
   }
-  const pageType = (editForm: boolean) => {
+
+  const closeForm = async (refresh: boolean) => {
+    togglePage()
+    if (refresh) {
+      await loadTenants()
+    }
+  }
+
+  const pageType = (editForm: boolean, tenantId: number) => {
     togglePage()
     setEditForm(editForm)
+    setTenantId(tenantId)
+  }
+
+  const deleteTenant = async (tenantId: number) => {
+    setTenantId(tenantId)
+    setOpenDeleteConfirm(true)
+  }
+
+  const onCloseDeleteConfirm = async () => {
+    const deleteResult = await api.deleteTenant(tenantId)
+    if (deleteResult && deleteResult.status === "success") {
+      loadTenants()
+    }
+    setOpenDeleteConfirm(false)
+  }
+
+  const loadTenants = async () => {
+    const tenants = await api.getTenants()
+    setData(tenants)
   }
 
   useEffect(() => {
     (async () => {
-      const tenants = await api.getTenants()
-      setData(tenants)
+      loadTenants()
     })()
   }, [])
 
@@ -59,19 +87,28 @@ export default function TenantList(){
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
+              <Button variant="contained" onClick={()=>pageType(false, 0)}>Add</Button>
             </Grid>
-            <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} Tenant</DialogTitle>
-              <DialogContent dividers className={custstyle.popupheight}>
-                <TenantForm togglePage={togglePage}/>
-              </DialogContent>
-              <DialogActions>
-                <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={togglePage}>Cancel</Button>
-                <Button variant="contained" color="primary" onClick={togglePage}>{editForm ? "Update" : "Save"}</Button>
-              </DialogActions>
-            </Dialog>
         </Grid>
+        <div>
+          <TenantForm showForm={showForm} editForm={editForm} tenantId={tenantId} onClose={closeForm} />
+          <Dialog
+            sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+            maxWidth="xs"
+            open={openDeleteConfirm}
+          >
+            <DialogTitle>Delete Confirmation</DialogTitle>
+            <DialogContent dividers>
+              Are you sure you want to delete?
+            </DialogContent>
+            <DialogActions>
+              <Button autoFocus onClick={() => setOpenDeleteConfirm(false)}>
+                No
+              </Button>
+              <Button onClick={() => onCloseDeleteConfirm()}>Yes</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
           <div style={{ height: 400, width: '100%', marginTop: 5 }}>
           <Table size="small">
             <TableHead>
@@ -91,8 +128,8 @@ export default function TenantList(){
                   </StyledTableCell>
                   <StyledTableCell>{row.name}</StyledTableCell>
                   <StyledTableCell>{row.display_name}</StyledTableCell>
-                  <StyledTableCell>{row.status}</StyledTableCell>
-                  <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                  <StyledTableCell>{row.active ? "Active" : "Inactive"}</StyledTableCell>
+                  <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true, row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small" onClick={()=>deleteTenant(row.id)}><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

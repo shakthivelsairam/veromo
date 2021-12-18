@@ -26,23 +26,23 @@ let apiBaseURL = env.getBackendAPI() + "/api/v1"
     })
   }
   
-  export async function getTenants() {
-    try {
-        console.log("getTenants apiBaseURL = ", apiBaseURL)
-          const response = await wrappedFetch(`${apiBaseURL}/tenants`, {
-              method: "GET",
-          })
-          console.log("getTenants response = ", response)
-          if (response.status === 401) {
-              throw new Error("Unauthorized")
-          } else {
-              return response.json()
-          }
-      } catch (error) {
-          console.error("getTenants error: ", error)
-          throw new Error("Unauthorized")
-      }
-  }
+export async function getTenants() {
+  try {
+      console.log("getTenants apiBaseURL = ", apiBaseURL)
+        const response = await wrappedFetch(`${apiBaseURL}/tenants`, {
+            method: "GET",
+        })
+        console.log("getTenants response = ", response)
+        if (response.status === 401) {
+            throw new Error("Unauthorized")
+        } else {
+            return response.json()
+        }
+    } catch (error) {
+        console.error("getTenants error: ", error)
+        throw new Error("Unauthorized")
+    }
+}
 
 // Facility API
 
@@ -688,3 +688,131 @@ export async function setInstrumentData(metadata) {
           throw new Error("Unauthorized")
       }
   }
+
+export async function getTenant(tenantId) {
+    try {
+        console.log("getTenants apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/tenants/${tenantId}`, {
+              method: "GET",
+          })
+          console.log("getTenants response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+      } catch (error) {
+          console.error("getTenants error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+export async function saveTenant(tenantDetails) {
+    try {
+        console.log("saveTenant apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/tenants`, {
+              method: "POST",
+              body: JSON.stringify(tenantDetails)
+          })
+          console.log("saveTenant response = ", response)
+          if (response.status >= 200 && response.status < 299) {
+              return {status:"success", message:response.json()}
+          } else {
+            return {status:"error", message:response.json()}
+          }
+      } catch (error) {
+          console.error("saveTenant error: ", error)
+          return {status:"error"}
+      }
+  }
+
+  export async function updateTenant(tenantId, tenantDetails) {
+    try {
+        console.log("updateTenant apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/tenants/${tenantId}`, {
+              method: "PUT",
+              body: JSON.stringify(tenantDetails)
+          })
+          console.log("updateTenant response = ", response)
+          if (response.status >= 200 && response.status < 299) {
+            return {status:"success", message:response.json()}
+        } else {
+          return {status:"error", message:response.json()}
+        }
+    } catch (error) {
+        console.error("updateTenant error: ", error)
+        return {status:"error"}
+    }
+  }
+
+  export async function deleteTenant(tenantId) {
+    try {
+        console.log("deleteTenant apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/tenants/${tenantId}`, {
+              method: "DELETE",
+          })
+          console.log("deleteTenant response = ", response)
+          if (response.status >= 200 && response.status < 299) {
+            return {status:"success", message:response.json()}
+        } else {
+          return {status:"error", message:response.json()}
+        }
+    } catch (error) {
+        console.error("deleteTenant error: ", error)
+        return {status:"error"}
+    }
+  }
+
+export async function getAllCountries() {
+  try {
+      console.log("getAllCountries apiBaseURL = ", apiBaseURL)
+        const response = await wrappedFetch(`${apiBaseURL}/countries`, {
+            method: "GET",
+        })
+        console.log("getAllCountries response = ", response)
+        if (response.status === 401) {
+            throw new Error("Unauthorized")
+        } else {
+            return response.json()
+        }
+    } catch (error) {
+        console.error("getAllCountries error: ", error)
+        throw new Error("Unauthorized")
+    }
+}
+
+export async function getAllStates() {
+  try {
+      console.log("getAllStates apiBaseURL = ", apiBaseURL)
+        const response = await wrappedFetch(`${apiBaseURL}/states`, {
+            method: "GET",
+        })
+        console.log("getAllStates response = ", response)
+        if (response.status === 401) {
+            throw new Error("Unauthorized")
+        } else {
+            return response.json()
+        }
+    } catch (error) {
+        console.error("getAllStates error: ", error)
+        throw new Error("Unauthorized")
+    }
+}
+
+export async function getAllCities() {
+  try {
+      console.log("getAllCities apiBaseURL = ", apiBaseURL)
+        const response = await wrappedFetch(`${apiBaseURL}/cities`, {
+            method: "GET",
+        })
+        console.log("getAllCities response = ", response)
+        if (response.status === 401) {
+            throw new Error("Unauthorized")
+        } else {
+            return response.json()
+        }
+    } catch (error) {
+        console.error("getAllCities error: ", error)
+        throw new Error("Unauthorized")
+    }
+}

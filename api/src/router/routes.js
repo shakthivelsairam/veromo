@@ -11,13 +11,19 @@ import * as methodController from "../controllers/method"
 import * as metatypeController from "../controllers/metatype"
 import * as instrumentDataController from "../controllers/instrument"
 import * as serviceController from "../controllers/service"
-
+import * as commonController from "../controllers/common"
 
 // tenant routes
 router.route("/tenants/:id").get(tenantController.get)
 router.route("/tenants").get(tenantController.list)
 router.route("/tenants").post(tenantController.add)
 router.route("/tenants/:id").put(tenantController.update)
+router.route("/tenants/:id").delete(tenantController.remove)
+
+// common routes
+router.route("/countries").get(commonController.getAllCountries)
+router.route("/states").get(commonController.getAllStates)
+router.route("/cities").get(commonController.getAllCities)
 
 // Facility routes
 router.route("/facilities/:id").get(facilityController.get)
