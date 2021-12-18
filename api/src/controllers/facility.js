@@ -40,3 +40,12 @@ export async function update(req, res) {
         res.status(500).json()
     }
 }
+export async function lookup(req, res) {
+    try {
+        const metatypes = await facilityDB.lookup()
+        res.status(200).json(metatypes)
+    } catch (err) {
+        console.error("controller.facilityDB.list - Error: " + JSON.stringify(err))
+        res.status(500).json()
+    }
+}

@@ -451,6 +451,135 @@ export async function getSingleMethod(id) {
       }
   }
   
+
+  // Instrument data
+  export async function getInstrumentData() {
+    try {
+     
+        console.log("getInstrumentData apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/instrumentdata`, {
+              method: "GET",
+          })
+          console.log("getInstrumentData response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getInstrumentData error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+// Set instrument data
+export async function setInstrumentData(metadata) {
+    try {
+     
+        console.log("setMetaData apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/instrumentdata`, {
+            method: "POST",
+            body: JSON.stringify(metadata)
+          })
+          console.log("setMetaData response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("setMetaData error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+    // get single instrument data
+  export async function getSingleInstrumentData(id) {
+    try {
+     
+        console.log("getSingleInstrumentData apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/instrumentdata/`+id, {
+              method: "GET",
+          })
+          console.log("getSingleInstrumentData response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getSingleInstrumentData error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  
+
+  // Instrument type
+  export async function getInstrumentType() {
+    try {
+     
+        console.log("getInstrumentData apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/instrumenttype`, {
+              method: "GET",
+          })
+          console.log("getInstrumentData response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getInstrumentData error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  
+
+
+  export async function getSingleInstrumentType(id) {
+    try {
+     
+        console.log("getSingleInstrumentdata apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/instrumenttype/`+id, {
+              method: "GET",
+          })
+          console.log("getSingleInstrumentdata response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getSingleInstrumentdata error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+  
+  export async function setInstrumentType(metadata) {
+    try {
+     
+        console.log("setInstrumentType apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/instrumenttype`, {
+            method: "POST",
+            body: JSON.stringify(metadata)
+          })
+          console.log("setInstrumentType response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("setMetaData error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
    // Lookup data API's
 
   export async function getLookupTenant() {
@@ -495,4 +624,67 @@ export async function getSingleMethod(id) {
       }
   }
      
-  
+    // Lookup instrument types
+
+    export async function getLookupInstrumentType() {
+        try {
+         
+            console.log("Meta types apiBaseURL = ", apiBaseURL)
+              const response = await wrappedFetch(`${apiBaseURL}/instrumenttypelookup`, {
+                  method: "GET",
+              })
+              console.log("tenent response = ", response)
+              if (response.status === 401) {
+                  throw new Error("Unauthorized")
+              } else {
+                  return response.json()
+              }
+             
+          } catch (error) {
+              console.error("tenenat error: ", error)
+              throw new Error("Unauthorized")
+          }
+      }
+         
+  // Lookup Faility 
+  export async function getLookupFacility() {
+    try {
+     
+        console.log("Meta types apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/facilitylookup`, {
+              method: "GET",
+          })
+          console.log("tenent response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("tenenat error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+     
+  // Look up Service Group
+
+   export async function getLookupServiceGroup() {
+    try {
+     
+        console.log("servicelookup types apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/servicelookup`, {
+              method: "GET",
+          })
+          console.log("servicelookup response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("servicelookup error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }

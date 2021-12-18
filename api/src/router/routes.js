@@ -9,6 +9,8 @@ import * as sampleController from "../controllers/sample"
 import * as containerController from "../controllers/container"
 import * as methodController from "../controllers/method"
 import * as metatypeController from "../controllers/metatype"
+import * as instrumentDataController from "../controllers/instrument"
+import * as serviceController from "../controllers/service"
 
 
 // tenant routes
@@ -59,9 +61,24 @@ router.route("/metadatas").get(metatypeController.listmeta)
 
 
 
+router.route("/instrumentdata").post(instrumentDataController.add)
+router.route("/instrumentdata/:id").get(instrumentDataController.get)
+router.route("/instrumentdata").get(instrumentDataController.list)
+
+router.route("/instrumenttype/:id").get(instrumentDataController.getType)
+router.route("/instrumenttype").get(instrumentDataController.getTypeList)
+router.route("/instrumenttype").post(instrumentDataController.addType)
+
+
+
+
+
 // Lookup routes
 
 router.route("/tenantslookup").get(tenantController.lookup)
 router.route("/metatypeslookup").get(metatypeController.lookup)
+router.route("/instrumenttypelookup").get(instrumentDataController.lookup)
+router.route("/facilitylookup").get(facilityController.lookup)
+router.route("/servicelookup").get(serviceController.lookup)
 // Export API routes
 export const apiRoutes = router
