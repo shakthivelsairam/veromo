@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AnalyteMasterForm from "./Form";
 import custstyle  from  "../../style.module.css";
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,21 +34,23 @@ export default function AnalyteMasterList(){
   const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
+  const [row, setRow] = useState(0)
   const togglePage = () => {
     setShowForm(!showForm)
   }
-  const pageType = (editForm: boolean) => {
+  const pageType = (editForm: boolean,rowId:number) => {
     togglePage()
     setEditForm(editForm)
+    setRow(rowId)
   }
 
-  useEffect(()=>{
-    const rows = [
-      {id:1, code: "MS002", billing_name: "HBV-DNA (OS)", report_name: 'HBV-DNA detection by PCR', test_performed:"Inhouse", dept: "Biochemistry", status: "Active" },
-      {id:2, code: "IM0096", billing_name: "	1.25 VD (OS)", report_name: '1.25 Dihydroxy Vitamin D', test_performed:"Outsource", dept: "Hematology", status: "Inactive" },
-    ];
-    setData(rows)
-  }, [])
+  useEffect(() => {
+    (async () => {
+       const sampledata = await api.getAnalyte()
+      setData(sampledata)
+    })()
+  }, [showForm])
+
 
     return(
       <div>
@@ -59,18 +62,9 @@ export default function AnalyteMasterList(){
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
+              <Button variant="contained" onClick={()=>pageType(false,0)}>Add</Button>
             </Grid>
-            <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} Analyte</DialogTitle>
-              <DialogContent dividers style={{height:"420px"}}>
-                <AnalyteMasterForm togglePage={togglePage}/>
-              </DialogContent>
-              <DialogActions>
-                <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={togglePage}>Cancel</Button>
-                <Button variant="contained" color="primary" onClick={togglePage}>{editForm ? "Update" : "Save"}</Button>
-              </DialogActions>
-            </Dialog>
+            <AnalyteMasterForm showForm={showForm} editrow={row} togglePage={togglePage}/>
         </Grid>
           <div style={{ height: 400, width: '100%', marginTop: 5 }}>
           <Table size="small">
@@ -90,11 +84,11 @@ export default function AnalyteMasterList(){
                     <StyledTableCell component="th" scope="row">
                       {row.code}
                     </StyledTableCell>
-                    <StyledTableCell>{row.billing_name}</StyledTableCell>
-                    <StyledTableCell>{row.report_name}<br/>{row.patient_details}</StyledTableCell>
-                    <StyledTableCell>{row.dept}</StyledTableCell>
-                    <StyledTableCell>{row.status}</StyledTableCell>
-                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                    <StyledTableCell>{row.name}</StyledTableCell>
+                    <StyledTableCell>{row.report_name}</StyledTableCell>
+                    <StyledTableCell>{row.depart_name}</StyledTableCell>
+                    <StyledTableCell>{row.active===1?"Yes":"No"}</StyledTableCell>
+                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

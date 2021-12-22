@@ -12,6 +12,13 @@ import * as metatypeController from "../controllers/metatype"
 import * as instrumentDataController from "../controllers/instrument"
 import * as serviceController from "../controllers/service"
 import * as commonController from "../controllers/common"
+import * as uomController from "../controllers/uom"
+import * as lonicController from "../controllers/loinccode"
+import * as analyteController from "../controllers/anayte"
+
+// General Lookups controller
+
+import * as genericController from "../controllers/general"
 
 // tenant routes
 router.route("/tenants/:id").get(tenantController.get)
@@ -19,11 +26,6 @@ router.route("/tenants").get(tenantController.list)
 router.route("/tenants").post(tenantController.add)
 router.route("/tenants/:id").put(tenantController.update)
 router.route("/tenants/:id").delete(tenantController.remove)
-
-// common routes
-router.route("/countries").get(commonController.getAllCountries)
-router.route("/states").get(commonController.getAllStates)
-router.route("/cities").get(commonController.getAllCities)
 
 // Facility routes
 router.route("/facilities/:id").get(facilityController.get)
@@ -75,7 +77,13 @@ router.route("/instrumenttype/:id").get(instrumentDataController.getType)
 router.route("/instrumenttype").get(instrumentDataController.getTypeList)
 router.route("/instrumenttype").post(instrumentDataController.addType)
 
+// Analyte routes
 
+
+router.route("/analyte").post(analyteController.add)
+router.route("/analyte").get(analyteController.list)
+router.route("/analyte/:id").get(analyteController.get)
+router.route("/analyterange/:id").get(analyteController.rangeget)
 
 
 
@@ -86,5 +94,19 @@ router.route("/metatypeslookup").get(metatypeController.lookup)
 router.route("/instrumenttypelookup").get(instrumentDataController.lookup)
 router.route("/facilitylookup").get(facilityController.lookup)
 router.route("/servicelookup").get(serviceController.lookup)
+router.route("/departmentlookup").get(departmentController.lookup)
+router.route("/sampleslookup").get(sampleController.lookup)
+router.route("/containerlookup").get(containerController.lookup)
+router.route("/methodlookup").get(methodController.lookup)
+router.route("/uomlookup").get(uomController.lookup)
+router.route("/loniclookup").get(lonicController.lookup)
+ // Only Lookups Tabl
+router.route("/resultdatatypelookup").get(genericController.lookupresulttype)
+router.route("/inputpatternlookup").get(genericController.lookupinputpattern)
+router.route("/refrangelookup").get(genericController.lookuprefrange)
+router.route("/getLookupdevice").get(genericController.lookupdevice)
+
+router.route("/getLookupmetadata/:type").get(genericController.lookupmeta)
+
 // Export API routes
 export const apiRoutes = router

@@ -53,3 +53,17 @@ export async function add(method) {
     }
     return null
 }
+export async function lookup() {
+  const dbPool = await db.getPool()
+  try {
+    const sqlQuery = 'SELECT id as value,name as label FROM methods'
+    const sqlResult = await dbPool.query(sqlQuery)
+    if (sqlResult && sqlResult.length > 0) {
+      console.log("methods ssssssssssssssssssss = " + JSON.stringify(sqlResult))
+      return sqlResult
+    }
+  } catch (err) {
+    console.error("db.methods.list error = ", JSON.stringify(err))
+  }
+  return null
+}

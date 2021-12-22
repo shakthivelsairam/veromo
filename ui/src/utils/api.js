@@ -816,3 +816,307 @@ export async function getAllCities() {
         throw new Error("Unauthorized")
     }
 }
+ // Save Analyste master table
+
+ export async function setAnalyte(analyteData) {
+    try {
+        console.log("setAnalyte apiBaseURL = ", analyteData)
+          const response = await wrappedFetch(`${apiBaseURL}/analyte`, {
+              method: "POST",
+              body: JSON.stringify(analyteData)
+          })
+          console.log("setAnalyte response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("setAnalyte error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+   // getAnalyte data
+   export async function getAnalyte() {
+    try {
+     
+        console.log("getAnalyte apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/analyte`, {
+              method: "GET",
+          })
+          console.log("getAnalyte response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getAnalyte error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  
+  export async function getSingleAnalyte(id) {
+    try {
+     
+        console.log("getSingleAnalyte apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/analyte/`+id, {
+              method: "GET",
+          })
+          console.log("getSingleAnalyte response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getSingleAnalyte error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  export async function getAnalyteRefRangeData(id) {
+    try {
+     
+        console.log("getAnalyteRefRangeData apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/analyte/`+id, {
+              method: "GET",
+          })
+          console.log("getAnalyteRefRangeData response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getAnalyteRefRangeData error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+   // Container lookup
+   export async function getLookupContainer() {
+    try {
+     
+        console.log("servicelookup types apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/containerlookup`, {
+              method: "GET",
+          })
+          console.log("servicelookup response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("servicelookup error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+  // Method Lookup
+  
+  export async function getLookupMethod() {
+    try {
+     
+        console.log("servicelookup types apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/methodlookup`, {
+              method: "GET",
+          })
+          console.log("servicelookup response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("servicelookup error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+     // Uom Lookup
+  
+     export async function getLookupUom() {
+        try {
+         
+            console.log("getLookupUom types apiBaseURL = ", apiBaseURL)
+              const response = await wrappedFetch(`${apiBaseURL}/uomlookup`, {
+                  method: "GET",
+              })
+              console.log("getLookupUom response = ", response)
+              if (response.status === 401) {
+                  throw new Error("Unauthorized")
+              } else {
+                  return response.json()
+              }
+             
+          } catch (error) {
+              console.error("getLookupUom error: ", error)
+              throw new Error("Unauthorized")
+          }
+      }
+        // loniclookup 
+        export async function getLookupLonicCode() {
+            try {
+             
+                console.log("loniclookup types apiBaseURL = ", apiBaseURL)
+                  const response = await wrappedFetch(`${apiBaseURL}/loniclookup`, {
+                      method: "GET",
+                  })
+                  console.log("loniclookup response = ", response)
+                  if (response.status === 401) {
+                      throw new Error("Unauthorized")
+                  } else {
+                      return response.json()
+                  }
+                 
+              } catch (error) {
+                  console.error("loniclookup error: ", error)
+                  throw new Error("Unauthorized")
+              }
+          }
+
+          // getLookupInputPatter 
+        export async function getLookupInputPatter() {
+            try {
+             
+                console.log("getLookupInputPatter types apiBaseURL = ", apiBaseURL)
+                  const response = await wrappedFetch(`${apiBaseURL}/inputpatternlookup`, {
+                      method: "GET",
+                  })
+                  console.log("getLookupInputPatter response = ", response)
+                  if (response.status === 401) {
+                      throw new Error("Unauthorized")
+                  } else {
+                      return response.json()
+                  }
+                 
+              } catch (error) {
+                  console.error("getLookupInputPatter error: ", error)
+                  throw new Error("Unauthorized")
+              }
+          }
+          // getLookupResultDataTypes 
+        export async function getLookupResultDataTypes() {
+            try {
+             
+                console.log("getLookupResultDataTypes types apiBaseURL = ", apiBaseURL)
+                  const response = await wrappedFetch(`${apiBaseURL}/resultdatatypelookup`, {
+                      method: "GET",
+                  })
+                  console.log("getLookupResultDataTypes response = ", response)
+                  if (response.status === 401) {
+                      throw new Error("Unauthorized")
+                  } else {
+                      return response.json()
+                  }
+                 
+              } catch (error) {
+                  console.error("getLookupResultDataTypes error: ", error)
+                  throw new Error("Unauthorized")
+              }
+          }
+          // Reference range
+
+          export async function getLookupRefRange() {
+            try {
+             
+                console.log("getLookupResultDataTypes types apiBaseURL = ", apiBaseURL)
+                  const response = await wrappedFetch(`${apiBaseURL}/refrangelookup`, {
+                      method: "GET",
+                  })
+                  console.log("getLookupResultDataTypes response = ", response)
+                  if (response.status === 401) {
+                      throw new Error("Unauthorized")
+                  } else {
+                      return response.json()
+                  }
+                 
+              } catch (error) {
+                  console.error("getLookupResultDataTypes error: ", error)
+                  throw new Error("Unauthorized")
+              }
+          }
+          export async function getLookupMetaData(type) {
+            try {
+             
+                console.log("getLookupResultDataTypes types apiBaseURL = ", type)
+                  const response = await wrappedFetch(`${apiBaseURL}/getLookupmetadata/`+type, {
+                      method: "GET",
+                  })
+                  console.log("getLookupResultDataTypes response = ", response)
+                  if (response.status === 401) {
+                      throw new Error("Unauthorized")
+                  } else {
+                      return response.json()
+                  }
+                 
+              } catch (error) {
+                  console.error("getLookupResultDataTypes error: ", error)
+                  throw new Error("Unauthorized")
+              }
+          }
+          export async function getLookupDevice(type) {
+            try {
+             
+                console.log("getLookupDevice types apiBaseURL = ", type)
+                  const response = await wrappedFetch(`${apiBaseURL}/getLookupdevice`, {
+                      method: "GET",
+                  })
+                  console.log("getLookupDevice response = ", response)
+                  if (response.status === 401) {
+                      throw new Error("Unauthorized")
+                  } else {
+                      return response.json()
+                  }
+                 
+              } catch (error) {
+                  console.error("getLookupDevice error: ", error)
+                  throw new Error("Unauthorized")
+              }
+          }
+          
+  export async function getLookupDepartment() {
+    try {
+     
+        console.log("servicelookup types apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/departmentlookup`, {
+              method: "GET",
+          })
+          console.log("servicelookup response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("servicelookup error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+    // Sample lookups
+  
+    export async function getLookupSample() {
+        try {
+         
+            console.log("servicelookup types apiBaseURL = ", apiBaseURL)
+              const response = await wrappedFetch(`${apiBaseURL}/sampleslookup`, {
+                  method: "GET",
+              })
+              console.log("servicelookup response = ", response)
+              if (response.status === 401) {
+                  throw new Error("Unauthorized")
+              } else {
+                  return response.json()
+              }
+             
+          } catch (error) {
+              console.error("servicelookup error: ", error)
+              throw new Error("Unauthorized")
+          }
+      }

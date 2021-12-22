@@ -84,7 +84,7 @@ function TenantForm(props: any){
   }
 
   const onClickSubmit = async () => {
-    let submitErrorMessage = []
+    let submitErrorMessage :any = []
     if (!tenantCode) {
       submitErrorMessage.push("Provide tenant code")
     }
@@ -132,11 +132,11 @@ function TenantForm(props: any){
         "active": tenantStatus,
 
       }
-      let apiResult = null
+      let apiResult :any = null
       if(props.editForm) {
-        apiResult = await api.updateTenant(props.tenantId, tenant)
+        let apiResult = await api.updateTenant(props.tenantId, tenant)
       } else {
-        apiResult = await api.saveTenant(tenant)
+        let apiResult = await api.saveTenant(tenant)
       }
       if (apiResult && apiResult.status === "success") {
         console.log("onClickSubmit", apiResult)

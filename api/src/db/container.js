@@ -54,3 +54,18 @@ export async function add(container) {
     }
     return null
 }
+export async function lookup() {
+  const dbPool = await db.getPool()
+  try {
+    const sqlQuery = 'SELECT id as value,name as label FROM containers'
+    const sqlResult = await dbPool.query(sqlQuery)
+    if (sqlResult && sqlResult.length > 0) {
+      console.log("containers details = " + JSON.stringify(sqlResult))
+      return sqlResult
+    }
+  } catch (err) {
+    console.error("db.containers.list error = ", JSON.stringify(err))
+  }
+  return null
+}
+
