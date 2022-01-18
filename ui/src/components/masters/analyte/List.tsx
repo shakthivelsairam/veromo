@@ -64,7 +64,9 @@ export default function AnalyteMasterList(){
             <Grid item xs={6} style={{textAlign:"right"}}>
               <Button variant="contained" onClick={()=>pageType(false,0)}>Add</Button>
             </Grid>
+           
             <AnalyteMasterForm showForm={showForm} editrow={row} togglePage={togglePage}/>
+           
         </Grid>
           <div style={{ height: 400, width: '100%', marginTop: 5 }}>
           <Table size="small">
@@ -79,7 +81,7 @@ export default function AnalyteMasterList(){
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((row:any) => (
+              {data?data.map((row:any) => (
                   <StyledTableRow key={row.id}>
                     <StyledTableCell component="th" scope="row">
                       {row.code}
@@ -90,7 +92,7 @@ export default function AnalyteMasterList(){
                     <StyledTableCell>{row.active===1?"Yes":"No"}</StyledTableCell>
                     <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
-                ))}
+                )) : "No record found!!!"}
               </TableBody>
             </Table>
           </div>

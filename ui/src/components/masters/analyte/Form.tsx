@@ -205,6 +205,8 @@ function AnalyteMasterForm(props: any){
     //   clearInputs(0)
     //   props.togglePage()
     // }
+    clearInputs(0)
+    props.togglePage()
   }
   const clearInputs = (flag) => {
     
@@ -236,6 +238,9 @@ function AnalyteMasterForm(props: any){
           'method1':method1,
           'uom1':uom1
         }]
+        console.log("**********************************")
+        console.log(onerow)
+        console.log("**********************************")
        let newdata = data.concat(onerow)
        setData(newdata)
        setReftable(reftable+1);
@@ -275,15 +280,19 @@ function AnalyteMasterForm(props: any){
     setValue(newValue);
   };
   useEffect(() => {
-    clearInputs(true)
-      LoadLookups()
-      LoadSingleAnalyte(props.editrow)
+    (async () => {
+      clearInputs(true)
+      await LoadLookups()
+      console.log("loaded lookups")
+      await LoadSingleAnalyte(props.editrow)
+    })()
   }, [props.showForm])
 
-  const LoadSingleAnalyte = (rowid) => {
-    (async () => {
+  const LoadSingleAnalyte = async (rowid: number) => {
+   
       if (rowid!==0)
       {
+        setRowid(rowid);
         const anaytdta = await api.getSingleAnalyte(rowid)
         console.log(anaytdta);
         // //setData(facilitydata)
@@ -373,6 +382,13 @@ function AnalyteMasterForm(props: any){
        
       
         const refrangedata = await api.getAnalyteRefRangeData(rowid)
+        console.log("**********************************************************");
+        console.log("row id = "+rowid);
+        console.log(refrangedata);
+        console.log("**********************************************************");
+        //setData(refrangedata)
+
+
        /// Yet to populate rage table
         //setData(refrangedata)
         /*
@@ -408,12 +424,10 @@ function AnalyteMasterForm(props: any){
 
       }
      
-
-    })()
   }
 
-  const LoadLookups = () => {
-    (async () => {
+  const LoadLookups = async () => {
+   
         // tenants
         const departs = await api.getLookupDepartment()
         setOptdepart(departs)
@@ -490,8 +504,7 @@ function AnalyteMasterForm(props: any){
           {id:1, test_code: "T001", billing_name: 'CBC', report_name: "CBC", status: "Active" },
         ];
         setAssociatedTestData(associatedTestRows)
-        
-    })()
+      
   }
   const handleDeptFormChangeAuto = (event:any, values:any) => {
     setDepartment({label:"",value:0})

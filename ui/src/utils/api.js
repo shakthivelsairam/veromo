@@ -880,7 +880,7 @@ export async function getAllCities() {
     try {
      
         console.log("getAnalyteRefRangeData apiBaseURL = ", apiBaseURL)
-          const response = await wrappedFetch(`${apiBaseURL}/analyte/`+id, {
+          const response = await wrappedFetch(`${apiBaseURL}/analyterange/`+id, {
               method: "GET",
           })
           console.log("getAnalyteRefRangeData response = ", response)
