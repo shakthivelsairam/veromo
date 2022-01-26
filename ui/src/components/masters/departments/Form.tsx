@@ -87,7 +87,10 @@ function DepartmentForm(props:any){
     setDprintSep(false)
   }
   const popualtedispname = async(dispname:string) => {
-   setDdispname(dispname)
+    if(ddispname=="")
+    {
+      setDdispname(dispname)
+    }
   }
 
   
@@ -117,7 +120,8 @@ function DepartmentForm(props:any){
               label="Dept name"
               fullWidth
               variant="standard"
-              onChange={(e) => {setDdeptname(e.target.value); popualtedispname(e.target.value) }}
+              onChange={(e) => {setDdeptname(e.target.value);  }}
+              onBlur={(e) => {popualtedispname(e.target.value);  }}
               value={ddeptname}
             />
           </Grid>

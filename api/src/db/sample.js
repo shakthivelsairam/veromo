@@ -36,15 +36,17 @@ export async function add(sample) {
       console.log("Master row ID  "+sample.drowid);
       if (sample.rowid>0)
       {
-        const sqlQuery = 'UPDATE samples set name=?,code=?,active=?,tenant_id=? WHERE id=?'
-        const sqlResult = await dbPool.query(sqlQuery, [sample.samplename,sample.samplecode,sample.sampleactive,sample.sampletenant,sample.rowid])
+        const sqlQuery = 'UPDATE samples set name=?,code=?,displayname=?,mnemonicCode=?,active=?,tenant_id=? WHERE id=?'
+        // Have to keep tenant id from login session and store here
+        const sqlResult = await dbPool.query(sqlQuery, [sample.samplename,sample.samplecode,sample.sdisplayname,sample.smnemonic,sample.sampleactive,1,sample.rowid])
         console.log("db.samples.add sqlResult = " + JSON.stringify(sqlResult))
         return sqlResult
       }
       else if (sample.rowid===0)
       {
-        const sqlQuery = 'INSERT INTO samples (name,code,active,tenant_id,created_by,updated_by) values (?,?,?,?,?)'
-        const sqlResult = await dbPool.query(sqlQuery, [sample.samplename,sample.samplecode,sample.sampleactive,sample.sampletenant, "system", "system"])
+        const sqlQuery = 'INSERT INTO samples (name,code,active,displayname,mnemonicCode,tenant_id,created_by,updated_by) values (?,?,?,?,?,?,?,?)'
+        // Have to keep tenant id from login session and store here
+        const sqlResult = await dbPool.query(sqlQuery, [sample.samplename,sample.samplecode,sample.sdisplayname,sample.smnemonic,sample.sampleactive,1, "system", "system"])
         console.log("db.samples.add sqlResult = " + JSON.stringify(sqlResult))
         return sqlResult
       }

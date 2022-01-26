@@ -15,18 +15,11 @@ function SampleMasterForm(props: any){
 
   const [ options, setOptions ] = React.useState([]);
   useEffect(() => {
-    clearInputs(0)
+    clearInputs(true)
      console.log("Show form "+props.showForm)
       SamplesGet(props.editrow)
-      TenantsGet()
   }, [props.showForm])
-  const TenantsGet = () => {
-    (async () => {
-        const tenants = await api.getLookupTenant()
-      console.log(tenants);
-      setOptions(tenants)
-    })()
-  }
+
   const SamplesGet = (rowid) => {
     (async () => {
       if (rowid!==0)
@@ -38,8 +31,9 @@ function SampleMasterForm(props: any){
         setRowid(rowid);
         setSamplecode(sampleData.code);
         setSamplename(sampleData.name)
+        setSmnemonic(sampleData.mnemonicCode)
+        setSdisplayname(sampleData.displayname)
         setSampleactive(sampleData.active);
-        setSampletenant(sampleData.tenant_id);	
       }
       
       console.log("New two = "+rowid);
@@ -50,8 +44,10 @@ function SampleMasterForm(props: any){
   const [rowid,setRowid] = useState(0);	
   const [samplecode,setSamplecode] = useState('');	
   const [samplename,setSamplename] = useState('');	
+  const [smnemonic,setSmnemonic] = useState('');	
+  const [sdisplayname,setSdisplayname] = useState('');	
   const [sampleactive,setSampleactive] = useState(true);	
-  const [sampletenant,setSampletenant] = useState(0);	
+  
 
   
   const handleSubmit = async(event:any ) => {
@@ -61,8 +57,9 @@ function SampleMasterForm(props: any){
       'rowid':rowid,
       'samplecode': samplecode,
       'samplename': samplename,
+      'smnemonic':smnemonic,
+      'sdisplayname':sdisplayname,
       'sampleactive': sampleactive,
-      'sampletenant': sampletenant,
     }
     const sample = await api.setSample(sampledata)
     console.log("API Response");
@@ -70,27 +67,25 @@ function SampleMasterForm(props: any){
     console.log("API Response Nds here");
     if (sample.status===200)
     {
-      clearInputs(0)
+      clearInputs(false)
       props.togglePage()
     }
   }
-  const clearInputs = (flag) => {
+  const clearInputs = (flag:boolean) => {
     setRowid(0);
     setSamplecode('');
     setSamplename('')
-    setSampleactive(false);
-    setSampletenant(0);	
+    setSmnemonic('');
+    setSdisplayname('');
+    setSampleactive(flag);
   }
 
-  const handleFormChangeAuto = (event:any, values:any) => {
-    setSampletenant(0)
-    if (values!=null)
+  const popualtedispname = async(dispname:string) => {
+    if(sdisplayname=="")
     {
-      setSampletenant(values.value)
+      setSdisplayname(dispname)
     }
-   }
-
-
+  }
 
     return(
         <React.Fragment>
@@ -121,22 +116,34 @@ function SampleMasterForm(props: any){
                   variant="standard"
                   style={{width: 300, marginRight:2}}
                   onChange={(e) => {setSamplename(e.target.value);  }}
+                  onBlur={(e) => {popualtedispname(e.target.value);  }}
                   value={samplename}
                 />
           </Grid>
           <Grid item xs={3}>
-         
-        
-         <Autocomplete
-            id="tenantid"
-           options={options}
-           sx={{ width: 300 }}
-           renderInput={(params) => <TextField {...params} label="Tenants" variant="standard"/>}
-           onChange={handleFormChangeAuto}
-           
-           
-         />
-       </Grid>
+          <TextField
+              id="mnemonicCode"
+              name="mnemonicCode"
+              label="Mnemonic Code"
+              fullWidth
+              variant="standard"
+              onChange={(e) => {setSmnemonic(e.target.value);  }}
+              value={smnemonic}
+            />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+              id="displayname"
+              name="displayname"
+              label="Display Name"
+              fullWidth
+              variant="standard"
+              onChange={(e) => {setSdisplayname(e.target.value);  }}
+              value={sdisplayname}
+            />
+          </Grid>
+          </Grid>
+          <Grid container spacing={3} style={{marginTop: 1}}>
           <Grid item xs={2}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="status" id="status" />}
