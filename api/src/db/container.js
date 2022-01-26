@@ -36,15 +36,17 @@ export async function add(container) {
       console.log("Master row ID  "+container.drowid);
       if (container.rowid>0)
       {
-        const sqlQuery = 'UPDATE containers set name=?,code=?,active=?,short_code=?,tenant_id=? WHERE id=?'
-        const sqlResult = await dbPool.query(sqlQuery, [container.containername,container.containercode,container.containeractive,container.containershortcode,container.containertenant,container.rowid])
+        const sqlQuery = 'UPDATE containers set name=?,code=?,active=?,displayname=?,mnemonicCode=?,tenant_id=? WHERE id=?'
+        // Need to capture tenant id 
+        const sqlResult = await dbPool.query(sqlQuery, [container.containername,container.containercode,container.containeractive,container.containerdisplayname,container.containermnemonic,1,container.rowid])
         console.log("db.containers.add sqlResult = " + JSON.stringify(sqlResult))
         return sqlResult
       }
       else if (container.rowid===0)
       {
-        const sqlQuery = 'INSERT INTO containers (name,code,short_code,active,tenant_id,created_by,updated_by) values (?,?,?,?,?,?,?)'
-        const sqlResult = await dbPool.query(sqlQuery, [container.containername,container.containercode,container.containershortcode,container.containeractive,container.containertenant, "system", "system"])
+        const sqlQuery = 'INSERT INTO containers (name,code,mnemonicCode,active,displayname,tenant_id,created_by,updated_by) values (?,?,?,?,?,?,?,?)'
+        // Need to capture tenant id 
+        const sqlResult = await dbPool.query(sqlQuery, [container.containername,container.containercode,container.containermnemonic,container.containeractive,container.containerdisplayname,1, "system", "system"])
         console.log("db.containers.add sqlResult = " + JSON.stringify(sqlResult))
         return sqlResult
       }

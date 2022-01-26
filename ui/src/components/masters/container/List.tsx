@@ -71,7 +71,7 @@ export default function ContainerMaster(){
                 <TableRow>
                   <StyledTableCell>Container Code</StyledTableCell>
                   <StyledTableCell>Container Name</StyledTableCell>
-                  <StyledTableCell>Container Short Code</StyledTableCell>
+                  <StyledTableCell>Container Mnemonic Code</StyledTableCell>
                   <StyledTableCell>Status</StyledTableCell>
                   <StyledTableCell align="center">Action</StyledTableCell>
                 </TableRow>
@@ -81,7 +81,7 @@ export default function ContainerMaster(){
                   <StyledTableRow key={row.id}>
                     <StyledTableCell>{row.code}</StyledTableCell>
                     <StyledTableCell>{row.name}</StyledTableCell>
-                    <StyledTableCell>{row.short_code}</StyledTableCell>
+                    <StyledTableCell>{row.mnemonicCode}</StyledTableCell>
                     <StyledTableCell>{row.active===1?"Active":"In-Active"}</StyledTableCell>
                     <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>

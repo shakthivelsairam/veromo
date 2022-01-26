@@ -13,18 +13,11 @@ const Input = styled('input')({
 function ContainerMasterForm(props: any){
   const [ options, setOptions ] = React.useState([]);
   useEffect(() => {
-    clearInputs(1)
+    clearInputs(true)
      console.log("Show form "+props.showForm)
       ContainerGet(props.editrow)
-      TenantsGet()
   }, [props.showForm])
-  const TenantsGet = () => {
-    (async () => {
-        const tenants = await api.getLookupTenant()
-      console.log(tenants);
-      setOptions(tenants)
-    })()
-  }
+  
   const ContainerGet = (rowid) => {
     (async () => {
       if (rowid!==0)
@@ -36,9 +29,9 @@ function ContainerMasterForm(props: any){
         setRowid(rowid);
         setContainercode(sampleData.code);
         setContainername(sampleData.name);
-        setContainershortcode(sampleData.short_code);
+        setContainermnemonic(sampleData.mnemonicCode);
+        setContainerdisplayname(sampleData.displayname)
         setContaineractive(sampleData.active);
-        setContainertenant(sampleData.tenant_id);	
       }
       
       console.log("New two = "+rowid);
@@ -49,9 +42,9 @@ function ContainerMasterForm(props: any){
   const [rowid,setRowid] = useState(0);	
   const [containercode,setContainercode] = useState('');	
   const [containername,setContainername] = useState('');	
-  const [containershortcode,setContainershortcode] = useState('');	
+  const [containermnemonic,setContainermnemonic] = useState('');
+  const [containerdisplayname,setContainerdisplayname] = useState('');	
   const [containeractive,setContaineractive] = useState(true);	
-  const [containertenant,setContainertenant] = useState(0);	
 
   
   const handleSubmit = async(event:any ) => {
@@ -61,9 +54,9 @@ function ContainerMasterForm(props: any){
       'rowid':rowid,
       'containercode': containercode,
       'containername': containername,
-      'containershortcode': containershortcode,
-      'containeractive': containeractive,
-      'containertenant':containertenant
+      'containermnemonic': containermnemonic,
+      'containerdisplayname':containerdisplayname,
+      'containeractive': containeractive
     }
     const container = await api.setContainer(sampledata)
     console.log("API Response");
@@ -71,7 +64,7 @@ function ContainerMasterForm(props: any){
     console.log("API Response Nds here");
     if (container.status===200)
     {
-      clearInputs(0)
+      clearInputs(false)
       props.togglePage()
     }
   }
@@ -79,19 +72,17 @@ function ContainerMasterForm(props: any){
     setRowid(0);
     setContainercode('');
     setContainername('');
-    setContainershortcode('');
+    setContainermnemonic('');
+    setContainerdisplayname('')
     setContaineractive(true);
-    setContainertenant(0);	
   }
 
-  const handleFormChangeAuto = (event:any, values:any) => {
-    setContainertenant(0)
-    if (values!=null)
+  const popualtedispname = async(dispname:string) => {
+    if(containerdisplayname=="")
     {
-      setContainertenant(values.value)
+      setContainerdisplayname(dispname)
     }
-   }
-
+  }
     return(
         <React.Fragment>
           <Dialog fullWidth={true} maxWidth={false} open={props.showForm}>
@@ -121,35 +112,36 @@ function ContainerMasterForm(props: any){
                   variant="standard"
                   style={{width: 300, marginRight:2}}
                   onChange={(e) => {setContainername(e.target.value);  }}
+                  onBlur={(e) => {popualtedispname(e.target.value);  }}
                   value={containername}
                 />
           </Grid>
           <Grid item xs={3}>
           <TextField
                   required
-                  id="containershortcode"
-                  name="containershortcode"
-                  label="Short Code"
+                  id="mnemonicCode"
+                  name="mnemonicCode"
+                  label="Mnemonic Code"
                   size="small"
                   variant="standard"
                   style={{width: 300, marginRight:2}}
-                  onChange={(e) => {setContainershortcode(e.target.value);  }}
-                  value={containershortcode}
+                  onChange={(e) => {setContainermnemonic(e.target.value);  }}
+                  value={containermnemonic}
                 />
           </Grid>
           <Grid item xs={3}>
-         
-        
-         <Autocomplete
-            id="tenantid"
-           options={options}
-           sx={{ width: 300 }}
-           renderInput={(params) => <TextField {...params} label="Tenants" variant="standard"/>}
-           onChange={handleFormChangeAuto}
-           
-           
-         />
-       </Grid>
+          <TextField
+              id="displayname"
+              name="displayname"
+              label="Display Name"
+              fullWidth
+              variant="standard"
+              onChange={(e) => {setContainerdisplayname(e.target.value);  }}
+              value={containerdisplayname}
+            />
+          </Grid>
+          </Grid>
+          <Grid container spacing={3} style={{marginTop: 1}}>
           <Grid item xs={2}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="status" id="status" />}
