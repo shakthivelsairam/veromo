@@ -3,6 +3,9 @@ import { styled } from '@mui/material/styles';
 import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
 import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from '@mui/material';
 import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography,MenuItem,Select,InputLabel,FormControl } from '@mui/material';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 import * as api from "../../../utils/api"
 import custstyle  from  "../../style.module.css";
 
@@ -14,6 +17,7 @@ function TenantForm(props: any){
   //  console.log("Fetching row id "+props.editrow);
   // props.togglePage(true);
   // console.log("After = "+props.showForm);
+  const [value, setValue] = React.useState(null);
 
   const [formData, setFormData] = useState({
     frowid:0,
@@ -31,7 +35,6 @@ function TenantForm(props: any){
     flaunched:'',
     fprocessingfacility:'',
     fshortcode:'',
-    fbasefacilityid:'',
     ftenantid:'',
     factive:false,
     fisbase:false
@@ -39,13 +42,14 @@ function TenantForm(props: any){
    
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    clearInputs()
+    clearInputs(true)
     console.log("Show form "+props.showForm)
     UsersGet(props.editrow)
   }, [props.showForm])
   
   const UsersGet = (rowid) => {
     (async () => {
+      console.log("============"+rowid)
       if (rowid!==0)
       {
         const facilitydata = await api.getSingleFacility(rowid)
@@ -64,10 +68,11 @@ function TenantForm(props: any){
         setFpincode(facilitydata.pincode)							
         setFmobile(facilitydata.mobile_number)							
         setFlaunched(facilitydata.launched)							
-        setFprocessingfacility(facilitydata.proccessing_facility_id)							
+        if (facilitydata.proccessing_facility_id!="")
+        {
+          setFprocessingfacility(facilitydata.proccessing_facility_id)							
+        }
         setFshortcode(facilitydata.short_code)							
-        setFbasefacilityid(facilitydata.base_branch_id)							
-        setFtenantid(facilitydata.tenant_id)							
         setFactive(facilitydata.active)							
         setFBase(facilitydata.is_base)							
 
@@ -101,8 +106,8 @@ function TenantForm(props: any){
   const [fmobile,setFmobile] = useState('');
   const [flaunched,setFlaunched] = useState('');
   const [fprocessingfacility,setFprocessingfacility] = useState('');
+  const [fprocessdisabled,setFprocessdisabled] = useState(true);
   const [fshortcode,setFshortcode] = useState('');
-  const [fbasefacilityid,setFbasefacilityid] = useState('');
   const [ftenantid,setFtenantid] = useState('');
   const [active,setFactive] = useState(true);
   const [fBase,setFBase] = useState(false);
@@ -135,7 +140,6 @@ function TenantForm(props: any){
       'flaunched': flaunched,
       'fprocessingfacility': fprocessingfacility,
       'fshortcode': fshortcode,
-      'fbasefacilityid': fbasefacilityid,
       'ftenantid':ftenantid,
       'active': active,
       'fBase': fBase
@@ -147,12 +151,12 @@ function TenantForm(props: any){
     console.log("API Response Nds here");
     if (facility.status===200)
     {
-      clearInputs()
+      clearInputs(false)
       props.togglePage()
     }
   }
   
-  const clearInputs = async() => {
+  const clearInputs = async(activeFlag:boolean) => {
     setFrowid(0)
     setFcode('')							
     setFname('')							
@@ -168,9 +172,8 @@ function TenantForm(props: any){
     setFlaunched('')							
     setFprocessingfacility('')							
     setFshortcode('')							
-    setFbasefacilityid('')							
     setFtenantid('')							
-    setFactive(false)							
+    setFactive(activeFlag)							
     setFBase(false)	
   }
 
@@ -182,6 +185,15 @@ function TenantForm(props: any){
     // setFacilityName(value)
     
     
+  }
+  const handleFacility = async(event:any ) => {
+    const target = event.target;
+    setFprocessdisabled(true)
+    setFprocessingfacility('');
+    if (target.value=="collection")
+    {
+      setFprocessdisabled(false)
+    }
   }
 
     return(
@@ -234,7 +246,7 @@ function TenantForm(props: any){
                   required
                   labelId="type-label"
                   id="facilitytype"
-                  onChange={(e) => {setFacilitytype(e.target.value); handleFormChange(e); }}
+                  onChange={(e) => {setFacilitytype(e.target.value); handleFormChange(e); handleFacility(e) }}
                   value={facilitytype}
                   label="Facility Type"
                   size="small"
@@ -248,6 +260,18 @@ function TenantForm(props: any){
           </Grid>
           </Grid>
           <Grid container spacing={3} style={{marginTop: 1}}>
+          <Grid item xs={3}>
+            <TextField
+              required
+              id="zipcode"
+              name="zipcode"
+              label="Zip Code"
+              fullWidth
+              variant="standard"
+              onChange={(e) => {setFpincode(e.target.value); handleFormChange(e); }}
+              value={fpincode}
+            />
+          </Grid>
         <Grid item xs={3}>
             <TextField
               required
@@ -284,6 +308,9 @@ function TenantForm(props: any){
               value={fcity}
             />
           </Grid>
+          
+          </Grid>
+          <Grid container spacing={3} style={{marginTop: 1}}>
           <Grid item xs={3}>
           <TextField
               required
@@ -296,8 +323,6 @@ function TenantForm(props: any){
               value={fstate}
             />
           </Grid>
-          </Grid>
-          <Grid container spacing={3} style={{marginTop: 1}}>
         <Grid item xs={3}>
             <TextField
               required
@@ -310,18 +335,7 @@ function TenantForm(props: any){
               value={fcountry}
             />
           </Grid>
-          <Grid item xs={3}>
-            <TextField
-              required
-              id="pincode"
-              name="pincode"
-              label="Pincode"
-              fullWidth
-              variant="standard"
-              onChange={(e) => {setFpincode(e.target.value); handleFormChange(e); }}
-              value={fpincode}
-            />
-          </Grid>
+          
           <Grid item xs={3}>
             <TextField
               required
@@ -336,16 +350,17 @@ function TenantForm(props: any){
           </Grid>
          
           <Grid item xs={3}>
-          <TextField
-              required
-              id="launched"
-              name="launched"
-              label="Launched"
-              fullWidth
-              variant="standard"
-              onChange={(e) => {setFlaunched(e.target.value); handleFormChange(e); }}
-              value={flaunched}
-            />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DatePicker
+        label="Launched"
+        value={value}
+        disablePast
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        renderInput={(params) => <TextField {...params} />}
+      />
+    </LocalizationProvider>
           </Grid>
           </Grid>
           <Grid container spacing={3} style={{marginTop: 1}}>
@@ -356,6 +371,7 @@ function TenantForm(props: any){
               name="proccessing_facility_id"
               label="Processing Facility"
               fullWidth
+              disabled ={fprocessdisabled}
               variant="standard"
               onChange={(e) => {setFprocessingfacility(e.target.value); handleFormChange(e); }}
               value={fprocessingfacility}
@@ -382,40 +398,13 @@ function TenantForm(props: any){
           </Grid>
          
           <Grid item xs={3}>
-          <TextField
-              required
-              id="basefacilityid"
-              name="basefacilityid"
-              label="Base Facility ID"
-              fullWidth
-              variant="standard"
-              onChange={(e) => {setFbasefacilityid(e.target.value); handleFormChange(e); }}
-              value={fbasefacilityid}
-            />
-          </Grid>
-          </Grid>
-          
-        <Grid container spacing={2} style={{marginTop: 1}}>
-        <Grid item xs={3}>
-          <TextField
-              required
-              id="tenant_id"
-              name="tenant_id "
-              label="Tenant ID"
-              fullWidth
-              variant="standard"
-              onChange={(e) => {setFtenantid(e.target.value); handleFormChange(e); }}
-              value={ftenantid}
-            />
-          </Grid>
-          <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="status" id="status" />}
               label="Active" checked={active}
               onClick={(e) => {setFactive(!active); handleFormChange(e); }}
             />
           </Grid>
-        </Grid>
+          </Grid>
         </DialogContent>
               <DialogActions>
                 <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
