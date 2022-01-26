@@ -8,14 +8,12 @@ import * as api from "../../../utils/api"
 function DepartmentForm(props:any){
  
     const [ options, setOptions ] = React.useState([{label:"",value:0}]);
-  const [selectedtenantId, setSelectedtenantId] = useState(0);
   const [drowid,setDrowid] = useState(0);	
   const [ddeptcode,setDdeptcode] = useState('');	
   const [ddeptname,setDdeptname] = useState('');	
-  const [dshortcode,setDshortcode] = useState('');	
+  const [ddispname,setDdispname] = useState('');	
   const [dmnemonic,setDmnemonic] = useState('');	
   const [dseqNo,setDseqNo] = useState('');		
-  const [dtenantid,setDtenantid] = useState({label:"",value:0});	
   const [dactive,setDactive] = useState(true);		
   const [dprintSep,setDprintSep] = useState(false);	
 
@@ -24,16 +22,11 @@ function DepartmentForm(props:any){
      //console.log("Show form "+props.showForm)
      (async () => {
         
-        await TenantsGet()
         await DeptsGet(props.editrow)
     })()
      
   }, [props.showForm])
-  const TenantsGet = async() => {
-        const tenants = await api.getLookupTenant()
-      console.log(tenants);
-      setOptions(tenants)
-  }
+
   const DeptsGet = async(rowid) => {
     
       if (rowid!==0)
@@ -44,15 +37,10 @@ function DepartmentForm(props:any){
         setDrowid(rowid)
         setDdeptcode(deptData.code)
         setDdeptname(deptData.name)
-        setDshortcode(deptData.short_code)
+        setDdispname(deptData.displayname)
         setDmnemonic(deptData.mnemonicCode)
         setDseqNo(deptData.sequence_no)
-        setSelectedtenantId(deptData.tenant_id)
-        const ee = options.find(v => v.value===deptData.tenant_id)
-        if (ee) 
-        {
-          setDtenantid(ee)
-        }
+       
         setDactive(deptData.active)
         setDprintSep(deptData.isprintable)			
 
@@ -71,10 +59,9 @@ function DepartmentForm(props:any){
       'drowid':drowid,
       'ddeptcode': ddeptcode,
       'ddeptname': ddeptname,
-      'dshortcode': dshortcode,
+      'ddispname': ddispname,
       'dmnemonic': dmnemonic,
       'dseqNo': dseqNo,
-      'dtenantid': selectedtenantId,
       'dactive': dactive,
       'dprintSep': dprintSep
 
@@ -93,22 +80,16 @@ function DepartmentForm(props:any){
     setDrowid(0)
     setDdeptcode('')
     setDdeptname('')
-    setDshortcode('')
+    setDdispname('')
     setDmnemonic('')
     setDseqNo('')
-    setSelectedtenantId(0)
     setDactive(true)
     setDprintSep(false)
   }
+  const popualtedispname = async(dispname:string) => {
+   setDdispname(dispname)
+  }
 
-  const handleFormChangeAuto = (event:any, values:any) => {
-    // setDtenantid(0)
-    if (values!=null)
-    {
-      setDtenantid(values)
-      setSelectedtenantId(values.value)
-    }
-   }
   
     return(
         <React.Fragment>
@@ -136,20 +117,20 @@ function DepartmentForm(props:any){
               label="Dept name"
               fullWidth
               variant="standard"
-              onChange={(e) => {setDdeptname(e.target.value); }}
+              onChange={(e) => {setDdeptname(e.target.value); popualtedispname(e.target.value) }}
               value={ddeptname}
             />
           </Grid>
           <Grid item xs={3}>
             <TextField
               required
-              id="short_code"
-              name="shortcode"
-              label="Short Code"
+              id="displayname"
+              name="displayname"
+              label="Display Name"
               fullWidth
               variant="standard"
-              onChange={(e) => {setDshortcode(e.target.value); }}
-              value={dshortcode}
+              onChange={(e) => {setDdispname(e.target.value); }}
+              value={ddispname}
             />
           </Grid>
           <Grid item xs={3}>
@@ -174,19 +155,6 @@ function DepartmentForm(props:any){
               variant="standard"
               onChange={(e) => {setDseqNo(e.target.value);  }}
               value={dseqNo}
-            />
-          </Grid>
-          <Grid item xs={3}>
-         
-        
-            <Autocomplete
-               id="tenantid"
-              options={options}
-              sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Tenants" variant="standard" />}
-              onChange={handleFormChangeAuto}
-              value={dtenantid}
-              
             />
           </Grid>
           <Grid item xs={3}>
