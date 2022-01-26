@@ -76,11 +76,11 @@ export async function rangeget(analyteid) {
     //
     //
 
-    const sqlQuery = `select arr.id as id, rr.id as sltrefrange, rr.name as refrange,mt.id as sltgender, mt.code as gender,mtat.id as sltagetype,mtat.code as agetype,mtar.id as sltagerange,mtar.code as agerange,rdt.id as sltvaluetype,rdt.name as valuetype,mvr.id as sltvaluerange,mvr.code as valuerange,arr.valuerangevalue as valrangeval,arr.printablerange as printval,eq.id as sltdevice, eq.code as device,arr.method as method1,arr.uom as uom1 from analyte_referance_range arr,referencerange rr,meta_data mt,meta_data mtat,meta_data mtar,resultdatatypes rdt,meta_data mvr,equipments eq where arr.referencerange=rr.id and mt.type=1 and mt.id=arr.gender and mtat.type=3 and mtat.id=arr.agetype and mtar.type=4 and mtar.id=arr.agerange and rdt.id=arr.valuetype and mvr.type=4 and mvr.id=arr.valuerange and eq.id=arr.deviceid and arr.analyte_id=?`
+    const sqlQuery = `select rr.id as sltrefrange, rr.name as refrange,mt.id as sltgender, mt.code as gender,mtat.id as sltagetype,mtat.code as agetype,mtar.id as sltagerange,mtar.code as agerange,rdt.id as sltvaluetype,rdt.name as valuetype,mvr.id as sltvaluerange,mvr.code as valuerange,arr.valuerangevalue,arr.printablerange,eq.id as sltdevice, eq.code as device,arr.method,arr.uom from analyte_referance_range arr,referencerange rr,meta_data mt,meta_data mtat,meta_data mtar,resultdatatypes rdt,meta_data mvr,equipments eq where arr.referencerange=rr.id and mt.type=1 and mt.id=arr.gender and mtat.type=3 and mtat.id=arr.agetype and mtar.type=4 and mtar.id=arr.agerange and rdt.id=arr.valuetype and mvr.type=4 and mvr.id=arr.valuerange and eq.id=arr.deviceid and arr.analyte_id=?`
     const sqlResult = await dbPool.query(sqlQuery, [analyteid])
     if (sqlResult && sqlResult.length > 0) {
       console.log("rangeget************************************ details = " + JSON.stringify(sqlResult))
-      return sqlResult
+      return sqlResult[0]
     }
   } catch (err) {
     console.error("db.rangeget.get error = ", JSON.stringify(err))

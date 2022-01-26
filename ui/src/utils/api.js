@@ -895,6 +895,29 @@ export async function getAllCities() {
           throw new Error("Unauthorized")
       }
   }
+  export async function getInstrumentAnalyte() {
+    try {
+     
+        console.log("getInstrumentAnalyte apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/instrumentanalytes`, {
+              method: "GET",
+          })
+          console.log("getInstrumentAnalyte response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getInstrumentAnalyte error: ", error)
+          throw new Error("Unauthorized")
+      }
+
+
+  }
+
+
    // Container lookup
    export async function getLookupContainer() {
     try {

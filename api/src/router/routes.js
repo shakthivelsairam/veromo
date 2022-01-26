@@ -15,6 +15,7 @@ import * as commonController from "../controllers/common"
 import * as uomController from "../controllers/uom"
 import * as lonicController from "../controllers/loinccode"
 import * as analyteController from "../controllers/anayte"
+import * as instrumentanalyteController from "../controllers/instrumentAnalyte"
 
 // General Lookups controller
 
@@ -85,6 +86,9 @@ router.route("/analyte").get(analyteController.list)
 router.route("/analyte/:id").get(analyteController.get)
 router.route("/analyterange/:id").get(analyteController.rangeget)
 
+// Instrument Analyte mapping routes
+
+router.route("/instrumentanalyte").get(instrumentanalyteController.list)
 
 
 // Lookup routes

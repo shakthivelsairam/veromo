@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InstrumentAnalyteMappingForm from "./Form";
 import custstyle  from  "../../style.module.css";
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,25 +31,26 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function InstrumentAnalyteMapping(){
 
+ 
   const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
-  
+  const [row, setRow] = useState(0)
   const togglePage = () => {
     setShowForm(!showForm)
   }
-  const pageType = (editForm: boolean) => {
+  const pageType = (editForm: boolean,rowId:number) => {
     togglePage()
     setEditForm(editForm)
+    setRow(rowId)
   }
 
-  useEffect(()=>{
-    const rows = [
-      {id:1, instrument_name: "Device 1", analyte_name: "HBV-DNA detection by PCR", assay_code: 'HBV', status: "Active" },
-      {id:2, instrument_name: "Device 2", analyte_name: "1.25 Dihydroxy Vitamin D", assay_code: 'DVD', status: "Inactive" },
-    ];
-    setData(rows)
-  }, [])
+  useEffect(() => {
+    (async () => {
+       const deptdata = await api.getInstrumentAnalyte()
+      setData(deptdata)
+    })()
+  }, [showForm])
 
     return(
         <React.Fragment>
@@ -59,7 +61,7 @@ export default function InstrumentAnalyteMapping(){
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
+              <Button variant="contained" onClick={()=>pageType(false,0)}>Add</Button>
             </Grid>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
               <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} Instrument Analyte Mapping</DialogTitle>
@@ -84,7 +86,7 @@ export default function InstrumentAnalyteMapping(){
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((row:any) => (
+              {data?data.map((row:any) => (
                   <StyledTableRow key={row.id}>
                     <StyledTableCell>
                       {row.instrument_name}
@@ -92,9 +94,9 @@ export default function InstrumentAnalyteMapping(){
                     <StyledTableCell>{row.analyte_name}</StyledTableCell>
                     <StyledTableCell>{row.assay_code}</StyledTableCell>
                     <StyledTableCell>{row.status}</StyledTableCell>
-                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
-                ))}
+                )) : "No Departments found!!!"}
               </TableBody>
             </Table>
           </div>

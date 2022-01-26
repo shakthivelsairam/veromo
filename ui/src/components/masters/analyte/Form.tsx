@@ -386,7 +386,7 @@ function AnalyteMasterForm(props: any){
         console.log("row id = "+rowid);
         console.log(refrangedata);
         console.log("**********************************************************");
-        //setData(refrangedata)
+        setData(refrangedata)
 
 
        /// Yet to populate rage table
@@ -414,6 +414,8 @@ function AnalyteMasterForm(props: any){
             'sltdevice':element.referencerange,
             'method1':element.referencerange,
             'uom1':element.referencerange
+
+            
           }]
        
         let newdata = data.concat(onerow)
@@ -1028,7 +1030,7 @@ function AnalyteMasterForm(props: any){
                 </TableRow>
               </TableHead>
               <TableBody>
-              {data?data.map((row:any) => (
+              {data && data.map((row:any) => (
                   <StyledTableRow key={row.id}>
                     <StyledTableCell>{row.refrange.label}</StyledTableCell>
                     <StyledTableCell>{row.gender.label}</StyledTableCell>
@@ -1038,7 +1040,7 @@ function AnalyteMasterForm(props: any){
                     <StyledTableCell>{row.valuerange.label}</StyledTableCell>
                     <StyledTableCell align="center"><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
-                )) : "No records found!!!"}
+                )) }
               </TableBody>
             </Table>
           </div>
