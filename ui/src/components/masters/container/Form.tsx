@@ -86,7 +86,7 @@ function ContainerMasterForm(props: any){
     return(
         <React.Fragment>
           <Dialog fullWidth={true} maxWidth={false} open={props.showForm}>
-              <DialogTitle className={custstyle.addeditmenu}>{props.editForm ? "Edit" : "Add"} Sample</DialogTitle>
+              <DialogTitle className={custstyle.addeditmenu}>{props.editrow ? "Edit" : "Add"} Container Master</DialogTitle>
               <DialogContent dividers className={custstyle.popupheight}>
         <Grid container spacing={3}>
           <Grid item xs={3}>
@@ -161,7 +161,7 @@ function ContainerMasterForm(props: any){
         </DialogContent>
               <DialogActions>
               <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
-                <Button variant="contained" color="primary" onClick={handleSubmit}>{props.editForm ? "Update" : "Save"}</Button>
+                <Button variant="contained" color="primary" onClick={handleSubmit}>{props.editrow ? "Update" : "Save"}</Button>
               </DialogActions>
             </Dialog>
       </React.Fragment>

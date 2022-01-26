@@ -39,9 +39,11 @@ export default function MethodMaster(){
     setShowForm(!showForm)
   }
   const pageType = (editForm: boolean,rowId:number) => {
-    togglePage()
-    setEditForm(editForm)
     setRow(rowId)
+    setEditForm(editForm)
+    togglePage()
+    
+    
   }
 
   useEffect(() => {

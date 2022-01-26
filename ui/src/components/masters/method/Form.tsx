@@ -13,18 +13,11 @@ function MethodMasterForm(props: any){
 
   const [ options, setOptions ] = React.useState([]);
   useEffect(() => {
-    clearInputs(1)
+    clearInputs(true)
      console.log("Show form "+props.showForm)
       MethodGet(props.editrow)
-      TenantsGet()
   }, [props.showForm])
-  const TenantsGet = () => {
-    (async () => {
-        const tenants = await api.getLookupTenant()
-      console.log(tenants);
-      setOptions(tenants)
-    })()
-  }
+
   const MethodGet = (rowid) => {
     (async () => {
       if (rowid!==0)
@@ -36,8 +29,9 @@ function MethodMasterForm(props: any){
         setRowid(rowid);
         setCode(singleRow.code);
         setName(singleRow.name);
+        setMnemonic(singleRow.mnemonicCode)
+        setDisplayname(singleRow.displayname)
         setActive(singleRow.active);
-        setTenant(singleRow.tenant_id);	
       }
       
       console.log("New two = "+rowid);
@@ -48,8 +42,9 @@ function MethodMasterForm(props: any){
   const [rowid,setRowid] = useState(0);	
   const [code,setCode] = useState('');	
   const [name,setName] = useState('');	
+  const [mnemonic,setMnemonic] = useState('');	
+  const [displayname,setDisplayname] = useState('');	
   const [active,setActive] = useState(true);	
-  const [tenant,setTenant] = useState(0);	
 
   
   const handleSubmit = async(event:any ) => {
@@ -59,8 +54,9 @@ function MethodMasterForm(props: any){
       'rowid':rowid,
       'code': code,
       'name': name,
-      'active': active,
-      'tenant':tenant
+      'displayname':displayname,
+      'mnemonic':mnemonic,
+      'active': active
     }
     const container = await api.setMethod(sampledata)
     console.log("API Response");
@@ -68,7 +64,7 @@ function MethodMasterForm(props: any){
     console.log("API Response Nds here");
     if (container.status===200)
     {
-      clearInputs(0)
+      clearInputs(false)
       props.togglePage()
     }
   }
@@ -76,23 +72,22 @@ function MethodMasterForm(props: any){
     setRowid(0);
     setCode('');
     setName('');
+    setMnemonic('');
+    setDisplayname('');
     setActive(flag);
-    setTenant(0);
   }
 
-  const handleFormChangeAuto = (event:any, values:any) => {
-    setTenant(0)
-    if (values!=null)
+  const popualtedispname = async(dispname:string) => {
+    if(displayname=="")
     {
-      setTenant(values.value)
+      setDisplayname(dispname)
     }
-   }
-
+  }
 
     return(
         <React.Fragment>
           <Dialog fullWidth={true} maxWidth={false} open={props.showForm}>
-              <DialogTitle className={custstyle.addeditmenu}>{props.editForm ? "Edit" : "Add"} Sample</DialogTitle>
+              <DialogTitle className={custstyle.addeditmenu}>{props.editrow ? "Edit" : "Add"} Method</DialogTitle>
               <DialogContent dividers className={custstyle.popupheight}>
         <Grid container spacing={3}>
           <Grid item xs={3}>
@@ -118,22 +113,32 @@ function MethodMasterForm(props: any){
                   variant="standard"
                   style={{width: 300, marginRight:2}}
                   onChange={(e) => {setName(e.target.value);  }}
+                  onBlur={(e) => {popualtedispname(e.target.value);  }}
                   value={name}
                 />
           </Grid>
           <Grid item xs={3}>
-         
-        
-         <Autocomplete
-            id="tenantid"
-           options={options}
-           sx={{ width: 300 }}
-           renderInput={(params) => <TextField {...params} label="Tenants" variant="standard"/>}
-           onChange={handleFormChangeAuto}
-           
-           
-         />
-       </Grid>
+          <TextField
+              id="mnemonicCode"
+              name="mnemonicCode"
+              label="Mnemonic Code"
+              fullWidth
+              variant="standard"
+              onChange={(e) => {setMnemonic(e.target.value);  }}
+              value={mnemonic}
+            />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+              id="displayname"
+              name="displayname"
+              label="Display Name"
+              fullWidth
+              variant="standard"
+              onChange={(e) => {setDisplayname(e.target.value);  }}
+              value={displayname}
+            />
+          </Grid>
           <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="status" id="status" />}
@@ -145,7 +150,7 @@ function MethodMasterForm(props: any){
         </DialogContent>
               <DialogActions>
               <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={props.togglePage}>Cancel</Button>
-                <Button variant="contained" color="primary" onClick={handleSubmit}>{props.editForm ? "Update" : "Save"}</Button>
+                <Button variant="contained" color="primary" onClick={handleSubmit}>{props.editrow ? "Update" : "Save"}</Button>
               </DialogActions>
             </Dialog>
       </React.Fragment>

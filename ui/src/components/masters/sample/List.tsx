@@ -39,9 +39,10 @@ export default function SampleMaster(){
     setShowForm(!showForm)
   }
   const pageType = (editForm: boolean,rowId:number) => {
-    togglePage()
+    
     setEditForm(editForm)
     setRow(rowId)
+    togglePage()
   }
 
   useEffect(() => {

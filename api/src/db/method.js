@@ -35,15 +35,17 @@ export async function add(method) {
     try {
       if (method.rowid>0)
       {
-        const sqlQuery = 'UPDATE methods set name=?,code=?,active=?,tenant_id=? WHERE id=?'
-        const sqlResult = await dbPool.query(sqlQuery, [method.name,method.code,method.active,method.tenant,method.rowid])
+        const sqlQuery = 'UPDATE methods set name=?,code=?,displayname=?,mnemonicCode=?,active=?,tenant_id=? WHERE id=?'
+        // Have to capture tenant id from login session
+        const sqlResult = await dbPool.query(sqlQuery, [method.name,method.code,method.displayname,method.mnemonic,method.active,1,method.rowid])
         console.log("db.methods.add sqlResult = " + JSON.stringify(sqlResult))
         return sqlResult
       }
       else if (method.rowid===0)
       {
-        const sqlQuery = 'INSERT INTO methods (name,code,active,tenant_id,created_by,updated_by) values (?,?,?,?,?,?)'
-        const sqlResult = await dbPool.query(sqlQuery, [method.name,method.code,method.active,method.tenant, "system", "system"])
+        const sqlQuery = 'INSERT INTO methods (name,code,active,displayname,mnemonicCode,tenant_id,created_by,updated_by) values (?,?,?,?,?,?,?,?)'
+        // Have to capture tenant id from login session
+        const sqlResult = await dbPool.query(sqlQuery, [method.name,method.code,method.active,method.displayname,method.mnemonic,1, "system", "system"])
         console.log("db.methods.add sqlResult = " + JSON.stringify(sqlResult))
         return sqlResult
       }
