@@ -33,6 +33,7 @@ router.route("/facilities/:id").get(facilityController.get)
 router.route("/facilities").get(facilityController.list)
 router.route("/facilities").post(facilityController.add)
 router.route("/facilities/:id").put(facilityController.update)
+router.route("/facilities/basebranch/:id").get(facilityController.isbasebranch)
 
 // Department routes
 router.route("/departments/:id").get(departmentController.get)

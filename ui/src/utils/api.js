@@ -85,6 +85,25 @@ export async function getSingleFacility(id) {
           throw new Error("Unauthorized")
       }
   }
+  export async function getBaseFacility(id) {
+    try {
+     
+        console.log("getFacility apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/facilities/basebranch/`+id, {
+              method: "GET",
+          })
+          console.log("getFacility response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getFacility error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
   
 export async function setFacility(facilityData) {
   try {

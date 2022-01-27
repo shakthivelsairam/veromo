@@ -9,6 +9,15 @@ export async function get(req, res) {
         res.status(500).json()
     }
 }
+export async function isbasebranch(req, res) {
+    try {
+        const facility = await facilityDB.isbasebranch(req.params.id)
+        res.status(200).json(facility)
+    } catch (err) {
+        console.error("controller.facility.get - Error: " + JSON.stringify(err))
+        res.status(500).json()
+    }
+}
 
 export async function list(req, res) {
     try {

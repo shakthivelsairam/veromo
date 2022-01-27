@@ -45,8 +45,28 @@ function TenantForm(props: any){
     clearInputs(true)
     console.log("Show form "+props.showForm)
     UsersGet(props.editrow)
+    baseFacility(props.editrow)
   }, [props.showForm])
   
+  const baseFacility = (rowid) => {
+    (async () => {
+      console.log("============"+rowid)
+      if (rowid!==0)
+      {
+        const facilitydata = await api.getBaseFacility(rowid)
+        // //setData(facilitydata)
+        if (facilitydata.totCount==1)
+        {
+          setBasedfacilitychk(true)
+        }
+        else
+        {
+          setBasedfacilitychk(false)
+        }
+      
+      }
+    })()
+  }
   const UsersGet = (rowid) => {
     (async () => {
       console.log("============"+rowid)
@@ -111,6 +131,7 @@ function TenantForm(props: any){
   const [ftenantid,setFtenantid] = useState('');
   const [active,setFactive] = useState(true);
   const [fBase,setFBase] = useState(false);
+  const [basedfacilitychk,setBasedfacilitychk] = useState(false);
   
  
   const handleFormChange = async(event:any) => {
@@ -354,7 +375,6 @@ function TenantForm(props: any){
       <DatePicker
         label="Launched"
         value={value}
-        disablePast
         onChange={(newValue) => {
           setValue(newValue);
         }}
@@ -391,8 +411,9 @@ function TenantForm(props: any){
           </Grid>
           <Grid item xs={3}>
           <FormControlLabel
-              control={<Checkbox color="secondary" name="isBase" id="isBase" />}
-              label="Is Base ?" checked={fBase}
+              control={<Checkbox color="secondary" name="isBase" readOnly={basedfacilitychk} id="isBase" />}
+              label="Is Base" checked={fBase}
+              disabled={basedfacilitychk}
               onClick={(e) => {setFBase(!fBase); handleFormChange(e); }}
             />
           </Grid>

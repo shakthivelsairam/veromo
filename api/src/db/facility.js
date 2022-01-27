@@ -14,7 +14,20 @@ export async function get(tenantId) {
     }
     return null
 }
-
+export async function isbasebranch(tenantId) {
+  const dbPool = await db.getPool()
+  try {
+    const sqlQuery = `SELECT count(*) as totCount FROM facility WHERE id<>? and is_base=?`
+    const sqlResult = await dbPool.query(sqlQuery, [tenantId,1])
+    if (sqlResult && sqlResult.length > 0) {
+      console.log("facility detawwwwwwwwwwils = " + JSON.stringify(sqlResult))
+      return sqlResult[0]
+    }
+  } catch (err) {
+    console.error("db.facility.get error = ", JSON.stringify(err))
+  }
+  return null
+}
 export async function list() {
     const dbPool = await db.getPool()
     try {
