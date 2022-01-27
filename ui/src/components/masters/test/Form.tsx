@@ -315,7 +315,7 @@ function TestMasterForm(props: any){
           <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes" />}
-              label="Create Analyte Copy"
+              label="Copy and Create Analyte"
             />
           </Grid>
         </Grid>
@@ -324,19 +324,19 @@ function TestMasterForm(props: any){
             <Grid item xs={3}>
             <FormControlLabel
                 control={<Checkbox color="secondary" name="active" value="yes"  />}
-                label="Print separately ?"
+                label="Print separately"
               />
             </Grid>
             <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes"  />}
-              label="Is Reportable ?"
+              label="Reportable"
             />
           </Grid>
           <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes"  />}
-              label="Is Gender Based ?"
+              label="Gender Based"
             />
           </Grid>
           <Grid item xs={3}>
@@ -384,14 +384,14 @@ function TestMasterForm(props: any){
         <Grid item xs={3}>
         <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes"  />}
-              label="E-Mail ?"
+              label="E-Mail"
             />
         
         </Grid>
         <Grid item xs={3}>
         <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes"  />}
-              label="SMS ?"
+              label="SMS"
             />
         
         </Grid>
@@ -413,14 +413,14 @@ function TestMasterForm(props: any){
         <Grid item xs={3}>
         <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes"  />}
-              label="Oderable ?"
+              label="Orderable"
             />
         
         </Grid>
         <Grid item xs={3}>
         <FormControlLabel
               control={<Checkbox color="secondary" name="active" value="yes"  />}
-              label="Co-Authorizer required ?"
+              label="Co-Authorizer"
             />
         
         </Grid>
@@ -458,11 +458,11 @@ function TestMasterForm(props: any){
           <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="isHeader" value="yes" />}
-              label="Is Header"
+              label="Header"
             />
             <FormControlLabel
               control={<Checkbox color="secondary" name="isHeader" value="yes" />}
-              label="Is Mandatory"
+              label="Mandatory"
             />
           </Grid>
           <Grid item xs={3}>
@@ -472,7 +472,7 @@ function TestMasterForm(props: any){
             />
             <FormControlLabel
               control={<Checkbox color="secondary" name="isHeader" value="yes" />}
-              label="Is Reportable"
+              label="Reportable"
             />
           </Grid>
           </Grid>
@@ -492,7 +492,7 @@ function TestMasterForm(props: any){
                 <TableRow>
                   <StyledTableCell>Analyte Name</StyledTableCell>
                   <StyledTableCell>Sequence Number</StyledTableCell>
-                  <StyledTableCell>Is Header</StyledTableCell>
+                  <StyledTableCell>Header</StyledTableCell>
                   <StyledTableCell>Status</StyledTableCell>
                   <StyledTableCell align="center">Action</StyledTableCell>
                 </TableRow>

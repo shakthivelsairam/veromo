@@ -102,6 +102,20 @@ function ContainerMasterForm(props: any){
                   value={containercode}
                 />
           </Grid>
+        
+          <Grid item xs={3}>
+          <TextField
+                  required
+                  id="mnemonicCode"
+                  name="mnemonicCode"
+                  label="Mnemonic Code"
+                  size="small"
+                  variant="standard"
+                  style={{width: 300, marginRight:2}}
+                  onChange={(e) => {setContainermnemonic(e.target.value);  }}
+                  value={containermnemonic}
+                />
+          </Grid>
           <Grid item xs={3}>
           <TextField
                   required
@@ -114,19 +128,6 @@ function ContainerMasterForm(props: any){
                   onChange={(e) => {setContainername(e.target.value);  }}
                   onBlur={(e) => {popualtedispname(e.target.value);  }}
                   value={containername}
-                />
-          </Grid>
-          <Grid item xs={3}>
-          <TextField
-                  required
-                  id="mnemonicCode"
-                  name="mnemonicCode"
-                  label="Mnemonic Code"
-                  size="small"
-                  variant="standard"
-                  style={{width: 300, marginRight:2}}
-                  onChange={(e) => {setContainermnemonic(e.target.value);  }}
-                  value={containermnemonic}
                 />
           </Grid>
           <Grid item xs={3}>

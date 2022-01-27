@@ -96,6 +96,7 @@ function AnalyteMasterForm(props: any){
   // General code
   const [analytecode, setAnalytecode] = React.useState('');
   const [orderName, setOrderName] = React.useState('');
+  const [analytemnemonic, setAnalytemnemonic] = React.useState('');
   const [reportName, setReportName] = React.useState('');
   const [department,setDepartment] = useState({label:"",value:0});
   const [sltdepartment, setSltdepartment] = React.useState();
@@ -171,7 +172,8 @@ function AnalyteMasterForm(props: any){
     
     var sampledata = {
       'rowid':rowid,
-      'analytecode':analytecode,		
+      'analytecode':analytecode,	
+      'analytemnemonic':analytemnemonic,	
       'orderName':orderName,	
       'reportName':reportName,	
       'sltdepartment':sltdepartment,	
@@ -298,6 +300,7 @@ function AnalyteMasterForm(props: any){
         // //setData(facilitydata)
         setAnalytecode(anaytdta.code)			
         setOrderName(anaytdta.name)			
+        setAnalytemnemonic(anaytdta.mnemonicCode)			
         setReportName(anaytdta.report_name)	
         setSltdepartment(anaytdta.depart_id)
         const sltDept = optdepart.find(v => v.value===anaytdta.depart_id)
@@ -680,7 +683,7 @@ function AnalyteMasterForm(props: any){
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="General" {...a11yProps(0)} />
           <Tab label="Reference Range" {...a11yProps(1)} />
-          <Tab label="Device Mapping" {...a11yProps(2)} />
+          <Tab label="Instrument Mapping" {...a11yProps(2)} />
           <Tab label="Associated Tests" {...a11yProps(3)} />
         </Tabs>
       </Box>
@@ -697,6 +700,19 @@ function AnalyteMasterForm(props: any){
                   style={{width: 250}}
                   onChange={(e) => {setAnalytecode(e.target.value);  }}
                   value={analytecode}
+                />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  required
+                  id="mnemonicCode"
+                  name="mnemonicCode"
+                  label="Mnemonic Code"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                  onChange={(e) => {setAnalytemnemonic(e.target.value);  }}
+                  value={analytemnemonic}
                 />
           </Grid>
           <Grid item xs={3}>
@@ -725,7 +741,10 @@ function AnalyteMasterForm(props: any){
                   value={reportName}
                 />
           </Grid>
-          <Grid item xs={3}>
+         
+        </Grid>
+        <Grid container spacing={3} style={{marginTop:5}}>
+           <Grid item xs={3}>
           <Autocomplete
                id="departmentid"
               options={optdepart}
@@ -736,8 +755,6 @@ function AnalyteMasterForm(props: any){
               
             />
           </Grid>
-        </Grid>
-        <Grid container spacing={3} style={{marginTop:5}}>
           <Grid item xs={3}>
           <Autocomplete
                id="sampleid"
@@ -771,13 +788,7 @@ function AnalyteMasterForm(props: any){
               
             />
           </Grid>
-          <Grid item xs={3}>
-          <FormControlLabel
-              control={<Checkbox color="secondary" name="status" id="status" />}
-              label="Active" checked={active}
-              onClick={(e) => {setActive(!active); }}
-            />
-          </Grid>
+         
         </Grid>
         <Grid container spacing={3} style={{marginTop:5}}>
           <Grid item xs={3}>
@@ -797,7 +808,7 @@ function AnalyteMasterForm(props: any){
                id="lonicid"
               options={optlonic}
               sx={{ width: 250 }}
-              renderInput={(params) => <TextField {...params} label="Lonic" variant="standard" />}
+              renderInput={(params) => <TextField {...params} label="LOINC" variant="standard" />}
               onChange={handleLonicFormChangeAuto}
               value={lonic}
               
@@ -818,17 +829,13 @@ function AnalyteMasterForm(props: any){
                 
           </Grid>
           <Grid item xs={3}>
-          <TextField
-                  id="nemonicShortDesc"
-                  name="nemonicShortDesc"
-                  label="Loinc Short Description"
-                  size="small"
-                  variant="standard"
-                  style={{width: 250}}
-                  onChange={(e) => {setLonicdesc(e.target.value);  }}
-                  value={lonicdesc}
-                />
+          <FormControlLabel
+              control={<Checkbox color="secondary" name="status" id="status" />}
+              label="Active" checked={active}
+              onClick={(e) => {setActive(!active); }}
+            />
           </Grid>
+         
         </Grid>
         <Grid container spacing={3} style={{marginTop:5}}>
           <Grid item xs={3}>
@@ -866,6 +873,18 @@ function AnalyteMasterForm(props: any){
                   style={{width: 250}}
                   onChange={(e) => {setDecimaldigits(e.target.value);  }}
                   value={decimaldigits}
+                />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  id="nemonicShortDesc"
+                  name="nemonicShortDesc"
+                  label="Loinc Short Description"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                  onChange={(e) => {setLonicdesc(e.target.value);  }}
+                  value={lonicdesc}
                 />
           </Grid>
         </Grid>
@@ -975,7 +994,7 @@ function AnalyteMasterForm(props: any){
                id="deviceid"
               options={optdevice}
               sx={{ width: 250 }}
-              renderInput={(params) => <TextField {...params} label="Device Id" variant="standard" />}
+              renderInput={(params) => <TextField {...params} label="Instrument Id" variant="standard" />}
               onChange={handleDeviceFormChangeAuto}
               value={device}
               
@@ -1128,14 +1147,14 @@ function AnalyteMasterForm(props: any){
                  <Grid item xs={3}>
             <FormControlLabel
               control={<Checkbox color="secondary" name="status" id="status" />}
-              label="Uplodable ?" checked={uploadflg}
+              label="Upload" checked={uploadflg}
               onClick={(e) => {setUploadflg(!uploadflg); }}
             />
             </Grid>
             <Grid item xs={3}>
             <FormControlLabel
               control={<Checkbox color="secondary" name="status" id="status" />}
-              label="Downlodable ?" checked={downloadflg}
+              label="Download" checked={downloadflg}
               onClick={(e) => {setDownloadflg(!downloadflg); }}
             />
             </Grid>

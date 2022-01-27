@@ -108,6 +108,17 @@ function SampleMasterForm(props: any){
           </Grid>
           <Grid item xs={3}>
           <TextField
+              id="mnemonicCode"
+              name="mnemonicCode"
+              label="Mnemonic Code"
+              fullWidth
+              variant="standard"
+              onChange={(e) => {setSmnemonic(e.target.value);  }}
+              value={smnemonic}
+            />
+          </Grid>
+          <Grid item xs={3}>
+          <TextField
                   required
                   id="sampleName"
                   name="sampleName"
@@ -120,17 +131,7 @@ function SampleMasterForm(props: any){
                   value={samplename}
                 />
           </Grid>
-          <Grid item xs={3}>
-          <TextField
-              id="mnemonicCode"
-              name="mnemonicCode"
-              label="Mnemonic Code"
-              fullWidth
-              variant="standard"
-              onChange={(e) => {setSmnemonic(e.target.value);  }}
-              value={smnemonic}
-            />
-          </Grid>
+          
           <Grid item xs={3}>
           <TextField
               id="displayname"

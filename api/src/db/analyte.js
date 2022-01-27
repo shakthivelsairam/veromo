@@ -6,8 +6,8 @@ export async function add(anlyt) {
       console.log("Master row ID  "+anlyt.rowid);
       if (anlyt.rowid>0)
       {
-        const sqlQuery = 'UPDATE analytes set code=?,name=?,report_name=?,depart_id=?,sample_id=?,container_id=?,method_id=?,uom_id=?,loinc_id=?,lonic_code=?,lonic_desc=?,input_pattern=?,result_type=?,decimal_digit=?,active=? WHERE id=?'
-        const sqlResult = await dbPool.query(sqlQuery, [anlyt.analytecode,anlyt.orderName,anlyt.reportName,anlyt.sltdepartment,anlyt.sltsample,anlyt.sltcontainer,anlyt.sltmethod,anlyt.sltuom,anlyt.sltlonic,anlyt.lonicshort,anlyt.lonicdesc,anlyt.sltinputpattern,anlyt.sltresulttype,anlyt.decimaldigits,anlyt.active,anlyt.rowid])
+        const sqlQuery = 'UPDATE analytes set code=?,mnemonicCode=?,name=?,report_name=?,depart_id=?,sample_id=?,container_id=?,method_id=?,uom_id=?,loinc_id=?,lonic_code=?,lonic_desc=?,input_pattern=?,result_type=?,decimal_digit=?,active=? WHERE id=?'
+        const sqlResult = await dbPool.query(sqlQuery, [anlyt.analytecode,anlyt.analytemnemonic,anlyt.orderName,anlyt.reportName,anlyt.sltdepartment,anlyt.sltsample,anlyt.sltcontainer,anlyt.sltmethod,anlyt.sltuom,anlyt.sltlonic,anlyt.lonicshort,anlyt.lonicdesc,anlyt.sltinputpattern,anlyt.sltresulttype,anlyt.decimaldigits,anlyt.active,anlyt.rowid])
         console.log("db.departments.add sqlResult = " + JSON.stringify(sqlResult))
         return sqlResult
       }
@@ -15,8 +15,8 @@ export async function add(anlyt) {
       {
         //const sqlQuery = 'INSERT INTO departments (name,code,active,short_code,mnemonicCode,sequence_no,tenant_id,isprintable,created_by,updated_by) values (?,?,?,?,?,?,?,?,?,?)'
         //const sqlResult = await dbPool.query(sqlQuery, [depts.ddeptname,depts.ddeptcode,depts.dactive,depts.dshortcode,depts.dmnemonic,depts.dseqNo,depts.dtenantid,depts.dprintSep, "system", "system"])
-        const sqlQuery = 'INSERT INTO analytes (code,name,report_name,depart_id,sample_id,container_id,method_id,uom_id,loinc_id,lonic_code,lonic_desc,input_pattern,result_type,decimal_digit,active,created_by,updated_by) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-        const sqlResult = await dbPool.query(sqlQuery, [anlyt.analytecode,anlyt.orderName,anlyt.reportName,anlyt.sltdepartment,anlyt.sltsample,anlyt.sltcontainer,anlyt.sltmethod,anlyt.sltuom,anlyt.sltlonic,anlyt.lonicshort,anlyt.lonicdesc,anlyt.sltinputpattern,anlyt.sltresulttype,anlyt.decimaldigits,anlyt.active,"system", "system"])
+        const sqlQuery = 'INSERT INTO analytes (code,mnemonicCode,name,report_name,depart_id,sample_id,container_id,method_id,uom_id,loinc_id,lonic_code,lonic_desc,input_pattern,result_type,decimal_digit,active,created_by,updated_by) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+        const sqlResult = await dbPool.query(sqlQuery, [anlyt.analytecode,anlyt.analytemnemonic,anlyt.orderName,anlyt.reportName,anlyt.sltdepartment,anlyt.sltsample,anlyt.sltcontainer,anlyt.sltmethod,anlyt.sltuom,anlyt.sltlonic,anlyt.lonicshort,anlyt.lonicdesc,anlyt.sltinputpattern,anlyt.sltresulttype,anlyt.decimaldigits,anlyt.active,"system", "system"])
         const lastinsertid=sqlResult.insertId
         //console.log("LAST INSERTED ID============================"+lastinsertid)
         /// Reference range store
