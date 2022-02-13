@@ -18,11 +18,11 @@ export async function lookupInputPattern() {
 }
 
  // Lookup
- export async function lookupResultDataTypes() {
+ export async function lookupResultDataTypes(flag) {
   const dbPool = await db.getPool()
   try {
-    const sqlQuery = 'SELECT id as value,name as label FROM resultdatatypes'
-    const sqlResult = await dbPool.query(sqlQuery)
+    const sqlQuery = 'SELECT id as value,name as label FROM resultdatatypes where customflag=?'
+    const sqlResult = await dbPool.query(sqlQuery,[flag])
     if (sqlResult && sqlResult.length > 0) {
       console.log("lookupResultDataTypes details = " + JSON.stringify(sqlResult))
       return sqlResult

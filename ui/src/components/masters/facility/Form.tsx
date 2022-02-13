@@ -261,26 +261,38 @@ function TenantForm(props: any){
             />
           </Grid>
           <Grid item xs={3}>
-            <FormControl variant="standard">
-                <InputLabel id="type-label">Facility Type *</InputLabel>
-                <Select
-                  required
-                  labelId="type-label"
-                  id="facilitytype"
-                  onChange={(e) => {setFacilitytype(e.target.value); handleFormChange(e); handleFacility(e) }}
-                  value={facilitytype}
-                  label="Facility Type"
-                  size="small"
-                  style={{width: 250}}
-                >
-                  <MenuItem value="0">--Select--</MenuItem>
-                  <MenuItem value="processing">Processing Facility</MenuItem>
-                  <MenuItem value="collection">Collection Facility</MenuItem>
-                </Select>
-              </FormControl>
+          <TextField
+              required
+              id="mnemonicCode"
+              name="mnemonicCode"
+              label="Mnemonic Code"
+              fullWidth
+              variant="standard"
+              onChange={(e) => {setFshortcode(e.target.value); handleFormChange(e); }}
+              value={fshortcode}
+            />
           </Grid>
           </Grid>
           <Grid container spacing={3} style={{marginTop: 1}}>
+          <Grid item xs={3}>
+            <FormControl variant="standard">
+              <InputLabel id="type-label">Facility Type *</InputLabel>
+              <Select
+                required
+                labelId="type-label"
+                id="facilitytype"
+                onChange={(e) => {setFacilitytype(e.target.value); handleFormChange(e); handleFacility(e) }}
+                value={facilitytype}
+                label="Facility Type"
+                size="small"
+                style={{width: 250}}
+              >
+                <MenuItem value="0">--Select--</MenuItem>
+                <MenuItem value="processing">Processing Facility</MenuItem>
+                <MenuItem value="collection">Collection Facility</MenuItem>
+              </Select>
+              </FormControl>
+              </Grid>
           <Grid item xs={3}>
             <TextField
               required
@@ -317,6 +329,10 @@ function TenantForm(props: any){
               value={addline2}
             />
           </Grid>
+          
+          
+          </Grid>
+          <Grid container spacing={3} style={{marginTop: 1}}>
           <Grid item xs={3}>
             <TextField
               required
@@ -329,9 +345,6 @@ function TenantForm(props: any){
               value={fcity}
             />
           </Grid>
-          
-          </Grid>
-          <Grid container spacing={3} style={{marginTop: 1}}>
           <Grid item xs={3}>
           <TextField
               required
@@ -370,6 +383,9 @@ function TenantForm(props: any){
             />
           </Grid>
          
+          
+          </Grid>
+          <Grid container spacing={3} style={{marginTop: 1}}>
           <Grid item xs={3}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
@@ -382,8 +398,6 @@ function TenantForm(props: any){
       />
     </LocalizationProvider>
           </Grid>
-          </Grid>
-          <Grid container spacing={3} style={{marginTop: 1}}>
         <Grid item xs={3}>
             <TextField
               required
@@ -397,18 +411,9 @@ function TenantForm(props: any){
               value={fprocessingfacility}
             />
           </Grid>
-          <Grid item xs={3}>
-            <TextField
-              required
-              id="shortcode"
-              name="shortcode"
-              label="Short Code"
-              fullWidth
-              variant="standard"
-              onChange={(e) => {setFshortcode(e.target.value); handleFormChange(e); }}
-              value={fshortcode}
-            />
-          </Grid>
+          
+           
+          
           <Grid item xs={3}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="isBase" readOnly={basedfacilitychk} id="isBase" />}

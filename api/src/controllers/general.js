@@ -1,9 +1,10 @@
 import * as generalDB from "../db/general"
 
 // Lookups
+
 export async function lookupresulttype(req, res) {
     try {
-        const metatypes = await generalDB.lookupResultDataTypes()
+        const metatypes = await generalDB.lookupResultDataTypes(req.params.flag)
         res.status(200).json(metatypes)
     } catch (err) {
         console.error("controller.uomDB.list - Error: " + JSON.stringify(err))

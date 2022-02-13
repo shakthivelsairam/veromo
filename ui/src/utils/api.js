@@ -1042,11 +1042,11 @@ export async function getAllCities() {
               }
           }
           // getLookupResultDataTypes 
-        export async function getLookupResultDataTypes() {
+        export async function getLookupResultDataTypes(customflag) {
             try {
              
                 console.log("getLookupResultDataTypes types apiBaseURL = ", apiBaseURL)
-                  const response = await wrappedFetch(`${apiBaseURL}/resultdatatypelookup`, {
+                  const response = await wrappedFetch(`${apiBaseURL}/resultdatatypelookup/`+customflag, {
                       method: "GET",
                   })
                   console.log("getLookupResultDataTypes response = ", response)

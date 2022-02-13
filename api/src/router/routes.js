@@ -106,7 +106,7 @@ router.route("/methodlookup").get(methodController.lookup)
 router.route("/uomlookup").get(uomController.lookup)
 router.route("/loniclookup").get(lonicController.lookup)
  // Only Lookups Tabl
-router.route("/resultdatatypelookup").get(genericController.lookupresulttype)
+router.route("/resultdatatypelookup/:flag").get(genericController.lookupresulttype)
 router.route("/inputpatternlookup").get(genericController.lookupinputpattern)
 router.route("/refrangelookup").get(genericController.lookuprefrange)
 router.route("/getLookupdevice").get(genericController.lookupdevice)

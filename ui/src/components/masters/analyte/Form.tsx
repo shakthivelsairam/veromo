@@ -129,6 +129,7 @@ function AnalyteMasterForm(props: any){
   const [sltagetype,setSltagetype] = React.useState();
   const [agerange,setAgerange] = useState({label:"",value:0});
   const [sltagerange,setSltagerange] = React.useState();
+  const [ageVal,setAgeVal] = React.useState('');
   const [valuetype,setValuetype] = useState({label:"",value:0});
   const [sltvaluetype,setSltvaluetype] = React.useState();
   const [valuerange,setValuerange] = useState({label:"",value:0});
@@ -461,7 +462,7 @@ function AnalyteMasterForm(props: any){
            setOptinputpattern(inpptrnlk)
 
           // Result Data type
-          const resuldtypelk = await api.getLookupResultDataTypes()
+          const resuldtypelk = await api.getLookupResultDataTypes(0)  // Here 0 indicates No custom Result types 
           setOptresulttype(resuldtypelk)
 
           // setOptrefrange
@@ -914,6 +915,31 @@ function AnalyteMasterForm(props: any){
             />
           </Grid>
           <Grid item xs={3}>
+          <TextField
+                  id="method"
+                  name="method"
+                  label="Method"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                  onChange={(e) => {setMethod1(e.target.value);  }}
+                  value={method1}
+                />
+          </Grid>
+          <Grid item xs={3}>
+          <Autocomplete
+               id="uomid"
+              options={optuom}
+              sx={{ width: 250 }}
+              renderInput={(params) => <TextField {...params} label="UOM" variant="standard" />}
+              onChange={handleUomFormChangeAuto}
+              value={uom}
+              
+            />
+          </Grid>
+          </Grid>
+          <Grid container spacing={2} style={{marginTop: 1}}>
+          <Grid item xs={3}>
           
           <Autocomplete
                id="agetype"
@@ -937,8 +963,19 @@ function AnalyteMasterForm(props: any){
             />
          
           </Grid>
+          <Grid item xs={3}>
+          <TextField
+                  required
+                  id="ageValue"
+                  name="ageValue"
+                  label="Age Value"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                  onChange={(e) => {setVal(e.target.value);  }}
+                  value={ageVal}
+                />
           </Grid>
-          <Grid container spacing={2} style={{marginTop: 5}}>
           <Grid item xs={3}>
           <Autocomplete
                id="valuetype"
@@ -951,6 +988,7 @@ function AnalyteMasterForm(props: any){
             />
          
           </Grid>
+          <Grid container spacing={2} style={{marginTop: 1}}>
           <Grid item xs={3}>
           <Autocomplete
                id="valuerange"
@@ -987,9 +1025,7 @@ function AnalyteMasterForm(props: any){
                   value={printval}
                 />
             </Grid>
-          </Grid>
-          <Grid container spacing={2} style={{marginTop: 5}}>
-          <Grid item xs={3}>
+            <Grid item xs={3}>
           <Autocomplete
                id="deviceid"
               options={optdevice}
@@ -1000,30 +1036,10 @@ function AnalyteMasterForm(props: any){
               
             />
           </Grid>
-          <Grid item xs={3}>
-          <TextField
-                  id="method"
-                  name="method"
-                  label="Method"
-                  size="small"
-                  variant="standard"
-                  style={{width: 250}}
-                  onChange={(e) => {setMethod1(e.target.value);  }}
-                  value={method1}
-                />
           </Grid>
-          <Grid item xs={3}>
-          <TextField
-                  id="uom"
-                  name="uom"
-                  label="UOM"
-                  size="small"
-                  variant="standard"
-                  style={{width: 250}}
-                  onChange={(e) => {setUom1(e.target.value);  }}
-                  value={uom1}
-                />
-          </Grid>
+          
+         
+          
           </Grid>
           <Grid container spacing={3} style={{marginTop: 5}}>
         <Grid item xs={5} style={{textAlign:"right"}}>
@@ -1092,18 +1108,19 @@ function AnalyteMasterForm(props: any){
                   value={assaycode}
                 />
             </Grid>
-          <Grid item xs={3}>
-            
-          <Autocomplete
-               id="tenantid"
-              options={opttenant}
-              sx={{ width: 250 }}
-              renderInput={(params) => <TextField {...params} label="Tenant Id" variant="standard" />}
-              onChange={handleTenantFormChangeAuto}
-              value={tenant}
-              
-            />
-            </Grid>
+            <Grid item xs={3}>
+            <TextField
+                  required
+                  id="method2"
+                  name="method2"
+                  label="Method"
+                  size="small"
+                  variant="standard"
+                  style={{width: 250}}
+                  onChange={(e) => {setMethod2(e.target.value);  }}
+                  value={method2}
+                />
+                 </Grid>
             <Grid item xs={3}>
             <Autocomplete
                id="facility"
@@ -1118,19 +1135,7 @@ function AnalyteMasterForm(props: any){
             </Grid>
             <Grid container spacing={3} style={{marginTop:5}}>
             
-            <Grid item xs={3}>
-            <TextField
-                  required
-                  id="method2"
-                  name="method2"
-                  label="Method"
-                  size="small"
-                  variant="standard"
-                  style={{width: 250}}
-                  onChange={(e) => {setMethod2(e.target.value);  }}
-                  value={method2}
-                />
-                 </Grid>
+           
                  <Grid item xs={3}>
             <TextField
                   required
