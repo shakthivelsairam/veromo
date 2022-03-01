@@ -31,7 +31,7 @@ export async function isbasebranch(tenantId) {
 export async function list() {
     const dbPool = await db.getPool()
     try {
-      const sqlQuery = `SELECT * FROM facility`
+      const sqlQuery = `SELECT * FROM facility where processfacilityflag=1`
       const sqlResult = await dbPool.query(sqlQuery)
       if (sqlResult && sqlResult.length > 0) {
         console.log("facility details = " + JSON.stringify(sqlResult))

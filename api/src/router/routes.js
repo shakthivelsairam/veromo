@@ -16,6 +16,8 @@ import * as uomController from "../controllers/uom"
 import * as lonicController from "../controllers/loinccode"
 import * as analyteController from "../controllers/anayte"
 import * as instrumentanalyteController from "../controllers/instrumentAnalyte"
+import * as userController from "../controllers/user"
+import * as clientsController from "../controllers/clients"
 
 // General Lookups controller
 
@@ -46,6 +48,17 @@ router.route("/samples/:id").get(sampleController.get)
 router.route("/samples").get(sampleController.list)
 router.route("/samples").post(sampleController.add)
 router.route("/samples/:id").put(sampleController.update)
+
+//User routes
+router.route("/users/:id").get(userController.get)
+router.route("/users").get(userController.list)
+router.route("/users").post(userController.add)
+router.route("/users/:id").put(userController.update)
+
+//Clients routes
+router.route("/clients/:id").get(clientsController.get)
+router.route("/clients").get(clientsController.list)
+router.route("/clients").post(clientsController.add)
 
 
 //Containers routes

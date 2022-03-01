@@ -53,6 +53,7 @@ function SampleMasterForm(props: any){
   const handleSubmit = async(event:any ) => {
     
     event.preventDefault();
+     
     var sampledata = {
       'rowid':rowid,
       'samplecode': samplecode,
@@ -60,6 +61,7 @@ function SampleMasterForm(props: any){
       'smnemonic':smnemonic,
       'sdisplayname':sdisplayname,
       'sampleactive': sampleactive,
+     
     }
     const sample = await api.setSample(sampledata)
     console.log("API Response");
@@ -117,6 +119,16 @@ function SampleMasterForm(props: any){
               value={smnemonic}
             />
           </Grid>
+          <Grid item xs={2}>
+           <TextField
+              id="sampleextid"
+              name="sampleextid"
+              label="Sample External Id"
+              size="small"
+              variant="standard"
+              sx={{ width: 200,marginRight: 2}}
+            />
+          </Grid> 
           <Grid item xs={3}>
           <TextField
                   required
@@ -131,7 +143,8 @@ function SampleMasterForm(props: any){
                   value={samplename}
                 />
           </Grid>
-          
+          </Grid>
+          <Grid container spacing={3} style={{marginTop: 1}}>
           <Grid item xs={3}>
           <TextField
               id="displayname"
@@ -143,8 +156,6 @@ function SampleMasterForm(props: any){
               value={sdisplayname}
             />
           </Grid>
-          </Grid>
-          <Grid container spacing={3} style={{marginTop: 1}}>
           <Grid item xs={2}>
           <FormControlLabel
               control={<Checkbox color="secondary" name="status" id="status" />}

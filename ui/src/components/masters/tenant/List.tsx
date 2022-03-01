@@ -73,7 +73,7 @@ export default function TenantList(){
 
   useEffect(() => {
     (async () => {
-      loadTenants()
+     await loadTenants()
     })()
   }, [])
 

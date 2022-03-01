@@ -40,7 +40,6 @@ export default function TariffMaster(){
     togglePage()
     setEditForm(editForm)
   }
-
   useEffect(()=>{
     const rows = [
       {id: 1, cType: "Referring ", cName: 'M-Labs', cCode: "MLABS", loc: "Chennai", hub: "Hub 1", zone: "Zone 1", route:"route 1",panNo:"CNGPU9881D",cstNo:"2020GSTTNLOC391028",bType:"Lab",sapCode:"SAP0012",stNo:"INDSRV21271",outStation:"Yes",cashClient:"No",onlyMapServices:"No",discountAllow:"Yes" },
@@ -95,6 +94,7 @@ export default function TariffMaster(){
                   <StyledTableCell>Only Mappend Service</StyledTableCell>
                   <StyledTableCell>Discount Allowed</StyledTableCell>
                   <StyledTableCell align="center">Action</StyledTableCell>
+                  <StyledTableCell>Client Portal Access</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -116,7 +116,7 @@ export default function TariffMaster(){
                     <StyledTableCell>{row.cashClient}</StyledTableCell>
                     <StyledTableCell>{row.onlyMapServices}</StyledTableCell>
                     <StyledTableCell>{row.discountAllow}</StyledTableCell>
-
+                    <StyledTableCell>{row.outStation}</StyledTableCell>
                     <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
                 ))}

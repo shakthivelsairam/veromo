@@ -53,7 +53,14 @@ export async function lookupmeta(type) {
     if (type==='gender') metatype=1;
     if (type==='AgeType') metatype=3;
     if (type==='Range') metatype=4;
+    if (type==='MaritalStatus') metatype=5;
+    if (type==='AddressTypes') metatype=10;
+    if (type==='NotificationActionType') metatype=11;
+    if (type==='InvoiceCycle') metatype=12;
+    if (type==='NotificationType') metatype=13;
+    if (type==='ClientType') metatype=16;
     const sqlQuery = 'SELECT id as value,code as label FROM meta_data where type=?'
+    console.log(sqlQuery);
     const sqlResult = await dbPool.query(sqlQuery,[metatype])
     if (sqlResult && sqlResult.length > 0) {
       console.log("lookupmeta details = " + JSON.stringify(sqlResult))

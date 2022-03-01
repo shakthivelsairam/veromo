@@ -33,11 +33,13 @@ export default function TariffMaster(){
   const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
+  const [row, setRow] = useState(0)
   const togglePage = () => {
     setShowForm(!showForm)
   }
-  const pageType = (editForm: boolean) => {
+  const pageType = (editForm: boolean,rowId:number) => {
     togglePage()
+    setRow(rowId);
     setEditForm(editForm)
   }
 
@@ -59,12 +61,12 @@ export default function TariffMaster(){
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
+              <Button variant="contained" onClick={()=>pageType(false,0)}>Add</Button>
             </Grid>
             <Dialog fullWidth={true} maxWidth={false} open={showForm}>
               <DialogTitle className={custstyle.addeditmenu}>{editForm ? "Edit" : "Add"} User</DialogTitle>
               <DialogContent dividers className={custstyle.popupheight}>
-                <UserMasterForm togglePage={togglePage}/>
+                <UserMasterForm showForm={showForm} editrow={row} togglePage={togglePage}/>
               </DialogContent>
               <DialogActions>
                 <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={togglePage}>Cancel</Button>
@@ -94,7 +96,7 @@ export default function TariffMaster(){
                     <StyledTableCell>{row.roles}</StyledTableCell>
                     <StyledTableCell>{row.locked}</StyledTableCell>
                     <StyledTableCell>{row.history}</StyledTableCell>
-                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

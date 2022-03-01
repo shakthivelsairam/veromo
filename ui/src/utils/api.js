@@ -246,9 +246,45 @@ export async function getSingleSample(id) {
       }
   }
 
+   //Client Master
+   export async function setClients(clientData) {
+    try {
+        console.log("setClients apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/clients`, {
+              method: "POST",
+              body: JSON.stringify(clientData)
+          })
+          console.log("setClients response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("setClients error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+  //User Master
+  export async function getUsers() {
+    try {
+        console.log("setUsers apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/users`, {
+              method: "GET",
+              body: JSON.stringify()
+          })
+          console.log("setUsers response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("setUsers error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
   // Container
-
-
   export async function getContainer() {
     try {
      
