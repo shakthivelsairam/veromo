@@ -24,13 +24,27 @@
     "build": "react-scripts build",
     "local": "env-cmd -f .EnvLocal npm start",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": " $(npm bin)/eslint . --max-warnings 0 --ext js --ext jsx --ext ts --ext tsx",
+    "prettier-format": "echo 'Running prettier formatter'; $(npm bin)/prettier --loglevel error --write .",
+    "prettier-check": "echo 'Running prettier check'; $(npm bin)/prettier --check ."
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app",
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "no-unreachable": "error",
+      "no-unused-vars": "error",
+      "no-undef": "error",
+      "jsx-a11y/anchor-is-valid": "off"
+    },
+    "globals": {
+      "JSX": "true"
+    }
   },
   "browserslist": {
     "production": [
@@ -53,6 +67,10 @@
     "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "^2.6.0",
     "typescript": "^4.3.5"
   }
 }

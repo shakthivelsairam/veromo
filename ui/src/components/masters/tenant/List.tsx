@@ -1,12 +1,26 @@
-import React, {useEffect, useState} from "react";
-import { styled } from '@mui/material/styles';
-import {Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from '@mui/material';
-import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from '@mui/material';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  Typography,
+  Grid,
+} from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  useMediaQuery,
+} from "@mui/material";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import TenantForm from "./Form";
-import * as api from "../../../utils/api"
+import * as api from "../../../utils/api";
 import set from "date-fns/fp/set/index";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -20,80 +34,86 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
 
-export default function TenantList(){
-
-  const [data, setData] = useState([] as any)
-  const [showForm, setShowForm] = useState(false)
-  const [editForm, setEditForm] = useState(false)
-  const [tenantId, setTenantId] = useState(0)
-  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false)
+export default function TenantList() {
+  const [data, setData] = useState([] as any);
+  const [showForm, setShowForm] = useState(false);
+  const [editForm, setEditForm] = useState(false);
+  const [tenantId, setTenantId] = useState(0);
+  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
   const togglePage = () => {
-    setShowForm(!showForm)
-  }
+    setShowForm(!showForm);
+  };
 
   const closeForm = async (refresh: boolean) => {
-    togglePage()
+    togglePage();
     if (refresh) {
-      await loadTenants()
+      await loadTenants();
     }
-  }
+  };
 
   const pageType = (editForm: boolean, tenantId: number) => {
-    togglePage()
-    setEditForm(editForm)
-    setTenantId(tenantId)
-  }
+    togglePage();
+    setEditForm(editForm);
+    setTenantId(tenantId);
+  };
 
   const deleteTenant = async (tenantId: number) => {
-    setTenantId(tenantId)
-    setOpenDeleteConfirm(true)
-  }
+    setTenantId(tenantId);
+    setOpenDeleteConfirm(true);
+  };
 
   const onCloseDeleteConfirm = async () => {
-    const deleteResult = await api.deleteTenant(tenantId)
+    const deleteResult = await api.deleteTenant(tenantId);
     if (deleteResult && deleteResult.status === "success") {
-      loadTenants()
+      loadTenants();
     }
-    setOpenDeleteConfirm(false)
-  }
+    setOpenDeleteConfirm(false);
+  };
 
   const loadTenants = async () => {
-    const tenants = await api.getTenants()
-    setData(tenants)
-  }
+    const tenants = await api.getTenants();
+    setData(tenants);
+  };
 
   useEffect(() => {
     (async () => {
-     await loadTenants()
-    })()
-  }, [])
+      await loadTenants();
+    })();
+  }, []);
 
-  return(
+  return (
     <div>
       <React.Fragment>
         <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Typography component="h1" variant="h5">
-                Tenants
-              </Typography>
-            </Grid>
-            <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false, 0)}>Add</Button>
-            </Grid>
+          <Grid item xs={6}>
+            <Typography component="h1" variant="h5">
+              Tenants
+            </Typography>
+          </Grid>
+          <Grid item xs={6} style={{ textAlign: "right" }}>
+            <Button variant="contained" onClick={() => pageType(false, 0)}>
+              Add
+            </Button>
+          </Grid>
         </Grid>
         <div>
-          <TenantForm showForm={showForm} editForm={editForm} tenantId={tenantId} onClose={closeForm} />
+          <TenantForm
+            showForm={showForm}
+            editForm={editForm}
+            tenantId={tenantId}
+            onClose={closeForm}
+          />
           <Dialog
-            sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+            sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: 435 } }}
             maxWidth="xs"
             open={openDeleteConfirm}
           >
@@ -109,7 +129,7 @@ export default function TenantList(){
             </DialogActions>
           </Dialog>
         </div>
-          <div style={{ height: 400, width: '100%', marginTop: 5 }}>
+        <div style={{ height: 400, width: "100%", marginTop: 5 }}>
           <Table size="small">
             <TableHead>
               <TableRow>
@@ -121,21 +141,32 @@ export default function TenantList(){
               </TableRow>
             </TableHead>
             <TableBody>
-              {data && data.map((row:any) => (
-                <StyledTableRow key={row.id}>
-                  <StyledTableCell>
-                    {row.code}
-                  </StyledTableCell>
-                  <StyledTableCell>{row.name}</StyledTableCell>
-                  <StyledTableCell>{row.display_name}</StyledTableCell>
-                  <StyledTableCell>{row.active ? "Active" : "Inactive"}</StyledTableCell>
-                  <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true, row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small" onClick={()=>deleteTenant(row.id)}><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
-                </StyledTableRow>
-              ))}
+              {data &&
+                data.map((row: any) => (
+                  <StyledTableRow key={row.id}>
+                    <StyledTableCell>{row.code}</StyledTableCell>
+                    <StyledTableCell>{row.name}</StyledTableCell>
+                    <StyledTableCell>{row.display_name}</StyledTableCell>
+                    <StyledTableCell>
+                      {row.active ? "Active" : "Inactive"}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      <Button
+                        size="small"
+                        onClick={() => pageType(true, row.id)}
+                      >
+                        <EditIcon fontSize="small"></EditIcon>
+                      </Button>
+                      <Button size="small" onClick={() => deleteTenant(row.id)}>
+                        <DeleteIcon fontSize="small"></DeleteIcon>
+                      </Button>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
             </TableBody>
           </Table>
         </div>
       </React.Fragment>
     </div>
-  )
+  );
 }

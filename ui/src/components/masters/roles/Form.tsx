@@ -1,24 +1,42 @@
-import React, {useEffect, useState} from "react";
-import { Route, Link, Switch,withRouter,RouteComponentProps } from "react-router-dom";
-import { Grid, TextField, FormControlLabel,Checkbox,Button,Typography,MenuItem,Select,InputLabel,FormControl,Autocomplete } from '@mui/material';
-import Box from '@mui/material/Box';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import React, { useEffect, useState } from "react";
+import {
+  Route,
+  Link,
+  Switch,
+  withRouter,
+  RouteComponentProps,
+} from "react-router-dom";
+import {
+  Grid,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Typography,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  Autocomplete,
+} from "@mui/material";
+import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
-import Stack from '@mui/material/Stack';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import TimePicker from '@mui/lab/TimePicker';
-import DateTimePicker from '@mui/lab/DateTimePicker';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import MobileDatePicker from '@mui/lab/MobileDatePicker';
+import Stack from "@mui/material/Stack";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import TimePicker from "@mui/lab/TimePicker";
+import DateTimePicker from "@mui/lab/DateTimePicker";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import MobileDatePicker from "@mui/lab/MobileDatePicker";
 
 function TabPanel(props: any) {
   interface Props {
-    children : string,
-    value : number,
-    index : number
+    children: string;
+    value: number;
+    index: number;
   }
   const { children, value, index, ...other } = props;
 
@@ -48,168 +66,197 @@ TabPanel.propTypes = {
 function a11yProps(index: any) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
-export default function BasicTabs(props:any) {
+export default function BasicTabs(props: any) {
   const [value, setValue] = React.useState(0);
-  const [role, setRole] = React.useState('0');
+  const [role, setRole] = React.useState("0");
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
 
   return (
     <React.Fragment>
-    <Grid container spacing={3}>
-          <Grid item xs={3}>
+      <Grid container spacing={3}>
+        <Grid item xs={3}>
           <TextField
-                  required
-                  id="rolename"
-                  name="rolename"
-                  label="Role Name"
-                  size="small"
-                  variant="standard"
-                  style={{width: 250}}
-                />
-          </Grid>
-          <Grid item xs={3}>
-          <TextField
-                  required
-                  id="roleDisplayName"
-                  name="roleDisplayName"
-                  label="Role Display Name"
-                  size="small"
-                  variant="standard"
-                  style={{width: 250}}
-                />
-          </Grid>
-          <Grid item xs={3}>
-          <TextField
-                  required
-                  id="roleDesc"
-                  name="roleDesc"
-                  label="Role Description"
-                  size="small"
-                  variant="standard"
-                  style={{width: 250}}
-                />
-          </Grid>
-          <Grid item xs={3}>
-          <Button variant="contained" color="success" onClick={props.togglePage}>Add new role</Button>
-          </Grid>
-          <Grid item xs={3}>
-        
-          </Grid>
+            required
+            id="rolename"
+            name="rolename"
+            label="Role Name"
+            size="small"
+            variant="standard"
+            style={{ width: 250 }}
+          />
         </Grid>
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ border:4, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} 
-        aria-label="basic tabs example" 
-        textColor="inherit"
-        indicatorColor="secondary"
-        style={{color:"#4258d4"}}>
-          <Tab label="Masters" {...a11yProps(0)} />
-          <Tab label="General" {...a11yProps(1)} />
-          <Tab label="In Patient Tasks" {...a11yProps(2)} />
-          <Tab label="Inventory" {...a11yProps(3)} />
-          <Tab label="Manage Schedules" {...a11yProps(4)} />
-          <Tab label="Manage Referral" {...a11yProps(5)} />
-        </Tabs>
+        <Grid item xs={3}>
+          <TextField
+            required
+            id="roleDisplayName"
+            name="roleDisplayName"
+            label="Role Display Name"
+            size="small"
+            variant="standard"
+            style={{ width: 250 }}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            required
+            id="roleDesc"
+            name="roleDesc"
+            label="Role Description"
+            size="small"
+            variant="standard"
+            style={{ width: 250 }}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={props.togglePage}
+          >
+            Add new role
+          </Button>
+        </Grid>
+        <Grid item xs={3}></Grid>
+      </Grid>
+      <Box sx={{ width: "100%" }}>
+        <Box sx={{ border: 4, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+            textColor="inherit"
+            indicatorColor="secondary"
+            style={{ color: "#4258d4" }}
+          >
+            <Tab label="Masters" {...a11yProps(0)} />
+            <Tab label="General" {...a11yProps(1)} />
+            <Tab label="In Patient Tasks" {...a11yProps(2)} />
+            <Tab label="Inventory" {...a11yProps(3)} />
+            <Tab label="Manage Schedules" {...a11yProps(4)} />
+            <Tab label="Manage Referral" {...a11yProps(5)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <Grid container>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="Policy Master" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="Client Master" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Client Batch Master"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="Create Test" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Employee Master"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Facility Master"
+              />
+            </Grid>
+
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Hospital Master"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Instrument Mapping"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="Meta Master" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="Tariff Name" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="User Master" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="ManagePackage" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="RoleMenuMapper" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="Test Master" />
+            </Grid>
+          </Grid>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Grid container style={{ marginTop: 1 }}>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="Address Book" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Bill Search(Billing)"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Cash Closure(Admin)"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="Collections" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Pattern Mapping"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="Test Report" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel control={<Checkbox />} label="ReportList" />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Invoice Generation"
+              />
+            </Grid>
+          </Grid>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Patient Menus
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          Inventory Menus
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          Manage Schedule
+        </TabPanel>
+        <TabPanel value={value} index={5}>
+          Manage Referral
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-      <Grid container>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox/>} label="Policy Master" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox />} label="Client Master" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox />} label="Client Batch Master" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox />} label="Create Test" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox />} label="Employee Master" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="Facility Master" />
-          </Grid>
-          
-
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox/>} label="Hospital Master" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox />} label="Instrument Mapping" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox />} label="Meta Master" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox />} label="Tariff Name" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox />} label="User Master" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="ManagePackage" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="RoleMenuMapper" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="Test Master" />
-          </Grid>
-          
-
-        </Grid>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-      <Grid container style={{marginTop:1}}>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="Address Book" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="Bill Search(Billing)" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="Cash Closure(Admin)" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="Collections" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="Pattern Mapping" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="Test Report" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="ReportList" />
-          </Grid>
-          <Grid item xs={2}>
-          <FormControlLabel control={<Checkbox  />} label="Invoice Generation" />
-          </Grid>
-        </Grid>
-        
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-       Patient Menus
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-       Inventory Menus
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-       Manage Schedule
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-       Manage Referral
-      </TabPanel>
-    </Box>
-    
     </React.Fragment>
   );
 }

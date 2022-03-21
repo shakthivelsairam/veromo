@@ -1,10 +1,18 @@
-import React, {useEffect, useState} from "react";
-import { styled } from '@mui/material/styles';
-import {Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from '@mui/material';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  Typography,
+  Grid,
+} from "@mui/material";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import AnalystMasterForm from "./analyteForm";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -18,39 +26,52 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
 
-export default function TestMasterList(){
+export default function TestMasterList() {
+  const [testMasterData, setTestMasterData] = useState([] as any);
+  const [showForm, setShowForm] = useState(false);
+  const [showList, setShowList] = useState(true);
+  const togglePage = () => {
+    setShowForm(!showForm);
+    setShowList(!showList);
+  };
 
-  const [testMasterData, setTestMasterData] = useState([] as any)
-  const [showForm, setShowForm] = useState(false)
-  const [showList, setShowList] = useState(true)
-      const togglePage = () => {
-        setShowForm(!showForm)
-        setShowList(!showList)
-      }
-
-  useEffect(()=>{
+  useEffect(() => {
     const rows = [
-      {id:1, code: "MS002", billing_name: "HBV-DNA (OS)", report_name: 'HBV-DNA detection by PCR', test_performed:"Inhouse", dept: "Biochemistry", status: "Active" },
-      {id:2, code: "IM0096", billing_name: "	1.25 VD (OS)", report_name: '1.25 Dihydroxy Vitamin D', test_performed:"Outsource", dept: "Hematology", status: "Inactive" },
+      {
+        id: 1,
+        code: "MS002",
+        billing_name: "HBV-DNA (OS)",
+        report_name: "HBV-DNA detection by PCR",
+        test_performed: "Inhouse",
+        dept: "Biochemistry",
+        status: "Active",
+      },
+      {
+        id: 2,
+        code: "IM0096",
+        billing_name: "	1.25 VD (OS)",
+        report_name: "1.25 Dihydroxy Vitamin D",
+        test_performed: "Outsource",
+        dept: "Hematology",
+        status: "Inactive",
+      },
     ];
-    setTestMasterData(rows)
-  }, [])
+    setTestMasterData(rows);
+  }, []);
 
-    return(
-      <div>
-        {showForm &&
-        <AnalystMasterForm togglePage={togglePage}/>
-        }
-        {showList &&
+  return (
+    <div>
+      {showForm && <AnalystMasterForm togglePage={togglePage} />}
+      {showList && (
         <React.Fragment>
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -58,11 +79,13 @@ export default function TestMasterList(){
                 Analyst Master
               </Typography>
             </Grid>
-            <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={togglePage}>Add</Button>
+            <Grid item xs={6} style={{ textAlign: "right" }}>
+              <Button variant="contained" onClick={togglePage}>
+                Add
+              </Button>
             </Grid>
-        </Grid>
-          <div style={{ height: 400, width: '100%', marginTop: 5 }}>
+          </Grid>
+          <div style={{ height: 400, width: "100%", marginTop: 5 }}>
             <Table size="small">
               <TableHead>
                 <TableRow>
@@ -75,23 +98,34 @@ export default function TestMasterList(){
                 </TableRow>
               </TableHead>
               <TableBody>
-                {testMasterData.map((row:any) => (
+                {testMasterData.map((row: any) => (
                   <StyledTableRow key={row.id}>
                     <StyledTableCell component="th" scope="row">
                       {row.code}
                     </StyledTableCell>
                     <StyledTableCell>{row.billing_name}</StyledTableCell>
-                    <StyledTableCell>{row.report_name}<br/>{row.patient_details}</StyledTableCell>
+                    <StyledTableCell>
+                      {row.report_name}
+                      <br />
+                      {row.patient_details}
+                    </StyledTableCell>
                     <StyledTableCell>{row.dept}</StyledTableCell>
                     <StyledTableCell>{row.status}</StyledTableCell>
-                    <StyledTableCell align="center"><Button size="small" onClick={togglePage}><EditIcon fontSize="small"></EditIcon></Button><Button size="small" onClick={togglePage}><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                    <StyledTableCell align="center">
+                      <Button size="small" onClick={togglePage}>
+                        <EditIcon fontSize="small"></EditIcon>
+                      </Button>
+                      <Button size="small" onClick={togglePage}>
+                        <DeleteIcon fontSize="small"></DeleteIcon>
+                      </Button>
+                    </StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
         </React.Fragment>
-        }
-      </div>
-    )
+      )}
+    </div>
+  );
 }

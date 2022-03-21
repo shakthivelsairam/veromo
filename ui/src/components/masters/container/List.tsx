@@ -1,13 +1,27 @@
-import React, {useEffect, useState} from "react";
-import { styled } from '@mui/material/styles';
-import {Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from '@mui/material';
-import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from '@mui/material';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  Typography,
+  Grid,
+} from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  useMediaQuery,
+} from "@mui/material";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ContainerMasterForm from "./Form";
-import custstyle  from  "../../style.module.css";
-import * as api from "../../../utils/api"
+import custstyle from "../../style.module.css";
+import * as api from "../../../utils/api";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -20,76 +34,95 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
 
-export default function ContainerMaster(){
-
-  const [data, setData] = useState([] as any)
-  const [showForm, setShowForm] = useState(false)
-  const [editForm, setEditForm] = useState(false)
-  const [row, setRow] = useState(0)
+export default function ContainerMaster() {
+  const [data, setData] = useState([] as any);
+  const [showForm, setShowForm] = useState(false);
+  const [editForm, setEditForm] = useState(false);
+  const [row, setRow] = useState(0);
   const togglePage = () => {
-    setShowForm(!showForm)
-  }
-  const pageType = (editForm: boolean,rowId:number) => {
-    togglePage()
-    setEditForm(editForm)
-    setRow(rowId)
-  }
+    setShowForm(!showForm);
+  };
+  const pageType = (editForm: boolean, rowId: number) => {
+    togglePage();
+    setEditForm(editForm);
+    setRow(rowId);
+  };
 
   useEffect(() => {
     (async () => {
-       const sampledata = await api.getContainer()
-      setData(sampledata)
-    })()
-  }, [showForm])
+      const sampledata = await api.getContainer();
+      setData(sampledata);
+    })();
+  }, [showForm]);
 
-    return(
-      <div>
-        <React.Fragment>
-       <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Typography component="h1" variant="h5">
-                Container Master
-              </Typography>
-            </Grid>
-            <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false,0)}>Add</Button>
-            </Grid>
-            <ContainerMasterForm showForm={showForm} editrow={row} togglePage={togglePage}/>
+  return (
+    <div>
+      <React.Fragment>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <Typography component="h1" variant="h5">
+              Container Master
+            </Typography>
+          </Grid>
+          <Grid item xs={6} style={{ textAlign: "right" }}>
+            <Button variant="contained" onClick={() => pageType(false, 0)}>
+              Add
+            </Button>
+          </Grid>
+          <ContainerMasterForm
+            showForm={showForm}
+            editrow={row}
+            togglePage={togglePage}
+          />
         </Grid>
-          <div style={{ height: 400, width: '100%', marginTop: 5 }}>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Container Code</StyledTableCell>
-                  <StyledTableCell>Container Name</StyledTableCell>
-                  <StyledTableCell>Container Mnemonic Code</StyledTableCell>
-                  <StyledTableCell>Status</StyledTableCell>
-                  <StyledTableCell align="center">Action</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-              {data?data.map((row:any) => (
-                  <StyledTableRow key={row.id}>
-                    <StyledTableCell>{row.code}</StyledTableCell>
-                    <StyledTableCell>{row.name}</StyledTableCell>
-                    <StyledTableCell>{row.mnemonicCode}</StyledTableCell>
-                    <StyledTableCell>{row.active===1?"Active":"In-Active"}</StyledTableCell>
-                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true,row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
-                  </StyledTableRow>
-                )) : "No Container record found!!!"}
-              </TableBody>
-            </Table>
-          </div>
-        </React.Fragment>
-      </div>
-    )
+        <div style={{ height: 400, width: "100%", marginTop: 5 }}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Container Code</StyledTableCell>
+                <StyledTableCell>Container Name</StyledTableCell>
+                <StyledTableCell>Container Mnemonic Code</StyledTableCell>
+                <StyledTableCell>Status</StyledTableCell>
+                <StyledTableCell align="center">Action</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data
+                ? data.map((row: any) => (
+                    <StyledTableRow key={row.id}>
+                      <StyledTableCell>{row.code}</StyledTableCell>
+                      <StyledTableCell>{row.name}</StyledTableCell>
+                      <StyledTableCell>{row.mnemonicCode}</StyledTableCell>
+                      <StyledTableCell>
+                        {row.active === 1 ? "Active" : "In-Active"}
+                      </StyledTableCell>
+                      <StyledTableCell align="center">
+                        <Button
+                          size="small"
+                          onClick={() => pageType(true, row.id)}
+                        >
+                          <EditIcon fontSize="small"></EditIcon>
+                        </Button>
+                        <Button size="small">
+                          <DeleteIcon fontSize="small"></DeleteIcon>
+                        </Button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))
+                : "No Container record found!!!"}
+            </TableBody>
+          </Table>
+        </div>
+      </React.Fragment>
+    </div>
+  );
 }
