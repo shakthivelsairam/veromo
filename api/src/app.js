@@ -3,19 +3,19 @@ import morgan from "morgan"
 import morganBody from "morgan-body"
 import helmet from "helmet"
 import cors from "cors"
-import bodyParser from "body-parser";
+import bodyParser from "body-parser"
 import { apiRoutes } from "./router/routes"
 
 export let app = express()
 
 app.use(
-    helmet({
-        contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["none"], // No UI served, so lockdown CSP
-        },
-        },
-    })
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["none"], // No UI served, so lockdown CSP
+      },
+    },
+  })
 )
 
 app.use(cors())
@@ -41,14 +41,14 @@ app.use(function (err, req, res, next) {
 })
 
 app.use(
-    "/api/v1",
-    function (req, res, next) {
-      next()
-    },
-    apiRoutes
-  )
+  "/api/v1",
+  function (req, res, next) {
+    next()
+  },
+  apiRoutes
+)
 
 // Kubernetes requires 200 on GET / for ingress setup
 app.get("/", function (req, res) {
-    res.send()
+  res.send()
 })

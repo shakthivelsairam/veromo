@@ -28,6 +28,8 @@ function TenantForm(props: any){
   const [tenantEmail, setTenantEmail] = React.useState("")
   const [tenantAltEmail, setTenantAltEmail] = React.useState("")
   const [tenantRemarks, setTenantRemarks] = React.useState("")
+  const [logoFile, setLogoFile] = React.useState<File>()
+  const [logoFilePreview, setLogoFilePreview] = React.useState("")
   
   useEffect(() => {
     (async () => {
@@ -149,6 +151,14 @@ function TenantForm(props: any){
       }
     }
   }
+
+  const selectLogoFile = (event) => {
+    console.log("selectLogoFile = ", event.target.files[0])
+    console.log("selectLogoFile createObjectURL = ", URL.createObjectURL(event.target.files[0]))
+    setLogoFile(event.target.files[0])
+    setLogoFilePreview(URL.createObjectURL(event.target.files[0]))
+  }
+
     return(
         <React.Fragment>
           <Dialog fullWidth={true} maxWidth={false} open={props.showForm}>
@@ -341,11 +351,13 @@ function TenantForm(props: any){
                     </Grid>
                     <Grid item xs={3}>
                       <label htmlFor="contained-button-file">Logo&nbsp;
-                      <Input accept="image/*" id="contained-button-file" multiple type="file" />
-                      <Button variant="contained" component="span">
-                        Browse
-                      </Button>
+                      <input accept="image/*" id="contained-button-file" type="file" onChange={selectLogoFile} />
                       </label>
+                      {logoFilePreview && (
+                        <div>
+                          <img src={logoFilePreview} alt="" />
+                        </div>
+                      )}
                     </Grid>
                     <Grid item xs={3}>
                     <TextField

@@ -3,7 +3,7 @@ import * as ENV from "./env"
 
 let pool = null
 
-export function getPool() {
+export async function getPool() {
   if (pool) {
     return pool
   }
@@ -17,21 +17,21 @@ export function getPool() {
     port: ENV.getDBPort(),
     connectionLimit: 5,
   }
-  
-  pool = mysql.createPool(connectionDetails)
+
+  pool = await mysql.createPool(connectionDetails)
   return pool
 }
 
 export async function getConnection() {
-  const p = getPool()
+  const p = await getPool()
   const connection = await p.getConnection()
   return connection
 }
 
 export async function releaseConnection(connection) {
   try {
-    connection.release()
-  } catch(error) {
+    await connection.release()
+  } catch (error) {
     console.error("Error in release connection", error)
   }
 }

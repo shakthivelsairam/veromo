@@ -32,12 +32,14 @@ export default function TariffMaster(){
   const [data, setData] = useState([] as any)
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
+  const [row, setRow] = useState(0)
   const togglePage = () => {
     setShowForm(!showForm)
   }
-  const pageType = (editForm: boolean) => {
-    togglePage()
+  const pageType = (editForm: boolean,rowId:number) => {
     setEditForm(editForm)
+    setRow(rowId)
+    togglePage()
   }
 
   useEffect(()=>{
@@ -58,18 +60,9 @@ export default function TariffMaster(){
               </Typography>
             </Grid>
             <Grid item xs={6} style={{textAlign:"right"}}>
-              <Button variant="contained" onClick={()=>pageType(false)}>Add</Button>
+              <Button variant="contained" onClick={()=>pageType(false, 0)}>Add</Button>
             </Grid>
-            <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-              <DialogTitle>{editForm ? "Edit" : "Add"} Price</DialogTitle>
-              <DialogContent dividers>
-                <PriceMasterForm togglePage={togglePage}/>
-              </DialogContent>
-              <DialogActions>
-                <Button variant="contained" style={{backgroundColor:"lightgray", color:"black"}} onClick={togglePage}>Cancel</Button>
-                <Button variant="contained" color="primary" onClick={togglePage}>{editForm ? "Update" : "Save"}</Button>
-              </DialogActions>
-            </Dialog>
+            <PriceMasterForm showForm={showForm} editrow={row} togglePage={togglePage}/>
         </Grid>
           <div style={{ height: 400, width: '100%', marginTop: 5 }}>
             <Table size="small">
@@ -91,7 +84,7 @@ export default function TariffMaster(){
                     <StyledTableCell>{row.test_name}</StyledTableCell>
                     <StyledTableCell>{row.price}</StyledTableCell>
                     <StyledTableCell>{row.status}</StyledTableCell>
-                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
+                    <StyledTableCell align="center"><Button size="small" onClick={()=>pageType(true, row.id)}><EditIcon fontSize="small"></EditIcon></Button><Button size="small"><DeleteIcon fontSize="small"></DeleteIcon></Button></StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

@@ -1,11 +1,10 @@
 import * as db from "../db"
 
-
- // Lookup
+// Lookup
 export async function lookupInputPattern() {
   const dbPool = await db.getPool()
   try {
-    const sqlQuery = 'SELECT id as value,name as label FROM inputpattern'
+    const sqlQuery = "SELECT id as value,name as label FROM inputpattern"
     const sqlResult = await dbPool.query(sqlQuery)
     if (sqlResult && sqlResult.length > 0) {
       console.log("lookupInputPattern details = " + JSON.stringify(sqlResult))
@@ -17,12 +16,12 @@ export async function lookupInputPattern() {
   return null
 }
 
- // Lookup
- export async function lookupResultDataTypes(flag) {
+// Lookup
+export async function lookupResultDataTypes(flag) {
   const dbPool = await db.getPool()
   try {
-    const sqlQuery = 'SELECT id as value,name as label FROM resultdatatypes where customflag=?'
-    const sqlResult = await dbPool.query(sqlQuery,[flag])
+    const sqlQuery = "SELECT id as value,name as label FROM resultdatatypes where customflag=?"
+    const sqlResult = await dbPool.query(sqlQuery, [flag])
     if (sqlResult && sqlResult.length > 0) {
       console.log("lookupResultDataTypes details = " + JSON.stringify(sqlResult))
       return sqlResult
@@ -35,7 +34,7 @@ export async function lookupInputPattern() {
 export async function lookuprefrange() {
   const dbPool = await db.getPool()
   try {
-    const sqlQuery = 'SELECT id as value,name as label FROM referencerange'
+    const sqlQuery = "SELECT id as value,name as label FROM referencerange"
     const sqlResult = await dbPool.query(sqlQuery)
     if (sqlResult && sqlResult.length > 0) {
       console.log("lookuprefrange details = " + JSON.stringify(sqlResult))
@@ -49,19 +48,19 @@ export async function lookuprefrange() {
 export async function lookupmeta(type) {
   const dbPool = await db.getPool()
   try {
-    let metatype=0
-    if (type==='gender') metatype=1;
-    if (type==='AgeType') metatype=3;
-    if (type==='Range') metatype=4;
-    if (type==='MaritalStatus') metatype=5;
-    if (type==='AddressTypes') metatype=10;
-    if (type==='NotificationActionType') metatype=11;
-    if (type==='InvoiceCycle') metatype=12;
-    if (type==='NotificationType') metatype=13;
-    if (type==='ClientType') metatype=16;
-    const sqlQuery = 'SELECT id as value,code as label FROM meta_data where type=?'
-    console.log(sqlQuery);
-    const sqlResult = await dbPool.query(sqlQuery,[metatype])
+    let metatype = 0
+    if (type === "gender") metatype = 1
+    if (type === "AgeType") metatype = 3
+    if (type === "Range") metatype = 4
+    if (type === "MaritalStatus") metatype = 5
+    if (type === "AddressTypes") metatype = 10
+    if (type === "NotificationActionType") metatype = 11
+    if (type === "InvoiceCycle") metatype = 12
+    if (type === "NotificationType") metatype = 13
+    if (type === "ClientType") metatype = 16
+    const sqlQuery = "SELECT id as value,code as label FROM meta_data where type=?"
+    console.log(sqlQuery)
+    const sqlResult = await dbPool.query(sqlQuery, [metatype])
     if (sqlResult && sqlResult.length > 0) {
       console.log("lookupmeta details = " + JSON.stringify(sqlResult))
       return sqlResult
@@ -74,7 +73,7 @@ export async function lookupmeta(type) {
 export async function lookupdevice() {
   const dbPool = await db.getPool()
   try {
-    const sqlQuery = 'SELECT id as value,code as label FROM equipments'
+    const sqlQuery = "SELECT id as value,code as label FROM equipments"
     const sqlResult = await dbPool.query(sqlQuery)
     if (sqlResult && sqlResult.length > 0) {
       console.log("lookuprefrange details = " + JSON.stringify(sqlResult))
@@ -85,6 +84,3 @@ export async function lookupdevice() {
   }
   return null
 }
-
-
-

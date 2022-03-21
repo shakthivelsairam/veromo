@@ -9,7 +9,7 @@ const port = process.env.PORT || 8080
 
 httpServer.listen(port, function () {
   console.log("Server listening on port " + port)
-/*
+  /*
   // try db connection
   console.log("Checking MySQL connection...")
   let pool = db.getPool()

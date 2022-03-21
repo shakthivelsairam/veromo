@@ -1,65 +1,81 @@
 import * as db from "../db"
 
 export async function get(sampleid) {
-    const dbPool = await db.getPool()
-    try {
-      const sqlQuery = `SELECT * FROM samples WHERE id=?`
-      const sqlResult = await dbPool.query(sqlQuery, [sampleid])
-      if (sqlResult && sqlResult.length > 0) {
-        console.log("samples details = " + JSON.stringify(sqlResult))
-        return sqlResult[0]
-      }
-    } catch (err) {
-      console.error("db.samples.get error = ", JSON.stringify(err))
+  const dbPool = await db.getPool()
+  try {
+    const sqlQuery = `SELECT * FROM samples WHERE id=?`
+    const sqlResult = await dbPool.query(sqlQuery, [sampleid])
+    if (sqlResult && sqlResult.length > 0) {
+      console.log("samples details = " + JSON.stringify(sqlResult))
+      return sqlResult[0]
     }
-    return null
+  } catch (err) {
+    console.error("db.samples.get error = ", JSON.stringify(err))
+  }
+  return null
 }
 
 export async function list() {
-    const dbPool = await db.getPool()
-    try {
-      const sqlQuery = `SELECT * FROM samples`
-      const sqlResult = await dbPool.query(sqlQuery)
-      if (sqlResult && sqlResult.length > 0) {
-        console.log("samples details = " + JSON.stringify(sqlResult))
-        return sqlResult
-      }
-    } catch (err) {
-      console.error("db.samples.list error = ", JSON.stringify(err))
+  const dbPool = await db.getPool()
+  try {
+    const sqlQuery = `SELECT * FROM samples`
+    const sqlResult = await dbPool.query(sqlQuery)
+    if (sqlResult && sqlResult.length > 0) {
+      console.log("samples details = " + JSON.stringify(sqlResult))
+      return sqlResult
     }
-    return null
+  } catch (err) {
+    console.error("db.samples.list error = ", JSON.stringify(err))
+  }
+  return null
 }
 
 export async function add(sample) {
-    const dbPool = await db.getPool()
-    try {
-      console.log("Master row ID  "+sample.drowid);
-      if (sample.rowid>0)
-      {
-        const sqlQuery = 'UPDATE samples set name=?,code=?,displayname=?,mnemonicCode=?,active=?,tenant_id=? WHERE id=?'
-        // Have to keep tenant id from login session and store here
-        const sqlResult = await dbPool.query(sqlQuery, [sample.samplename,sample.samplecode,sample.sdisplayname,sample.smnemonic,sample.sampleactive,1,sample.rowid])
-        console.log("db.samples.add sqlResult = " + JSON.stringify(sqlResult))
-        return sqlResult
-      }
-      else if (sample.rowid===0)
-      {
-        const sqlQuery = 'INSERT INTO samples (name,code,active,displayname,mnemonicCode,tenant_id,created_by,updated_by) values (?,?,?,?,?,?,?,?)'
-        // Have to keep tenant id from login session and store here
-        const sqlResult = await dbPool.query(sqlQuery, [sample.samplename,sample.samplecode,sample.sdisplayname,sample.smnemonic,sample.sampleactive,1, "system", "system"])
-        console.log("db.samples.add sqlResult = " + JSON.stringify(sqlResult))
-        return sqlResult
-      }
-    } catch (err) {
-      console.error("db.samples.add error = ",err)
-      return "Error Occured during samples insert"+JSON.stringify(err)
+  const dbPool = await db.getPool()
+  try {
+    console.log("Master row ID  " + sample.drowid)
+    if (sample.rowid > 0) {
+      const sqlQuery =
+        "UPDATE samples set name=?,code=?,displayname=?,mnemonicCode=?,active=?,tenant_id=? WHERE id=?"
+      // Have to keep tenant id from login session and store here
+      const sqlResult = await dbPool.query(sqlQuery, [
+        sample.samplename,
+        sample.samplecode,
+        sample.sdisplayname,
+        sample.smnemonic,
+        sample.sampleactive,
+        1,
+        sample.rowid,
+      ])
+      console.log("db.samples.add sqlResult = " + JSON.stringify(sqlResult))
+      return sqlResult
+    } else if (sample.rowid === 0) {
+      const sqlQuery =
+        "INSERT INTO samples (name,code,active,displayname,mnemonicCode,tenant_id,created_by,updated_by) values (?,?,?,?,?,?,?,?)"
+      // Have to keep tenant id from login session and store here
+      const sqlResult = await dbPool.query(sqlQuery, [
+        sample.samplename,
+        sample.samplecode,
+        sample.sdisplayname,
+        sample.smnemonic,
+        sample.sampleactive,
+        1,
+        "system",
+        "system",
+      ])
+      console.log("db.samples.add sqlResult = " + JSON.stringify(sqlResult))
+      return sqlResult
     }
-    return null
+  } catch (err) {
+    console.error("db.samples.add error = ", err)
+    return "Error Occured during samples insert" + JSON.stringify(err)
+  }
+  return null
 }
 export async function lookup() {
   const dbPool = await db.getPool()
   try {
-    const sqlQuery = 'SELECT id as value,name as label FROM samples'
+    const sqlQuery = "SELECT id as value,name as label FROM samples"
     const sqlResult = await dbPool.query(sqlQuery)
     if (sqlResult && sqlResult.length > 0) {
       console.log("tenant details = " + JSON.stringify(sqlResult))
@@ -70,4 +86,3 @@ export async function lookup() {
   }
   return null
 }
-

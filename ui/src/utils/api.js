@@ -1198,3 +1198,157 @@ export async function getAllCities() {
               throw new Error("Unauthorized")
           }
       }
+
+export async function getTariffCards() {
+    try
+    {
+        console.log("getTariffCards apiBaseURL = ", apiBaseURL)
+        const response = await wrappedFetch(`${apiBaseURL}/tariffcard`, {
+            method: "GET",
+        })
+        console.log("getTariffCards response = ", response)
+        if (response.status === 401) {
+            throw new Error("Unauthorized")
+        } else {
+            return response.json()
+        }
+        
+    } catch (error) {
+        console.error("getTariffCards error: ", error)
+        throw new Error("Unauthorized")
+    }
+}
+
+export async function getTariffCard(tariffCardId) {
+    try
+    {
+        console.log("getTariffCard apiBaseURL = ", apiBaseURL)
+        const response = await wrappedFetch(`${apiBaseURL}/tariffcard/${tariffCardId}`, {
+            method: "GET",
+        })
+        console.log("getTariffCard response = ", response)
+        if (response.status === 401) {
+            throw new Error("Unauthorized")
+        } else {
+            return response.json()
+        }
+        
+    } catch (error) {
+        console.error("getTariffCard error: ", error)
+        throw new Error("Unauthorized")
+    }
+}
+
+export async function saveTariffCard(tariffCard) {
+    try {
+        console.log("saveTariffCard apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/tariffcard`, {
+              method: "POST",
+              body: JSON.stringify(tariffCard)
+          })
+          console.log("saveTariffCard response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("saveTariffCard error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+  export async function updateTariffCard(tariffCardId, tariffCard) {
+    try {
+        console.log("updateTariffCard apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/tariffcard/${tariffCardId}`, {
+              method: "PUT",
+              body: JSON.stringify(tariffCard)
+          })
+          console.log("updateTariffCard response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("updateTariffCard error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+  export async function removeTariffCard(tariffCardId) {
+    try {
+        console.log("removeTariffCard apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/tariffcard/${tariffCardId}`, {
+              method: "DELETE"
+          })
+          console.log("removeTariffCard response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("removeTariffCard error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+  export async function getPrices(tariffCardId, testId) {
+    try {
+        console.log("getPrices apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/prices/test`, {
+              method: "POST",
+              body: JSON.stringify({"tariffCardId": tariffCardId, "identifyingId": testId, "identifyingType": "Test"})
+          })
+          console.log("getPrices response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+      } catch (error) {
+          console.error("getPrices error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+  export async function savePrices(prices) {
+    try {
+        console.log("savePrices apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/prices`, {
+              method: "POST",
+              body: JSON.stringify(prices)
+          })
+          console.log("savePrices response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response
+          }
+      } catch (error) {
+          console.error("savePrices error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }
+
+  export async function getTestsLookup() {
+    try {
+     
+        console.log("getTestsLookup apiBaseURL = ", apiBaseURL)
+          const response = await wrappedFetch(`${apiBaseURL}/tests/lookup`, {
+              method: "GET",
+          })
+          console.log("getTestsLookup response = ", response)
+          if (response.status === 401) {
+              throw new Error("Unauthorized")
+          } else {
+              return response.json()
+          }
+         
+      } catch (error) {
+          console.error("getTestsLookup error: ", error)
+          throw new Error("Unauthorized")
+      }
+  }

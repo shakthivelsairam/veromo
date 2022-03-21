@@ -18,7 +18,9 @@ import * as analyteController from "../controllers/anayte"
 import * as instrumentanalyteController from "../controllers/instrumentAnalyte"
 import * as userController from "../controllers/user"
 import * as clientsController from "../controllers/clients"
-
+import * as tariffCardController from "../controllers/tariffCard"
+import * as pricesController from "../controllers/prices"
+import * as testsController from "../controllers/tests"
 // General Lookups controller
 
 import * as genericController from "../controllers/general"
@@ -60,7 +62,6 @@ router.route("/clients/:id").get(clientsController.get)
 router.route("/clients").get(clientsController.list)
 router.route("/clients").post(clientsController.add)
 
-
 //Containers routes
 router.route("/containers/:id").get(containerController.get)
 router.route("/containers").get(containerController.list)
@@ -82,8 +83,6 @@ router.route("/metadatas/:id").get(metatypeController.get)
 router.route("/metadatas").post(metatypeController.addmeta)
 router.route("/metadatas").get(metatypeController.listmeta)
 
-
-
 router.route("/instrumentdata").post(instrumentDataController.add)
 router.route("/instrumentdata/:id").get(instrumentDataController.get)
 router.route("/instrumentdata").get(instrumentDataController.list)
@@ -92,9 +91,10 @@ router.route("/instrumenttype/:id").get(instrumentDataController.getType)
 router.route("/instrumenttype").get(instrumentDataController.getTypeList)
 router.route("/instrumenttype").post(instrumentDataController.addType)
 
+// Test routes
+router.route("/tests/lookup").get(testsController.lookup)
+
 // Analyte routes
-
-
 router.route("/analyte").post(analyteController.add)
 router.route("/analyte").get(analyteController.list)
 router.route("/analyte/:id").get(analyteController.get)
@@ -103,7 +103,6 @@ router.route("/analyterange/:id").get(analyteController.rangeget)
 // Instrument Analyte mapping routes
 
 router.route("/instrumentanalyte").get(instrumentanalyteController.list)
-
 
 // Lookup routes
 
@@ -118,13 +117,23 @@ router.route("/containerlookup").get(containerController.lookup)
 router.route("/methodlookup").get(methodController.lookup)
 router.route("/uomlookup").get(uomController.lookup)
 router.route("/loniclookup").get(lonicController.lookup)
- // Only Lookups Tabl
+// Only Lookups Tabl
 router.route("/resultdatatypelookup/:flag").get(genericController.lookupresulttype)
 router.route("/inputpatternlookup").get(genericController.lookupinputpattern)
 router.route("/refrangelookup").get(genericController.lookuprefrange)
 router.route("/getLookupdevice").get(genericController.lookupdevice)
 
 router.route("/getLookupmetadata/:type").get(genericController.lookupmeta)
+
+router.route("/tariffcard").get(tariffCardController.list)
+router.route("/tariffcard/:id").get(tariffCardController.get)
+router.route("/tariffcard").post(tariffCardController.add)
+router.route("/tariffcard/:id").put(tariffCardController.update)
+router.route("/tariffcard/:id").delete(tariffCardController.remove)
+
+router.route("/prices").get(pricesController.list)
+router.route("/prices/test").post(pricesController.get)
+router.route("/prices").post(pricesController.add)
 
 // Export API routes
 export const apiRoutes = router
