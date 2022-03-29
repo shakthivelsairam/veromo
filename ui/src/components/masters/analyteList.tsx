@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  Typography,
-  Grid,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AnalystMasterForm from "./analyteForm";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import AnalystMasterForm from "./analyteForm"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -23,7 +15,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -33,16 +25,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function TestMasterList() {
-  const [testMasterData, setTestMasterData] = useState([] as any);
-  const [showForm, setShowForm] = useState(false);
-  const [showList, setShowList] = useState(true);
+  const [testMasterData, setTestMasterData] = useState<any>([])
+  const [showForm, setShowForm] = useState(false)
+  const [showList, setShowList] = useState(true)
   const togglePage = () => {
-    setShowForm(!showForm);
-    setShowList(!showList);
-  };
+    setShowForm(!showForm)
+    setShowList(!showList)
+  }
 
   useEffect(() => {
     const rows = [
@@ -64,9 +56,9 @@ export default function TestMasterList() {
         dept: "Hematology",
         status: "Inactive",
       },
-    ];
-    setTestMasterData(rows);
-  }, []);
+    ]
+    setTestMasterData(rows)
+  }, [])
 
   return (
     <div>
@@ -127,5 +119,5 @@ export default function TestMasterList() {
         </React.Fragment>
       )}
     </div>
-  );
+  )
 }

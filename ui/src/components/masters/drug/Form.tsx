@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -19,14 +13,14 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
+} from "@mui/material"
 
 const Input = styled("input")({
   display: "none",
-});
+})
 
 function SampleMasterForm(props: any) {
-  const [method, setMethod] = React.useState("0");
+  const [method, setMethod] = React.useState("0")
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -65,6 +59,6 @@ function SampleMasterForm(props: any) {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(SampleMasterForm);
+export default withRouter(SampleMasterForm)

@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,14 +12,14 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
+} from "@mui/material"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
+import PropTypes from "prop-types"
+import Box from "@mui/material/Box"
 
 function TabPanel(props: any) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -41,28 +35,28 @@ function TabPanel(props: any) {
         </Box>
       )}
     </div>
-  );
+  )
 }
 
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
-};
+}
 
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
-  };
+  }
 }
 
 function SampleEnquiry(props: any) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(0)
 
   const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -96,6 +90,6 @@ function SampleEnquiry(props: any) {
         Item Three
       </TabPanel>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(SampleEnquiry);
+export default withRouter(SampleEnquiry)

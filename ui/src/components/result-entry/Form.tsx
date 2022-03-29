@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   MenuItem,
@@ -22,14 +16,14 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from "@mui/material";
-import HistoryIcon from "@mui/icons-material/History";
-import CommentIcon from "@mui/icons-material/Comment";
-import CropSquareIcon from "@mui/icons-material/CropSquare";
+} from "@mui/material"
+import HistoryIcon from "@mui/icons-material/History"
+import CommentIcon from "@mui/icons-material/Comment"
+import CropSquareIcon from "@mui/icons-material/CropSquare"
 
 function ResultEntryForm(props: any) {
-  const [resultEntryData, setResultEntryData] = useState([] as any);
-  const [status, setStatus] = React.useState("completed");
+  const [resultEntryData, setResultEntryData] = useState<any>([])
+  const [status, setStatus] = React.useState("completed")
   useEffect(() => {
     const rows = [
       {
@@ -46,9 +40,9 @@ function ResultEntryForm(props: any) {
         range: "4.2 - 5.5",
         status: "",
       },
-    ];
-    setResultEntryData(rows);
-  }, []);
+    ]
+    setResultEntryData(rows)
+  }, [])
   return (
     <React.Fragment>
       <Typography component="h1" variant="h5">
@@ -85,12 +79,7 @@ function ResultEntryForm(props: any) {
             <TableRow key={row.id}>
               <TableCell align="left">{row.test_name}</TableCell>
               <TableCell align="center">
-                <TextField
-                  id="result"
-                  label=""
-                  value={row.result}
-                  sx={{ width: 250 }}
-                />
+                <TextField id="result" label="" value={row.result} sx={{ width: 250 }} />
               </TableCell>
               <TableCell align="center">{row.uom}</TableCell>
               <TableCell align="center">{row.range}</TableCell>
@@ -124,11 +113,7 @@ function ResultEntryForm(props: any) {
       </Table>
       <Grid container spacing={3}>
         <Grid item xs={12} style={{ textAlign: "center" }}>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={props.togglePage}
-          >
+          <Button variant="contained" color="success" onClick={props.togglePage}>
             Save
           </Button>
           <Button
@@ -141,6 +126,6 @@ function ResultEntryForm(props: any) {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(ResultEntryForm);
+export default withRouter(ResultEntryForm)

@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,11 +12,11 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+} from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 function SampleCollectionForm(props: any) {
-  const [sampleCollectionData, setSampleCollectionData] = useState([] as any);
+  const [sampleCollectionData, setSampleCollectionData] = useState<any>([])
   useEffect(() => {
     const rows = [
       {
@@ -36,9 +30,9 @@ function SampleCollectionForm(props: any) {
         test_name: "HbA1c",
         processing_facility: "Chennai",
       },
-    ];
-    setSampleCollectionData(rows);
-  }, []);
+    ]
+    setSampleCollectionData(rows)
+  }, [])
   return (
     <React.Fragment>
       <Typography component="h1" variant="h5">
@@ -85,11 +79,7 @@ function SampleCollectionForm(props: any) {
       </Table>
       <Grid container spacing={3}>
         <Grid item xs={12} style={{ textAlign: "center" }}>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={props.togglePage}
-          >
+          <Button variant="contained" color="success" onClick={props.togglePage}>
             Save
           </Button>
           <Button
@@ -102,6 +92,6 @@ function SampleCollectionForm(props: any) {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(SampleCollectionForm);
+export default withRouter(SampleCollectionForm)

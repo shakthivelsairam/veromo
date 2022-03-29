@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Tabs,
   Tab,
@@ -26,10 +20,10 @@ import {
   Table,
   TableHead,
   TableBody,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import DeleteIcon from "@mui/icons-material/Delete";
-import * as api from "../../../utils/api";
+} from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import DeleteIcon from "@mui/icons-material/Delete"
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,7 +33,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -49,18 +43,18 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 const Input = styled("input")({
   display: "none",
-});
+})
 interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
+  children?: React.ReactNode
+  index: number
+  value: number
 }
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -76,69 +70,61 @@ function TabPanel(props: TabPanelProps) {
         </Box>
       )}
     </div>
-  );
+  )
 }
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
-  };
+  }
 }
 
 function PatientForm(props: any) {
-  const [optinvoicecycle, setOptinvoicecycle] = React.useState([
-    { label: "", value: 0 },
-  ]);
-  const [optaddresstype, setOptaddresstype] = React.useState([
-    { label: "", value: 0 },
-  ]);
-  const [optactionType, setOptactionType] = React.useState([
-    { label: "", value: 0 },
-  ]);
-  const [optNotType, setOptNotType] = React.useState([{ label: "", value: 0 }]);
-  const [optClientType, setOptClientType] = React.useState([
-    { label: "", value: 0 },
-  ]);
+  const [optinvoicecycle, setOptinvoicecycle] = React.useState([{ label: "", value: 0 }])
+  const [optaddresstype, setOptaddresstype] = React.useState([{ label: "", value: 0 }])
+  const [optactionType, setOptactionType] = React.useState([{ label: "", value: 0 }])
+  const [optNotType, setOptNotType] = React.useState([{ label: "", value: 0 }])
+  const [optClientType, setOptClientType] = React.useState([{ label: "", value: 0 }])
 
-  const [data, setData] = useState([] as any);
-  const [notifydata, setNotifyData] = useState([] as any);
-  const [businessType, setBusinessType] = React.useState("");
-  const [tariffNameTyp, setTariffNameTyp] = React.useState("");
-  const [tariffSubType, setTariffSubType] = React.useState("");
-  const [tariffName, setTariffName] = React.useState("");
-  const [priceType, setPriceType] = React.useState("");
-  const [appliedTo, setAppliedTo] = React.useState("");
-  const [value, setValue] = React.useState(0);
-  const [name, setName] = React.useState("");
-  const [number, setNumber] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [addressline1, setAddressLine1] = React.useState("");
-  const [addressline2, setAddressLine2] = React.useState("");
-  const [city, setCity] = React.useState("");
-  const [state, setState] = React.useState("");
-  const [pincode, setPincode] = React.useState("");
-  const [rowcount, setRowcount] = React.useState(0);
-  const [reftable, setReftable] = React.useState(0);
-  const [invoicecycle, setinvoicecycle] = React.useState();
-  const [clientinvoice, setClientInvoice] = useState({ label: "", value: 0 });
-  const [addrtype, setAddrType] = React.useState();
-  const [addresstype, setAddressType] = useState({ label: "", value: 0 });
-  const [notificationtable, setNotificationtable] = React.useState(0);
-  const [notification, setNotification] = React.useState();
-  const [actiontype, setActiontype] = React.useState();
-  const [values, setValues] = React.useState("");
-  const [clientType, setClientType] = React.useState();
+  const [data, setData] = useState<any>([])
+  const [notifydata, setNotifyData] = useState<any>([])
+  const [businessType, setBusinessType] = React.useState("")
+  const [tariffNameTyp, setTariffNameTyp] = React.useState("")
+  const [tariffSubType, setTariffSubType] = React.useState("")
+  const [tariffName, setTariffName] = React.useState("")
+  const [priceType, setPriceType] = React.useState("")
+  const [appliedTo, setAppliedTo] = React.useState("")
+  const [value, setValue] = React.useState(0)
+  const [name, setName] = React.useState("")
+  const [number, setNumber] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const [addressline1, setAddressLine1] = React.useState("")
+  const [addressline2, setAddressLine2] = React.useState("")
+  const [city, setCity] = React.useState("")
+  const [state, setState] = React.useState("")
+  const [pincode, setPincode] = React.useState("")
+  const [rowcount, setRowcount] = React.useState(0)
+  const [reftable, setReftable] = React.useState(0)
+  const [invoicecycle, setinvoicecycle] = React.useState()
+  const [clientinvoice, setClientInvoice] = useState({ label: "", value: 0 })
+  const [addrtype, setAddrType] = React.useState()
+  const [addresstype, setAddressType] = useState({ label: "", value: 0 })
+  const [notificationtable, setNotificationtable] = React.useState(0)
+  const [notification, setNotification] = React.useState()
+  const [actiontype, setActiontype] = React.useState()
+  const [values, setValues] = React.useState("")
+  const [clientType, setClientType] = React.useState()
 
   const locationList = [
     { label: "Processing Facility", value: "1" },
     { label: "Collection Facility", value: "2" },
-  ];
+  ]
   const hubList = [
     { label: "Hub 1", value: "1" },
     { label: "Hub 2", value: "2" },
     { label: "Hub 3", value: "3" },
     { label: "Hub 4", value: "4" },
-  ];
+  ]
   /* const invoicecycle = [
     { label: 'Monthly', shotcode:"monthly" ,value: 1 },
     { label: 'Half Monthly', shotcode:"halfmonthly" ,value: 2 },
@@ -147,42 +133,42 @@ function PatientForm(props: any) {
   ] */
 
   useEffect(() => {
-    (async () => {
-      const addtypelk = await api.getLookupMetaData("AddressTypes");
-      setOptaddresstype(addtypelk);
-      const addnottype = await api.getLookupMetaData("NotificationActionType");
-      setOptactionType(addnottype);
-      const invoicecycle = await api.getLookupMetaData("InvoiceCycle");
-      setOptinvoicecycle(invoicecycle);
-      const notificationtype = await api.getLookupMetaData("NotificationType");
-      setOptNotType(notificationtype);
-      const clienttype = await api.getLookupMetaData("ClientType");
-      setOptClientType(clienttype);
-    })();
-  }, [props.showForm]);
+    ;(async () => {
+      const addtypelk = await api.getLookupMetaData("AddressTypes")
+      setOptaddresstype(addtypelk)
+      const addnottype = await api.getLookupMetaData("NotificationActionType")
+      setOptactionType(addnottype)
+      const invoicecycle = await api.getLookupMetaData("InvoiceCycle")
+      setOptinvoicecycle(invoicecycle)
+      const notificationtype = await api.getLookupMetaData("NotificationType")
+      setOptNotType(notificationtype)
+      const clienttype = await api.getLookupMetaData("ClientType")
+      setOptClientType(clienttype)
+    })()
+  }, [props.showForm])
 
   const zoneList = [
     { label: "Zone 1", value: "1" },
     { label: "Zone 2", value: "2" },
-  ];
-  const [selectData, setSelectData] = useState("");
+  ]
+  const [selectData, setSelectData] = useState("")
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
-    var clientData = {};
-    const saveresp = await api.setClients(clientData);
-    console.log("API Response");
-    console.log(saveresp);
-    clearInputs(0);
-    props.togglePage();
-  };
-  const clearInputs = (flag) => {};
+    event.preventDefault()
+    var clientData = {}
+    const saveresp = await api.setClients(clientData)
+    console.log("API Response")
+    console.log(saveresp)
+    clearInputs(0)
+    props.togglePage()
+  }
+  const clearInputs = (flag) => {}
 
   const AddRefTable = () => {
-    setRowcount(rowcount + 1);
+    setRowcount(rowcount + 1)
     const onerow = [
       {
         name: name,
@@ -194,71 +180,67 @@ function PatientForm(props: any) {
         state: state,
         pincode: pincode,
       },
-    ];
-    console.log("**********************************");
-    console.log(onerow);
-    console.log("**********************************");
-    let newdata = data.concat(onerow);
-    setData(newdata);
-    setReftable(reftable + 1);
-    clearafteraddrow();
-  };
+    ]
+    console.log("**********************************")
+    console.log(onerow)
+    console.log("**********************************")
+    let newdata = data.concat(onerow)
+    setData(newdata)
+    setReftable(reftable + 1)
+    clearafteraddrow()
+  }
 
   const NotificationRefTable = () => {
-    setRowcount(rowcount + 1);
+    setRowcount(rowcount + 1)
     const onerow = [
       {
         notification: notification,
         actiontype: actiontype,
         values: values,
       },
-    ];
-    console.log("**********************************");
-    console.log(onerow);
-    console.log("**********************************");
-    let notdata = data.concat(onerow);
-    setNotifyData(notdata);
-    setNotificationtable(notificationtable + 1);
-    clearNotifyaddrow();
-  };
+    ]
+    console.log("**********************************")
+    console.log(onerow)
+    console.log("**********************************")
+    let notdata = data.concat(onerow)
+    setNotifyData(notdata)
+    setNotificationtable(notificationtable + 1)
+    clearNotifyaddrow()
+  }
   const clearNotifyaddrow = () => {
-    setValues("");
-  };
+    setValues("")
+  }
   const clearafteraddrow = () => {
-    setName("");
-    setNumber("");
-    setEmail("");
-    setAddressLine1("");
-    setAddressLine2("");
-    setCity("");
-    setState("");
-    setPincode("");
-  };
+    setName("")
+    setNumber("")
+    setEmail("")
+    setAddressLine1("")
+    setAddressLine2("")
+    setCity("")
+    setState("")
+    setPincode("")
+  }
 
   const handleInvoiceChangeAuto = (event: any, values: any) => {
-    setClientInvoice({ label: "", value: 0 });
+    setClientInvoice({ label: "", value: 0 })
     if (values != null) {
-      setinvoicecycle(values.value);
-      setClientInvoice(values);
+      setinvoicecycle(values.value)
+      setClientInvoice(values)
     }
-  };
+  }
 
   const handleAddressChangeAuto = (event: any, values: any) => {
-    setAddressType({ label: "", value: 0 });
+    setAddressType({ label: "", value: 0 })
     if (values != null) {
-      setAddrType(values.value);
-      setAddressType(values);
+      setAddrType(values.value)
+      setAddressType(values)
     }
-  };
+  }
 
   return (
     <React.Fragment>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="General" {...a11yProps(0)} />
           <Tab label="Optional Attributes" {...a11yProps(1)} />
           <Tab label="Commercial" {...a11yProps(2)} />
@@ -276,11 +258,7 @@ function PatientForm(props: any) {
                 options={optClientType}
                 sx={{ width: 200, marginRight: 2 }}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Client Type"
-                    variant="standard"
-                  />
+                  <TextField {...params} label="Client Type" variant="standard" />
                 )}
                 value={clientType}
               />
@@ -401,44 +379,26 @@ function PatientForm(props: any) {
 
         <Grid container spacing={5} style={{ paddingTop: 10 }}>
           <Grid item xs={3}>
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Only Mapped Services"
-            />
+            <FormControlLabel control={<Checkbox />} label="Only Mapped Services" />
           </Grid>
           <Grid item xs={3}>
             <FormControlLabel control={<Checkbox />} label="Allow Discount" />
           </Grid>
           <Grid item xs={3}>
             <FormControlLabel
-              control={
-                <Checkbox
-                  color="secondary"
-                  name="active"
-                  value="yes"
-                  defaultChecked
-                />
-              }
+              control={<Checkbox color="secondary" name="active" value="yes" defaultChecked />}
               label="Active"
             />
           </Grid>
           <Grid item xs={3}>
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Client Portal Access"
-            />
+            <FormControlLabel control={<Checkbox />} label="Client Portal Access" />
           </Grid>
         </Grid>
         <Grid container spacing={5} style={{ paddingTop: 10 }}>
           <Grid item xs={3}>
             <label htmlFor="contained-button-file">
               Logo &nbsp;
-              <Input
-                accept="image/*"
-                id="contained-button-file"
-                multiple
-                type="file"
-              />
+              <Input accept="image/*" id="contained-button-file" multiple type="file" />
               <Button variant="contained" component="span">
                 Upload
               </Button>
@@ -455,9 +415,7 @@ function PatientForm(props: any) {
                 id="testName"
                 options={hubList}
                 sx={{ width: 200 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Hub" variant="standard" />
-                )}
+                renderInput={(params) => <TextField {...params} label="Hub" variant="standard" />}
               />
             </FormControl>
           </Grid>
@@ -467,9 +425,7 @@ function PatientForm(props: any) {
                 id="testName"
                 options={zoneList}
                 sx={{ width: 200, marginRight: 2 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Zone" variant="standard" />
-                )}
+                renderInput={(params) => <TextField {...params} label="Zone" variant="standard" />}
               />
             </FormControl>
           </Grid>
@@ -492,12 +448,7 @@ function PatientForm(props: any) {
           <Grid item xs={3}>
             <label htmlFor="contained-button-file">
               Documents&nbsp;
-              <Input
-                accept="image/*"
-                id="contained-button-file"
-                multiple
-                type="file"
-              />
+              <Input accept="image/*" id="contained-button-file" multiple type="file" />
               <Button variant="contained" component="span">
                 Add Attachment
               </Button>
@@ -723,11 +674,7 @@ function PatientForm(props: any) {
                 options={optinvoicecycle}
                 sx={{ width: 200, marginRight: 2 }}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="InvoiceCycle"
-                    variant="standard"
-                  />
+                  <TextField {...params} label="InvoiceCycle" variant="standard" />
                 )}
                 value={invoicecycle}
               />
@@ -798,11 +745,7 @@ function PatientForm(props: any) {
                 options={optaddresstype}
                 sx={{ width: 200, marginRight: 2 }}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="AddressType"
-                    variant="standard"
-                  />
+                  <TextField {...params} label="AddressType" variant="standard" />
                 )}
                 value={addrtype}
               />
@@ -903,10 +846,7 @@ function PatientForm(props: any) {
             </Button>
           </Grid>
           <Grid item xs={5} style={{ textAlign: "left" }}>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "lightgray", color: "black" }}
-            >
+            <Button variant="contained" style={{ backgroundColor: "lightgray", color: "black" }}>
               Cancel
             </Button>
           </Grid>
@@ -936,12 +876,8 @@ function PatientForm(props: any) {
                         <StyledTableCell>{row.name.label}</StyledTableCell>
                         <StyledTableCell>{row.number.label}</StyledTableCell>
                         <StyledTableCell>{row.email.label}</StyledTableCell>
-                        <StyledTableCell>
-                          {row.addressline1.label}
-                        </StyledTableCell>
-                        <StyledTableCell>
-                          {row.addressline2.label}
-                        </StyledTableCell>
+                        <StyledTableCell>{row.addressline1.label}</StyledTableCell>
+                        <StyledTableCell>{row.addressline2.label}</StyledTableCell>
                         <StyledTableCell>{row.city.label}</StyledTableCell>
                         <StyledTableCell>{row.state.label}</StyledTableCell>
                         <StyledTableCell>{row.pincode.label}</StyledTableCell>
@@ -969,11 +905,7 @@ function PatientForm(props: any) {
                 options={optNotType}
                 sx={{ width: 200, marginRight: 2 }}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Notification Type"
-                    variant="standard"
-                  />
+                  <TextField {...params} label="Notification Type" variant="standard" />
                 )}
                 value={notification}
               />
@@ -986,11 +918,7 @@ function PatientForm(props: any) {
                 options={optactionType}
                 sx={{ width: 200, marginRight: 2 }}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Action Type"
-                    variant="standard"
-                  />
+                  <TextField {...params} label="Action Type" variant="standard" />
                 )}
                 value={actiontype}
               />
@@ -1013,19 +941,12 @@ function PatientForm(props: any) {
 
         <Grid container spacing={3} style={{ marginTop: 5 }}>
           <Grid item xs={5} style={{ textAlign: "right" }}>
-            <Button
-              variant="contained"
-              color="success"
-              onClick={NotificationRefTable}
-            >
+            <Button variant="contained" color="success" onClick={NotificationRefTable}>
               Add
             </Button>
           </Grid>
           <Grid item xs={5} style={{ textAlign: "left" }}>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "lightgray", color: "black" }}
-            >
+            <Button variant="contained" style={{ backgroundColor: "lightgray", color: "black" }}>
               Cancel
             </Button>
           </Grid>
@@ -1048,12 +969,8 @@ function PatientForm(props: any) {
                     {notifydata &&
                       notifydata.map((notifyrow: any) => (
                         <StyledTableRow key={notifyrow.id}>
-                          <StyledTableCell>
-                            {notifyrow.notificationtype}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {notifyrow.actiontype}
-                          </StyledTableCell>
+                          <StyledTableCell>{notifyrow.notificationtype}</StyledTableCell>
+                          <StyledTableCell>{notifyrow.actiontype}</StyledTableCell>
                           <StyledTableCell>{notifyrow.values}</StyledTableCell>
                           <StyledTableCell align="center">
                             <Button size="small">
@@ -1087,6 +1004,6 @@ function PatientForm(props: any) {
         </Grid>
       </TabPanel>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(PatientForm);
+export default withRouter(PatientForm)

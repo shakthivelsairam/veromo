@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
 import {
   Button,
   Table,
@@ -11,7 +11,7 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-} from "@mui/material";
+} from "@mui/material"
 import {
   Dialog,
   DialogActions,
@@ -19,12 +19,12 @@ import {
   DialogTitle,
   useMediaQuery,
   Autocomplete,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import custstyle from "../../style.module.css";
-import * as api from "../../../utils/api";
+} from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import custstyle from "../../style.module.css"
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,7 +34,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -44,97 +44,97 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function InstrumentTypes(props: any) {
-  const [options, setOptions] = React.useState([{ label: "", value: 0 }]);
-  const [dtenantid, setDtenantid] = useState({ label: "", value: 0 });
-  const [selectedtenantId, setSelectedtenantId] = useState(0);
-  const [rowid, setRowid] = useState(0);
-  const [type, setType] = useState("");
-  const [description, setDescription] = useState("");
-  const [active, setActive] = useState(true);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [options, setOptions] = React.useState([{ label: "", value: 0 }])
+  const [dtenantid, setDtenantid] = useState({ label: "", value: 0 })
+  const [selectedtenantId, setSelectedtenantId] = useState(0)
+  const [rowid, setRowid] = useState(0)
+  const [type, setType] = useState("")
+  const [description, setDescription] = useState("")
+  const [active, setActive] = useState(true)
+  const [refreshKey, setRefreshKey] = useState(0)
 
-  console.log(props);
-  const [data, setData] = useState([] as any);
+  console.log(props)
+  const [data, setData] = useState<any>([])
 
   useEffect(() => {
-    (async () => {
-      clearInputs(1);
-      TenantsGet();
-      console.log("Show form " + props.showForm);
-      MethodGet(props.editrow);
-      const allrows = await api.getInstrumentType();
-      console.log("reloading data");
-      console.log(allrows);
+    ;(async () => {
+      clearInputs(1)
+      TenantsGet()
+      console.log("Show form " + props.showForm)
+      MethodGet(props.editrow)
+      const allrows = await api.getInstrumentType()
+      console.log("reloading data")
+      console.log(allrows)
       //setData(allrows)
-      setData(allrows);
-    })();
-  }, [props.showForm]);
+      setData(allrows)
+    })()
+  }, [props.showForm])
   const TenantsGet = async () => {
-    const tenants = await api.getLookupTenant();
-    console.log(tenants);
-    setOptions(tenants);
-  };
+    const tenants = await api.getLookupTenant()
+    console.log(tenants)
+    setOptions(tenants)
+  }
   const MethodGet = (rowid) => {
-    (async () => {
+    ;(async () => {
       if (rowid !== 0) {
-        const singleRow = await api.getSingleInstrumentType(rowid);
+        const singleRow = await api.getSingleInstrumentType(rowid)
         // //setData(facilitydata)
-        console.log("LAst one here =" + singleRow);
+        console.log("LAst one here =" + singleRow)
 
-        setRowid(rowid);
-        setType(singleRow.name);
-        setDescription(singleRow.description);
-        setActive(singleRow.active);
+        setRowid(rowid)
+        setType(singleRow.name)
+        setDescription(singleRow.description)
+        setActive(singleRow.active)
       }
 
-      console.log("New two = " + rowid);
-    })();
-  };
+      console.log("New two = " + rowid)
+    })()
+  }
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    event.preventDefault()
     var sampledata = {
       rowid: rowid,
       type: type,
       description: description,
       tenantid: selectedtenantId,
       active: active,
-    };
-    console.log("data");
-    console.log(sampledata);
-    const metatypes = await api.setInstrumentType(sampledata);
-    console.log("API Response");
-    console.log(metatypes);
-    console.log("API Response Nds here");
-    setRefreshKey((oldKey) => oldKey + 1);
-    clearInputs(0);
-  };
+    }
+    console.log("data")
+    console.log(sampledata)
+    const metatypes = await api.setInstrumentType(sampledata)
+    console.log("API Response")
+    console.log(metatypes)
+    console.log("API Response Nds here")
+    setRefreshKey((oldKey) => oldKey + 1)
+    clearInputs(0)
+  }
   const clearInputs = (flag) => {
-    setRowid(0);
-    setType("");
-    setDescription("");
-    setActive(flag);
-    setSelectedtenantId(0);
-    setDtenantid({ label: "", value: 0 });
-  };
+    setRowid(0)
+    setType("")
+    setDescription("")
+    setActive(flag)
+    setSelectedtenantId(0)
+    setDtenantid({ label: "", value: 0 })
+  }
 
   useEffect(() => {
-    (async () => {
-      const allrows = await api.getInstrumentType();
-      console.log("reloading data");
-      setData(allrows);
-    })();
-  }, [refreshKey]);
+    ;(async () => {
+      const allrows = await api.getInstrumentType()
+      console.log("reloading data")
+      setData(allrows)
+    })()
+  }, [refreshKey])
   const handleFormChangeAuto = (event: any, values: any) => {
     // setDtenantid(0)
     if (values != null) {
-      setDtenantid(values);
-      setSelectedtenantId(values.value);
+      setDtenantid(values)
+      setSelectedtenantId(values.value)
     }
-  };
+  }
   return (
     <React.Fragment>
       <Dialog fullWidth={true} maxWidth={false} open={props.showForm}>
@@ -153,7 +153,7 @@ export default function InstrumentTypes(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setType(e.target.value);
+                  setType(e.target.value)
                 }}
                 value={type}
               />
@@ -168,7 +168,7 @@ export default function InstrumentTypes(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  setDescription(e.target.value)
                 }}
                 value={description}
               />
@@ -187,13 +187,11 @@ export default function InstrumentTypes(props: any) {
             </Grid>
             <Grid item xs={2}>
               <FormControlLabel
-                control={
-                  <Checkbox color="secondary" name="status" id="status" />
-                }
+                control={<Checkbox color="secondary" name="status" id="status" />}
                 label="Active"
                 checked={active}
                 onClick={(e) => {
-                  setActive(!active);
+                  setActive(!active)
                 }}
               />
             </Grid>
@@ -252,5 +250,5 @@ export default function InstrumentTypes(props: any) {
         </Grid>
       </Dialog>
     </React.Fragment>
-  );
+  )
 }

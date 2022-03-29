@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -15,10 +15,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
+} from "@mui/material"
 
 function PaymentForm(props: any) {
-  const [paymentMethod, setPaymentMethod] = React.useState("");
+  const [paymentMethod, setPaymentMethod] = React.useState("")
   return (
     <React.Fragment>
       <Grid container spacing={3} style={{ marginTop: 1 }}>
@@ -152,6 +152,6 @@ function PaymentForm(props: any) {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(PaymentForm);
+export default withRouter(PaymentForm)

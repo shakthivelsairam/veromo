@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import {
   AppBar,
   Drawer,
@@ -13,18 +13,18 @@ import {
   Chip,
   Button,
   dividerClasses,
-} from "@mui/material";
+} from "@mui/material"
 import {
   Menu as MenuIcon,
   Home as HomeIcon,
   AccountCircle,
   Logout as LogoutIcon,
   Dashboard as DashboardIcon,
-} from "@mui/icons-material";
-import { Link, withRouter, RouteComponentProps } from "react-router-dom";
-import { createStyles, makeStyles } from "@mui/styles";
-import { Theme } from "@mui/material/styles";
-import Routes from "./Routes";
+} from "@mui/icons-material"
+import { Link, withRouter, RouteComponentProps } from "react-router-dom"
+import { createStyles, makeStyles } from "@mui/styles"
+import { Theme } from "@mui/material/styles"
+import Routes from "./Routes"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,17 +44,17 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "auto",
     },
   })
-);
+)
 
 function MainAppBar(props: any) {
-  const classes = useStyles();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const classes = useStyles()
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
+    setIsDrawerOpen(!isDrawerOpen)
+  }
   const activeRoute = (routeName: any) => {
-    return props.location.pathname === routeName ? true : false;
-  };
+    return props.location.pathname === routeName ? true : false
+  }
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -68,13 +68,7 @@ function MainAppBar(props: any) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            className={classes.title}
-            noWrap
-          >
+          <Typography component="h1" variant="h6" color="inherit" className={classes.title} noWrap>
             Eliza
           </Typography>
           <React.Fragment>
@@ -91,11 +85,7 @@ function MainAppBar(props: any) {
           </React.Fragment>
         </Toolbar>
       </AppBar>
-      <Drawer
-        classes={{ paper: classes.drawer }}
-        open={isDrawerOpen}
-        onClick={toggleDrawer}
-      >
+      <Drawer classes={{ paper: classes.drawer }} open={isDrawerOpen} onClick={toggleDrawer}>
         <div className={classes.fullList} role="presentation">
           <List>
             {Routes.map((prop, key) => {
@@ -113,12 +103,12 @@ function MainAppBar(props: any) {
                   </ListItemIcon>
                   <ListItemText primary={prop.sidebarName} />
                 </ListItem>
-              );
+              )
             })}
           </List>
         </div>
       </Drawer>
     </div>
-  );
+  )
 }
-export default withRouter(MainAppBar);
+export default withRouter(MainAppBar)

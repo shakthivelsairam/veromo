@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,56 +12,50 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
-import * as api from "../../../utils/api";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import custstyle from "../../style.module.css";
-import { styled } from "@mui/material/styles";
+} from "@mui/material"
+import * as api from "../../../utils/api"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import custstyle from "../../style.module.css"
+import { styled } from "@mui/material/styles"
 
 const Input = styled("input")({
   display: "none",
-});
+})
 function MethodMasterForm(props: any) {
-  const [options, setOptions] = React.useState([]);
+  const [options, setOptions] = React.useState([])
   useEffect(() => {
-    clearInputs(true);
-    console.log("Show form " + props.showForm);
-    MethodGet(props.editrow);
-  }, [props.showForm]);
+    clearInputs(true)
+    console.log("Show form " + props.showForm)
+    MethodGet(props.editrow)
+  }, [props.showForm])
 
   const MethodGet = (rowid) => {
-    (async () => {
+    ;(async () => {
       if (rowid !== 0) {
-        const singleRow = await api.getSingleMethod(rowid);
+        const singleRow = await api.getSingleMethod(rowid)
         // //setData(facilitydata)
-        console.log("LAst one here =" + singleRow);
+        console.log("LAst one here =" + singleRow)
 
-        setRowid(rowid);
-        setCode(singleRow.code);
-        setName(singleRow.name);
-        setMnemonic(singleRow.mnemonicCode);
-        setDisplayname(singleRow.displayname);
-        setActive(singleRow.active);
+        setRowid(rowid)
+        setCode(singleRow.code)
+        setName(singleRow.name)
+        setMnemonic(singleRow.mnemonicCode)
+        setDisplayname(singleRow.displayname)
+        setActive(singleRow.active)
       }
 
-      console.log("New two = " + rowid);
-    })();
-  };
-  const [rowid, setRowid] = useState(0);
-  const [code, setCode] = useState("");
-  const [name, setName] = useState("");
-  const [mnemonic, setMnemonic] = useState("");
-  const [displayname, setDisplayname] = useState("");
-  const [active, setActive] = useState(true);
+      console.log("New two = " + rowid)
+    })()
+  }
+  const [rowid, setRowid] = useState(0)
+  const [code, setCode] = useState("")
+  const [name, setName] = useState("")
+  const [mnemonic, setMnemonic] = useState("")
+  const [displayname, setDisplayname] = useState("")
+  const [active, setActive] = useState(true)
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    event.preventDefault()
     var sampledata = {
       rowid: rowid,
       code: code,
@@ -75,30 +63,30 @@ function MethodMasterForm(props: any) {
       displayname: displayname,
       mnemonic: mnemonic,
       active: active,
-    };
-    const container = await api.setMethod(sampledata);
-    console.log("API Response");
-    console.log(container);
-    console.log("API Response Nds here");
-    if (container.status === 200) {
-      clearInputs(false);
-      props.togglePage();
     }
-  };
+    const container = await api.setMethod(sampledata)
+    console.log("API Response")
+    console.log(container)
+    console.log("API Response Nds here")
+    if (container.status === 200) {
+      clearInputs(false)
+      props.togglePage()
+    }
+  }
   const clearInputs = (flag) => {
-    setRowid(0);
-    setCode("");
-    setName("");
-    setMnemonic("");
-    setDisplayname("");
-    setActive(flag);
-  };
+    setRowid(0)
+    setCode("")
+    setName("")
+    setMnemonic("")
+    setDisplayname("")
+    setActive(flag)
+  }
 
   const popualtedispname = async (dispname: string) => {
     if (displayname == "") {
-      setDisplayname(dispname);
+      setDisplayname(dispname)
     }
-  };
+  }
 
   return (
     <React.Fragment>
@@ -118,7 +106,7 @@ function MethodMasterForm(props: any) {
                 variant="standard"
                 style={{ width: 350, marginRight: 15 }}
                 onChange={(e) => {
-                  setCode(e.target.value);
+                  setCode(e.target.value)
                 }}
                 value={code}
               />
@@ -133,10 +121,10 @@ function MethodMasterForm(props: any) {
                 variant="standard"
                 style={{ width: 300, marginRight: 2 }}
                 onChange={(e) => {
-                  setName(e.target.value);
+                  setName(e.target.value)
                 }}
                 onBlur={(e) => {
-                  popualtedispname(e.target.value);
+                  popualtedispname(e.target.value)
                 }}
                 value={name}
               />
@@ -149,7 +137,7 @@ function MethodMasterForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setMnemonic(e.target.value);
+                  setMnemonic(e.target.value)
                 }}
                 value={mnemonic}
               />
@@ -162,20 +150,18 @@ function MethodMasterForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setDisplayname(e.target.value);
+                  setDisplayname(e.target.value)
                 }}
                 value={displayname}
               />
             </Grid>
             <Grid item xs={3}>
               <FormControlLabel
-                control={
-                  <Checkbox color="secondary" name="status" id="status" />
-                }
+                control={<Checkbox color="secondary" name="status" id="status" />}
                 label="Active"
                 checked={active}
                 onClick={(e) => {
-                  setActive(!active);
+                  setActive(!active)
                 }}
               />
             </Grid>
@@ -195,6 +181,6 @@ function MethodMasterForm(props: any) {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(MethodMasterForm);
+export default withRouter(MethodMasterForm)

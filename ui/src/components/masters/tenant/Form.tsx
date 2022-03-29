@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -19,132 +13,120 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import * as api from "../../../utils/api";
-import custstyle from "../../style.module.css";
+} from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import * as api from "../../../utils/api"
+import custstyle from "../../style.module.css"
 
 const Input = styled("input")({
   display: "none",
-});
+})
 
 function TenantForm(props: any) {
-  const [states, setStates] = React.useState<
-    Array<{ id: number; name: string }>
-  >([]);
-  const [countries, setCountries] = React.useState<
-    Array<{ id: number; name: string }>
-  >([]);
-  const [cities, setCities] = React.useState<
-    Array<{ id: number; name: string }>
-  >([]);
-  const [submitError, setSubmitError] = React.useState<string[]>([]);
-  const [tenantCode, setTenantCode] = React.useState("");
-  const [tenantName, setTenantName] = React.useState("");
-  const [tenantDisplayName, setTenantDisplayName] = React.useState("");
-  const [tenantStatus, setTenantStatus] = React.useState(true);
-  const [tenantPincode, setTenantPincode] = React.useState("");
-  const [selectedCity, setSelectedCity] = React.useState("");
-  const [selectedState, setSelectedState] = React.useState("");
-  const [selectedCountry, setSelectedCountry] = React.useState("");
-  const [tenantPhone, setTenantPhone] = React.useState("");
-  const [tenantAltPhone, setTenantAltPhone] = React.useState("");
-  const [tenantEmail, setTenantEmail] = React.useState("");
-  const [tenantAltEmail, setTenantAltEmail] = React.useState("");
-  const [tenantRemarks, setTenantRemarks] = React.useState("");
-  const [logoFile, setLogoFile] = React.useState<File>();
-  const [logoFilePreview, setLogoFilePreview] = React.useState("");
+  const [states, setStates] = React.useState<Array<{ id: number; name: string }>>([])
+  const [countries, setCountries] = React.useState<Array<{ id: number; name: string }>>([])
+  const [cities, setCities] = React.useState<Array<{ id: number; name: string }>>([])
+  const [submitError, setSubmitError] = React.useState<string[]>([])
+  const [tenantCode, setTenantCode] = React.useState("")
+  const [tenantName, setTenantName] = React.useState("")
+  const [tenantDisplayName, setTenantDisplayName] = React.useState("")
+  const [tenantStatus, setTenantStatus] = React.useState(true)
+  const [tenantPincode, setTenantPincode] = React.useState("")
+  const [selectedCity, setSelectedCity] = React.useState("")
+  const [selectedState, setSelectedState] = React.useState("")
+  const [selectedCountry, setSelectedCountry] = React.useState("")
+  const [tenantPhone, setTenantPhone] = React.useState("")
+  const [tenantAltPhone, setTenantAltPhone] = React.useState("")
+  const [tenantEmail, setTenantEmail] = React.useState("")
+  const [tenantAltEmail, setTenantAltEmail] = React.useState("")
+  const [tenantRemarks, setTenantRemarks] = React.useState("")
+  const [logoFile, setLogoFile] = React.useState<File>()
+  const [logoFilePreview, setLogoFilePreview] = React.useState("")
 
   useEffect(() => {
-    (async () => {
-      setSubmitError([]);
-      const allCountries = await api.getAllCountries();
-      console.log("allCountries", allCountries);
-      setCountries(allCountries);
-      const allStates = await api.getAllStates();
-      console.log("allStates", allStates);
-      setStates(allStates);
-      const allCities = await api.getAllCities();
-      console.log("allCities", allCities);
-      setCities(allCities);
-      console.log("props.editForm", props.editForm);
+    ;(async () => {
+      setSubmitError([])
+      const allCountries = await api.getAllCountries()
+      console.log("allCountries", allCountries)
+      setCountries(allCountries)
+      const allStates = await api.getAllStates()
+      console.log("allStates", allStates)
+      setStates(allStates)
+      const allCities = await api.getAllCities()
+      console.log("allCities", allCities)
+      setCities(allCities)
+      console.log("props.editForm", props.editForm)
       if (props.editForm) {
-        const tenant = await api.getTenant(props.tenantId);
-        setTenantCode(tenant.code);
-        setTenantName(tenant.name);
-        setTenantDisplayName(tenant.display_name);
-        setTenantStatus(tenant.active ? true : false);
-        setTenantPincode(tenant.pincode);
-        setSelectedCity(tenant.city_id);
-        setSelectedState(tenant.state_id);
-        setSelectedCountry(tenant.country_id);
-        setTenantPhone(tenant.phone);
-        setTenantAltPhone(tenant.alt_phone);
-        setTenantEmail(tenant.email);
-        setTenantAltEmail(tenant.alt_email);
-        setTenantRemarks(tenant.remarks);
+        const tenant = await api.getTenant(props.tenantId)
+        setTenantCode(tenant.code)
+        setTenantName(tenant.name)
+        setTenantDisplayName(tenant.display_name)
+        setTenantStatus(tenant.active ? true : false)
+        setTenantPincode(tenant.pincode)
+        setSelectedCity(tenant.city_id)
+        setSelectedState(tenant.state_id)
+        setSelectedCountry(tenant.country_id)
+        setTenantPhone(tenant.phone)
+        setTenantAltPhone(tenant.alt_phone)
+        setTenantEmail(tenant.email)
+        setTenantAltEmail(tenant.alt_email)
+        setTenantRemarks(tenant.remarks)
       } else {
-        reset();
+        reset()
       }
-    })();
+    })()
     return () => {
-      reset();
-    };
-  }, [props.editForm, props.showForm]);
+      reset()
+    }
+  }, [props.editForm, props.showForm])
 
   const reset = () => {
-    setTenantCode("");
-    setTenantName("");
-    setTenantDisplayName("");
-    setTenantStatus(true);
-    setTenantPincode("");
-    setSelectedCity("");
-    setSelectedState("");
-    setSelectedCountry("");
-    setTenantPhone("");
-    setTenantAltPhone("");
-    setTenantEmail("");
-    setTenantAltEmail("");
-    setTenantRemarks("");
-  };
+    setTenantCode("")
+    setTenantName("")
+    setTenantDisplayName("")
+    setTenantStatus(true)
+    setTenantPincode("")
+    setSelectedCity("")
+    setSelectedState("")
+    setSelectedCountry("")
+    setTenantPhone("")
+    setTenantAltPhone("")
+    setTenantEmail("")
+    setTenantAltEmail("")
+    setTenantRemarks("")
+  }
 
   const onClickSubmit = async () => {
-    let submitErrorMessage: any = [];
+    let submitErrorMessage: any = []
     if (!tenantCode) {
-      submitErrorMessage.push("Provide tenant code");
+      submitErrorMessage.push("Provide tenant code")
     }
     if (!tenantName) {
-      submitErrorMessage.push("Provide tenant name");
+      submitErrorMessage.push("Provide tenant name")
     }
     if (!tenantDisplayName) {
-      submitErrorMessage.push("Provide tenant display name");
+      submitErrorMessage.push("Provide tenant display name")
     }
     if (!tenantPincode) {
-      submitErrorMessage.push("Provide tenant pincode");
+      submitErrorMessage.push("Provide tenant pincode")
     }
     if (!selectedCity) {
-      submitErrorMessage.push("Provide tenant city");
+      submitErrorMessage.push("Provide tenant city")
     }
     if (!selectedState) {
-      submitErrorMessage.push("Provide tenant state");
+      submitErrorMessage.push("Provide tenant state")
     }
     if (!selectedCountry) {
-      submitErrorMessage.push("Provide tenant country");
+      submitErrorMessage.push("Provide tenant country")
     }
     if (!tenantPhone) {
-      submitErrorMessage.push("Provide tenant phone");
+      submitErrorMessage.push("Provide tenant phone")
     }
     if (!tenantEmail) {
-      submitErrorMessage.push("Provide tenant email");
+      submitErrorMessage.push("Provide tenant email")
     }
     if (submitErrorMessage.length > 0) {
-      setSubmitError(submitErrorMessage);
+      setSubmitError(submitErrorMessage)
     } else {
       const tenant = {
         code: tenantCode,
@@ -161,34 +143,31 @@ function TenantForm(props: any) {
         remarks: tenantRemarks,
         logo: "",
         active: tenantStatus,
-      };
-      let apiResult: any = null;
+      }
+      let apiResult: any = null
       if (props.editForm) {
-        let apiResult = await api.updateTenant(props.tenantId, tenant);
+        let apiResult = await api.updateTenant(props.tenantId, tenant)
       } else {
-        let apiResult = await api.saveTenant(tenant);
+        let apiResult = await api.saveTenant(tenant)
       }
       if (apiResult && apiResult.status === "success") {
-        console.log("onClickSubmit", apiResult);
-        reset();
-        props.onClose(true);
+        console.log("onClickSubmit", apiResult)
+        reset()
+        props.onClose(true)
       } else {
-        submitErrorMessage = [];
-        submitErrorMessage.push("Save tenant got failed. Retry again");
-        setSubmitError(submitErrorMessage);
+        submitErrorMessage = []
+        submitErrorMessage.push("Save tenant got failed. Retry again")
+        setSubmitError(submitErrorMessage)
       }
     }
-  };
+  }
 
   const selectLogoFile = (event) => {
-    console.log("selectLogoFile = ", event.target.files[0]);
-    console.log(
-      "selectLogoFile createObjectURL = ",
-      URL.createObjectURL(event.target.files[0])
-    );
-    setLogoFile(event.target.files[0]);
-    setLogoFilePreview(URL.createObjectURL(event.target.files[0]));
-  };
+    console.log("selectLogoFile = ", event.target.files[0])
+    console.log("selectLogoFile createObjectURL = ", URL.createObjectURL(event.target.files[0]))
+    setLogoFile(event.target.files[0])
+    setLogoFilePreview(URL.createObjectURL(event.target.files[0]))
+  }
 
   return (
     <React.Fragment>
@@ -200,7 +179,7 @@ function TenantForm(props: any) {
           <div>
             <ul>
               {submitError.map((error) => {
-                return <li style={{ color: "red" }}>{error}</li>;
+                return <li style={{ color: "red" }}>{error}</li>
               })}
             </ul>
           </div>
@@ -283,7 +262,7 @@ function TenantForm(props: any) {
                   onChange={(event) => setSelectedCity(event.target.value)}
                 >
                   {cities.map((city) => {
-                    return <MenuItem value={city.id}>{city.name}</MenuItem>;
+                    return <MenuItem value={city.id}>{city.name}</MenuItem>
                   })}
                 </Select>
               </FormControl>
@@ -302,7 +281,7 @@ function TenantForm(props: any) {
                   onChange={(event) => setSelectedState(event.target.value)}
                 >
                   {states.map((state) => {
-                    return <MenuItem value={state.id}>{state.name}</MenuItem>;
+                    return <MenuItem value={state.id}>{state.name}</MenuItem>
                   })}
                 </Select>
               </FormControl>
@@ -321,9 +300,7 @@ function TenantForm(props: any) {
                   onChange={(event) => setSelectedCountry(event.target.value)}
                 >
                   {countries.map((country) => {
-                    return (
-                      <MenuItem value={country.id}>{country.name}</MenuItem>
-                    );
+                    return <MenuItem value={country.id}>{country.name}</MenuItem>
                   })}
                 </Select>
               </FormControl>
@@ -379,12 +356,7 @@ function TenantForm(props: any) {
             <Grid item xs={3}>
               <label htmlFor="contained-button-file">
                 Documents&nbsp;
-                <Input
-                  accept="image/*"
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                />
+                <Input accept="image/*" id="contained-button-file" multiple type="file" />
                 <Button variant="contained" component="span">
                   Browse
                 </Button>
@@ -434,6 +406,6 @@ function TenantForm(props: any) {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(TenantForm);
+export default withRouter(TenantForm)

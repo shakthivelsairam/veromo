@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
 import {
   Button,
   Table,
@@ -9,17 +9,11 @@ import {
   Typography,
   Grid,
   Checkbox,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+} from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,7 +23,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -39,10 +33,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function MethodMaster() {
-  const [data, setData] = useState([] as any);
+  const [data, setData] = useState<any>([])
 
   useEffect(() => {
     const rows = [
@@ -68,9 +62,9 @@ export default function MethodMaster() {
         destination: "test@gmail.com",
         created_date: "2021-10-14 12:18:07.010",
       },
-    ];
-    setData(rows);
-  }, []);
+    ]
+    setData(rows)
+  }, [])
 
   return (
     <div>
@@ -123,5 +117,5 @@ export default function MethodMaster() {
         </div>
       </React.Fragment>
     </div>
-  );
+  )
 }

@@ -1,19 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
 import {
   Grid,
   TextField,
@@ -25,12 +13,12 @@ import {
   Select,
   InputLabel,
   FormControl,
-} from "@mui/material";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
-import * as api from "../../../utils/api";
-import custstyle from "../../style.module.css";
+} from "@mui/material"
+import AdapterDateFns from "@mui/lab/AdapterDateFns"
+import LocalizationProvider from "@mui/lab/LocalizationProvider"
+import DatePicker from "@mui/lab/DatePicker"
+import * as api from "../../../utils/api"
+import custstyle from "../../style.module.css"
 
 function TenantForm(props: any) {
   // console.log("Before");
@@ -38,7 +26,7 @@ function TenantForm(props: any) {
   //  console.log("Fetching row id "+props.editrow);
   // props.togglePage(true);
   // console.log("After = "+props.showForm);
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState(null)
 
   const [formData, setFormData] = useState({
     frowid: 0,
@@ -59,56 +47,56 @@ function TenantForm(props: any) {
     ftenantid: "",
     factive: false,
     fisbase: false,
-  });
+  })
 
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([])
   useEffect(() => {
-    clearInputs(true);
-    console.log("Show form " + props.showForm);
-    UsersGet(props.editrow);
-    baseFacility(props.editrow);
-  }, [props.showForm]);
+    clearInputs(true)
+    console.log("Show form " + props.showForm)
+    UsersGet(props.editrow)
+    baseFacility(props.editrow)
+  }, [props.showForm])
 
   const baseFacility = (rowid) => {
-    (async () => {
-      console.log("============" + rowid);
+    ;(async () => {
+      console.log("============" + rowid)
       if (rowid !== 0) {
-        const facilitydata = await api.getBaseFacility(rowid);
+        const facilitydata = await api.getBaseFacility(rowid)
         // //setData(facilitydata)
         if (facilitydata.totCount == 1) {
-          setBasedfacilitychk(true);
+          setBasedfacilitychk(true)
         } else {
-          setBasedfacilitychk(false);
+          setBasedfacilitychk(false)
         }
       }
-    })();
-  };
+    })()
+  }
   const UsersGet = (rowid) => {
-    (async () => {
-      console.log("============" + rowid);
+    ;(async () => {
+      console.log("============" + rowid)
       if (rowid !== 0) {
-        const facilitydata = await api.getSingleFacility(rowid);
+        const facilitydata = await api.getSingleFacility(rowid)
         // //setData(facilitydata)
-        console.log("LAst one here =" + facilitydata.address_line2);
-        setFrowid(rowid);
-        setFcode(facilitydata.fcode);
-        setFname(facilitydata.name);
-        setFdisplayname(facilitydata.displayname);
-        setFacilitytype(facilitydata.type);
-        setAddline1(facilitydata.address_line1);
-        setAddline2(facilitydata.address_line2);
-        setFcity(facilitydata.city);
-        setFstate(facilitydata.state);
-        setFcountry(facilitydata.country);
-        setFpincode(facilitydata.pincode);
-        setFmobile(facilitydata.mobile_number);
-        setFlaunched(facilitydata.launched);
+        console.log("LAst one here =" + facilitydata.address_line2)
+        setFrowid(rowid)
+        setFcode(facilitydata.fcode)
+        setFname(facilitydata.name)
+        setFdisplayname(facilitydata.displayname)
+        setFacilitytype(facilitydata.type)
+        setAddline1(facilitydata.address_line1)
+        setAddline2(facilitydata.address_line2)
+        setFcity(facilitydata.city)
+        setFstate(facilitydata.state)
+        setFcountry(facilitydata.country)
+        setFpincode(facilitydata.pincode)
+        setFmobile(facilitydata.mobile_number)
+        setFlaunched(facilitydata.launched)
         if (facilitydata.proccessing_facility_id != "") {
-          setFprocessingfacility(facilitydata.proccessing_facility_id);
+          setFprocessingfacility(facilitydata.proccessing_facility_id)
         }
-        setFshortcode(facilitydata.short_code);
-        setFactive(facilitydata.active);
-        setFBase(facilitydata.is_base);
+        setFshortcode(facilitydata.short_code)
+        setFactive(facilitydata.active)
+        setFBase(facilitydata.is_base)
       }
 
       //console.log(facilitydata[0].name);
@@ -118,43 +106,43 @@ function TenantForm(props: any) {
         ...formData,fname:facilitydata[0].name
       })
       */
-      console.log("New two = " + rowid);
+      console.log("New two = " + rowid)
       // setFacilityName(tenants.code)
-    })();
-  };
+    })()
+  }
 
   // New Code work here
-  const [frowid, setFrowid] = useState(0);
-  const [fcode, setFcode] = useState("");
-  const [fname, setFname] = useState("");
-  const [fdisplayname, setFdisplayname] = useState("");
-  const [facilitytype, setFacilitytype] = useState("");
-  const [addline1, setAddline1] = useState("");
-  const [addline2, setAddline2] = useState("");
-  const [fcity, setFcity] = useState("");
-  const [fstate, setFstate] = useState("");
-  const [fcountry, setFcountry] = useState("");
-  const [fpincode, setFpincode] = useState("");
-  const [fmobile, setFmobile] = useState("");
-  const [flaunched, setFlaunched] = useState("");
-  const [fprocessingfacility, setFprocessingfacility] = useState("");
-  const [fprocessdisabled, setFprocessdisabled] = useState(true);
-  const [fshortcode, setFshortcode] = useState("");
-  const [ftenantid, setFtenantid] = useState("");
-  const [active, setFactive] = useState(true);
-  const [fBase, setFBase] = useState(false);
-  const [basedfacilitychk, setBasedfacilitychk] = useState(false);
+  const [frowid, setFrowid] = useState(0)
+  const [fcode, setFcode] = useState("")
+  const [fname, setFname] = useState("")
+  const [fdisplayname, setFdisplayname] = useState("")
+  const [facilitytype, setFacilitytype] = useState("")
+  const [addline1, setAddline1] = useState("")
+  const [addline2, setAddline2] = useState("")
+  const [fcity, setFcity] = useState("")
+  const [fstate, setFstate] = useState("")
+  const [fcountry, setFcountry] = useState("")
+  const [fpincode, setFpincode] = useState("")
+  const [fmobile, setFmobile] = useState("")
+  const [flaunched, setFlaunched] = useState("")
+  const [fprocessingfacility, setFprocessingfacility] = useState("")
+  const [fprocessdisabled, setFprocessdisabled] = useState(true)
+  const [fshortcode, setFshortcode] = useState("")
+  const [ftenantid, setFtenantid] = useState("")
+  const [active, setFactive] = useState(true)
+  const [fBase, setFBase] = useState(false)
+  const [basedfacilitychk, setBasedfacilitychk] = useState(false)
 
   const handleFormChange = async (event: any) => {
-    let data = formData;
-    data[event.target.name] = event.target.value;
-    setFormData(data);
-    console.log(data);
+    let data = formData
+    data[event.target.name] = event.target.value
+    setFormData(data)
+    console.log(data)
     //const facility = await api.setFacility(data)
-  };
+  }
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    event.preventDefault()
     var facilitydata = {
       frowid: frowid,
       fcode: fcode,
@@ -174,53 +162,53 @@ function TenantForm(props: any) {
       ftenantid: ftenantid,
       active: active,
       fBase: fBase,
-    };
-    const facility = await api.setFacility(facilitydata);
-    console.log("API Response");
-    console.log(facilitydata);
-    console.log("API Response Nds here");
-    if (facility.status === 200) {
-      clearInputs(false);
-      props.togglePage();
     }
-  };
+    const facility = await api.setFacility(facilitydata)
+    console.log("API Response")
+    console.log(facilitydata)
+    console.log("API Response Nds here")
+    if (facility.status === 200) {
+      clearInputs(false)
+      props.togglePage()
+    }
+  }
 
   const clearInputs = async (activeFlag: boolean) => {
-    setFrowid(0);
-    setFcode("");
-    setFname("");
-    setFdisplayname("");
-    setFacilitytype("0");
-    setAddline1("");
-    setAddline2("");
-    setFcity("");
-    setFstate("");
-    setFcountry("");
-    setFpincode("");
-    setFmobile("");
-    setFlaunched("");
-    setFprocessingfacility("");
-    setFshortcode("");
-    setFtenantid("");
-    setFactive(activeFlag);
-    setFBase(false);
-  };
+    setFrowid(0)
+    setFcode("")
+    setFname("")
+    setFdisplayname("")
+    setFacilitytype("0")
+    setAddline1("")
+    setAddline2("")
+    setFcity("")
+    setFstate("")
+    setFcountry("")
+    setFpincode("")
+    setFmobile("")
+    setFlaunched("")
+    setFprocessingfacility("")
+    setFshortcode("")
+    setFtenantid("")
+    setFactive(activeFlag)
+    setFBase(false)
+  }
 
   const handleInputChange = async (event: any) => {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    console.log(value);
+    const target = event.target
+    const value = target.type === "checkbox" ? target.checked : target.value
+    const name = target.name
+    console.log(value)
     // setFacilityName(value)
-  };
+  }
   const handleFacility = async (event: any) => {
-    const target = event.target;
-    setFprocessdisabled(true);
-    setFprocessingfacility("");
+    const target = event.target
+    setFprocessdisabled(true)
+    setFprocessingfacility("")
     if (target.value == "collection") {
-      setFprocessdisabled(false);
+      setFprocessdisabled(false)
     }
-  };
+  }
 
   return (
     <React.Fragment>
@@ -239,7 +227,7 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setFcode(e.target.value);
+                  setFcode(e.target.value)
                 }}
                 value={fcode}
               />
@@ -253,8 +241,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setFname(e.target.value);
-                  handleFormChange(e);
+                  setFname(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={fname}
               />
@@ -268,8 +256,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setFdisplayname(e.target.value);
-                  handleFormChange(e);
+                  setFdisplayname(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={fdisplayname}
               />
@@ -283,8 +271,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setFshortcode(e.target.value);
-                  handleFormChange(e);
+                  setFshortcode(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={fshortcode}
               />
@@ -299,9 +287,9 @@ function TenantForm(props: any) {
                   labelId="type-label"
                   id="facilitytype"
                   onChange={(e) => {
-                    setFacilitytype(e.target.value);
-                    handleFormChange(e);
-                    handleFacility(e);
+                    setFacilitytype(e.target.value)
+                    handleFormChange(e)
+                    handleFacility(e)
                   }}
                   value={facilitytype}
                   label="Facility Type"
@@ -323,8 +311,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setFpincode(e.target.value);
-                  handleFormChange(e);
+                  setFpincode(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={fpincode}
               />
@@ -338,8 +326,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setAddline1(e.target.value);
-                  handleFormChange(e);
+                  setAddline1(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={addline1}
               />
@@ -353,8 +341,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setAddline2(e.target.value);
-                  handleFormChange(e);
+                  setAddline2(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={addline2}
               />
@@ -370,8 +358,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setFcity(e.target.value);
-                  handleFormChange(e);
+                  setFcity(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={fcity}
               />
@@ -385,8 +373,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setFstate(e.target.value);
-                  handleFormChange(e);
+                  setFstate(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={fstate}
               />
@@ -400,8 +388,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setFcountry(e.target.value);
-                  handleFormChange(e);
+                  setFcountry(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={fcountry}
               />
@@ -416,8 +404,8 @@ function TenantForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setFmobile(e.target.value);
-                  handleFormChange(e);
+                  setFmobile(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={fmobile}
               />
@@ -430,7 +418,7 @@ function TenantForm(props: any) {
                   label="Launched"
                   value={value}
                   onChange={(newValue) => {
-                    setValue(newValue);
+                    setValue(newValue)
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
@@ -446,8 +434,8 @@ function TenantForm(props: any) {
                 disabled={fprocessdisabled}
                 variant="standard"
                 onChange={(e) => {
-                  setFprocessingfacility(e.target.value);
-                  handleFormChange(e);
+                  setFprocessingfacility(e.target.value)
+                  handleFormChange(e)
                 }}
                 value={fprocessingfacility}
               />
@@ -467,22 +455,20 @@ function TenantForm(props: any) {
                 checked={fBase}
                 disabled={basedfacilitychk}
                 onClick={(e) => {
-                  setFBase(!fBase);
-                  handleFormChange(e);
+                  setFBase(!fBase)
+                  handleFormChange(e)
                 }}
               />
             </Grid>
 
             <Grid item xs={3}>
               <FormControlLabel
-                control={
-                  <Checkbox color="secondary" name="status" id="status" />
-                }
+                control={<Checkbox color="secondary" name="status" id="status" />}
                 label="Active"
                 checked={active}
                 onClick={(e) => {
-                  setFactive(!active);
-                  handleFormChange(e);
+                  setFactive(!active)
+                  handleFormChange(e)
                 }}
               />
             </Grid>
@@ -502,6 +488,6 @@ function TenantForm(props: any) {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(TenantForm);
+export default withRouter(TenantForm)

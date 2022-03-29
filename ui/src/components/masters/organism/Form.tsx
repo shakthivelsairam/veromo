@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Tabs,
   Tab,
@@ -27,14 +21,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+} from "@mui/material"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
 
 const Input = styled("input")({
   display: "none",
-});
+})
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,7 +38,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -54,16 +48,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 function SampleMasterForm(props: any) {
-  const [method, setMethod] = React.useState("0");
-  const [data, setData] = useState([] as any);
+  const [method, setMethod] = React.useState("0")
+  const [data, setData] = useState<any>([])
 
   const drugList = [
     { label: "Drug 1", value: "1" },
     { label: "Drug 2", value: "2" },
-  ];
+  ]
   useEffect(() => {
     const rows = [
       {
@@ -84,9 +78,9 @@ function SampleMasterForm(props: any) {
         drugname: "Penicillin",
         familyname: "Injecction",
       },
-    ];
-    setData(rows);
-  }, []);
+    ]
+    setData(rows)
+  }, [])
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -119,9 +113,7 @@ function SampleMasterForm(props: any) {
             id="rangeType"
             options={drugList}
             sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Drug List" variant="standard" />
-            )}
+            renderInput={(params) => <TextField {...params} label="Drug List" variant="standard" />}
           />
         </Grid>
         <Grid item xs={2} style={{ textAlign: "left" }}>
@@ -130,10 +122,7 @@ function SampleMasterForm(props: any) {
           </Button>
         </Grid>
         <Grid item xs={7} style={{ textAlign: "left" }}>
-          <Button
-            variant="contained"
-            style={{ backgroundColor: "lightgray", color: "black" }}
-          >
+          <Button variant="contained" style={{ backgroundColor: "lightgray", color: "black" }}>
             Cancel
           </Button>
         </Grid>
@@ -169,6 +158,6 @@ function SampleMasterForm(props: any) {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(SampleMasterForm);
+export default withRouter(SampleMasterForm)

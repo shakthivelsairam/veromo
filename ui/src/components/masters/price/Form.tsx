@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -26,12 +20,12 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "@mui/material";
-import * as api from "../../../utils/api";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import { styled } from "@mui/material/styles";
-import TestPrice from "./TestPrice";
-import custstyle from "../../style.module.css";
+} from "@mui/material"
+import * as api from "../../../utils/api"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import { styled } from "@mui/material/styles"
+import TestPrice from "./TestPrice"
+import custstyle from "../../style.module.css"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -41,100 +35,93 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 function PriceMasterForm(props: any) {
   const tariffList = [
     { label: "GENERAL", value: "1" },
     { label: "L2LRATE", value: "2" },
-  ];
+  ]
   const testList = [
     { label: "HBV-DNA detection by PCR", value: "1" },
     { label: "1.25 Dihydroxy Vitamin D", value: "2" },
-  ];
-  const [tariffCardList, setTariffCardList] = React.useState<any>([
-    { label: "", value: 0 },
-  ]);
-  const [existingPriceList, setExistingPriceList] = React.useState<any>([]);
-  const [tariffCard, setTariffCard] = React.useState<any>(null);
-  const [priceList, setPriceList] = React.useState<any>([]);
-  const [optTests, setOptTests] = React.useState<any>([
-    { label: "", value: 0 },
-  ]);
-  const [selectedTest, setSelectedTest] = React.useState<any>(null);
+  ]
+  const [tariffCardList, setTariffCardList] = React.useState<any>([{ label: "", value: 0 }])
+  const [existingPriceList, setExistingPriceList] = React.useState<any>([])
+  const [tariffCard, setTariffCard] = React.useState<any>(null)
+  const [priceList, setPriceList] = React.useState<any>([])
+  const [optTests, setOptTests] = React.useState<any>([{ label: "", value: 0 }])
+  const [selectedTest, setSelectedTest] = React.useState<any>(null)
 
   useEffect(() => {
-    (async () => {
-      console.log("Show form " + props.showForm);
-      const tariffCards = await api.getTariffCards();
-      console.log("tariffCards = ", tariffCards);
+    ;(async () => {
+      console.log("Show form " + props.showForm)
+      const tariffCards = await api.getTariffCards()
+      console.log("tariffCards = ", tariffCards)
       const tariffList = tariffCards.map((tariff: any) => ({
         label: tariff.name,
         value: tariff.id,
-      }));
-      console.log("tariffList = ", tariffList);
-      setTariffCardList(tariffList);
+      }))
+      console.log("tariffList = ", tariffList)
+      setTariffCardList(tariffList)
 
-      const optTests = await api.getTestsLookup();
-      setOptTests(optTests);
-    })();
-  }, [props.showForm]);
+      const optTests = await api.getTestsLookup()
+      setOptTests(optTests)
+    })()
+  }, [props.showForm])
 
   const fetchExistingPriceList = async () => {
-    console.log("tariffCard.value = ", tariffCard.value);
-    console.log("selectedTest.value = ", selectedTest.value);
-    const existingPriceList = await api.getPrices(
-      tariffCard.value,
-      selectedTest.value
-    );
-    console.log("priceList = ", existingPriceList);
-    setExistingPriceList(existingPriceList);
-  };
+    const selectedTariffCardId = tariffCard ? tariffCard.value : null
+    const selectedTestId = selectedTest ? selectedTest.value : null
+    console.log("selectedTariffCardId = ", selectedTariffCardId)
+    console.log("selectedTestId = ", selectedTestId)
+    const existingPriceList = await api.getPrices(selectedTariffCardId, selectedTestId)
+    console.log("priceList = ", existingPriceList)
+    setExistingPriceList(existingPriceList)
+  }
 
   const handleTariffCardChange = async (event: any, values: any) => {
     if (values != null) {
-      setTariffCard(values);
+      setTariffCard(values)
     } else {
-      setTariffCard(values);
+      setTariffCard(values)
     }
-  };
+  }
 
   const handleAutocompleteTestChange = async (event: any, values: any) => {
     if (values != null) {
-      setSelectedTest(values);
+      setSelectedTest(values)
     } else {
-      setSelectedTest(values);
+      setSelectedTest(values)
     }
-  };
+  }
 
   const handleDataChange = async (price: any) => {
-    let dataIndex = priceList.findIndex(
-      (item: any) => item.rowId === price.rowId
-    );
+    let dataIndex = priceList.findIndex((item: any) => item.rowId === price.rowId)
     if (dataIndex != -1) {
-      Object.assign(priceList[dataIndex], price);
+      Object.assign(priceList[dataIndex], price)
     } else {
-      price["identifying_type"] = "Test";
-      price["tariff_card_id"] = tariffCard.value;
-      priceList.push(price);
+      price["identifying_type"] = "Test"
+      price["tariff_card_id"] = tariffCard.value
+      priceList.push(price)
     }
-    console.log("handleDataChange price list = ", priceList);
-    setPriceList(priceList);
-  };
+    console.log("handleDataChange price list = ", priceList)
+    setPriceList(priceList)
+  }
 
   const handleSubmit = async () => {
-    console.log("handleSubmit = ", priceList);
+    console.log("handleSubmit = ", priceList)
     if (priceList && priceList.length > 0) {
-      const saveResponse = await api.savePrices(priceList);
-      console.log("saveResponse = ", saveResponse);
+      const saveResponse = await api.savePrices(priceList)
+      console.log("saveResponse = ", saveResponse)
       if (saveResponse.status === 200) {
-        setExistingPriceList([]);
-        setPriceList([]);
-        setTariffCard(null);
-        props.togglePage();
+        setExistingPriceList([])
+        setPriceList([])
+        setTariffCard(null)
+        props.togglePage()
       }
     }
-  };
+  }
 
   return (
     <React.Fragment>
@@ -150,11 +137,7 @@ function PriceMasterForm(props: any) {
                 options={tariffCardList}
                 sx={{ width: 300 }}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Tariff Card"
-                    variant="standard"
-                  />
+                  <TextField {...params} label="Tariff Card" variant="standard" />
                 )}
                 onChange={handleTariffCardChange}
                 value={tariffCard}
@@ -165,9 +148,7 @@ function PriceMasterForm(props: any) {
                 id="testName"
                 options={optTests}
                 sx={{ width: 300 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Test" variant="standard" />
-                )}
+                renderInput={(params) => <TextField {...params} label="Test" variant="standard" />}
                 onChange={handleAutocompleteTestChange}
                 value={selectedTest}
               />
@@ -198,11 +179,7 @@ function PriceMasterForm(props: any) {
                 {existingPriceList &&
                   Array.isArray(existingPriceList) &&
                   existingPriceList.map((row: any, index: number) => (
-                    <TestPrice
-                      row={row}
-                      rowId={index}
-                      handleDataChange={handleDataChange}
-                    />
+                    <TestPrice row={row} rowId={index} handleDataChange={handleDataChange} />
                   ))}
               </TableBody>
             </Table>
@@ -222,6 +199,6 @@ function PriceMasterForm(props: any) {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(PriceMasterForm);
+export default withRouter(PriceMasterForm)

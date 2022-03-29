@@ -59,3 +59,13 @@ export async function remove(req, res) {
     res.status(500).json()
   }
 }
+
+export async function getServices(req, res) {
+  try {
+    const tenant = await tariffCardDB.getServices(req.params.id)
+    res.status(200).json(tenant)
+  } catch (err) {
+    console.error("controller.tariffCard.getServices - Error: " + JSON.stringify(err))
+    res.status(500).json()
+  }
+}

@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Tabs,
   Tab,
@@ -26,14 +20,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import { styled } from "@mui/material/styles";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import TreeView from "@mui/lab/TreeView";
-import TreeItem from "@mui/lab/TreeItem";
+} from "@mui/material"
+import EditIcon from "@mui/icons-material/Edit"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import { styled } from "@mui/material/styles"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import ChevronRightIcon from "@mui/icons-material/ChevronRight"
+import TreeView from "@mui/lab/TreeView"
+import TreeItem from "@mui/lab/TreeItem"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -43,7 +37,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -53,16 +47,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
+  children?: React.ReactNode
+  index: number
+  value: number
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -78,46 +72,46 @@ function TabPanel(props: TabPanelProps) {
         </Box>
       )}
     </div>
-  );
+  )
 }
 
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
-  };
+  }
 }
 
 function TestMasterForm(props: any) {
-  const [dept, setDept] = React.useState("0");
-  const [testPerformed, setTestPerformed] = React.useState("0");
-  const [sample, setSample] = React.useState("0");
-  const [container, setContainer] = React.useState("0");
-  const [method, setMethod] = React.useState("0");
-  const [value, setValue] = React.useState(0);
+  const [dept, setDept] = React.useState("0")
+  const [testPerformed, setTestPerformed] = React.useState("0")
+  const [sample, setSample] = React.useState("0")
+  const [container, setContainer] = React.useState("0")
+  const [method, setMethod] = React.useState("0")
+  const [value, setValue] = React.useState(0)
   const analyteList = [
     { label: "HBV-DNA detection by PCR", value: "1" },
     { label: "1.25 Dihydroxy Vitamin D", value: "2" },
-  ];
+  ]
   const mnemonicode = [
     { label: "POAKD", shotcode: "POAKD Code", value: 1 },
     { label: "ALWOJ", shotcode: "ALWOJ Code", value: 2 },
     { label: "ZXAPQ", shotcode: "ZXAPQ Code", value: 3 },
-  ];
+  ]
   const protocal = [
     { label: "Protocal 1", value: 1 },
     { label: "Protocal 2", value: 2 },
-  ];
+  ]
   const auths = [
     { label: "Dhana", value: 1 },
     { label: "Siva", value: 2 },
     { label: "Pari", value: 3 },
-  ];
+  ]
 
-  const [data, setData] = useState([] as any);
+  const [data, setData] = useState<any>([])
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
   useEffect(() => {
     const rows = [
       {
@@ -134,17 +128,13 @@ function TestMasterForm(props: any) {
         is_header: "No",
         status: "Inactive",
       },
-    ];
-    setData(rows);
-  }, []);
+    ]
+    setData(rows)
+  }, [])
   return (
     <React.Fragment>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="General" {...a11yProps(0)} />
           <Tab label="Associate Analyte" {...a11yProps(1)} />
         </Tabs>
@@ -382,14 +372,7 @@ function TestMasterForm(props: any) {
           </Grid>
           <Grid item xs={3}>
             <FormControlLabel
-              control={
-                <Checkbox
-                  color="secondary"
-                  name="active"
-                  value="yes"
-                  defaultChecked
-                />
-              }
+              control={<Checkbox color="secondary" name="active" value="yes" defaultChecked />}
               label="Active"
             />
           </Grid>
@@ -408,11 +391,7 @@ function TestMasterForm(props: any) {
                   options={protocal}
                   sx={{ width: 250 }}
                   renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Protocol"
-                      variant="standard"
-                    />
+                    <TextField {...params} label="Protocol" variant="standard" />
                   )}
                 />
               </Grid>
@@ -435,17 +414,13 @@ function TestMasterForm(props: any) {
               </Grid>
               <Grid item xs={3}>
                 <FormControlLabel
-                  control={
-                    <Checkbox color="secondary" name="active" value="yes" />
-                  }
+                  control={<Checkbox color="secondary" name="active" value="yes" />}
                   label="E-Mail"
                 />
               </Grid>
               <Grid item xs={3}>
                 <FormControlLabel
-                  control={
-                    <Checkbox color="secondary" name="active" value="yes" />
-                  }
+                  control={<Checkbox color="secondary" name="active" value="yes" />}
                   label="SMS"
                 />
               </Grid>
@@ -459,27 +434,19 @@ function TestMasterForm(props: any) {
                   options={auths}
                   sx={{ width: 250 }}
                   renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Authorizer"
-                      variant="standard"
-                    />
+                    <TextField {...params} label="Authorizer" variant="standard" />
                   )}
                 />
               </Grid>
               <Grid item xs={3}>
                 <FormControlLabel
-                  control={
-                    <Checkbox color="secondary" name="active" value="yes" />
-                  }
+                  control={<Checkbox color="secondary" name="active" value="yes" />}
                   label="Orderable"
                 />
               </Grid>
               <Grid item xs={3}>
                 <FormControlLabel
-                  control={
-                    <Checkbox color="secondary" name="active" value="yes" />
-                  }
+                  control={<Checkbox color="secondary" name="active" value="yes" />}
                   label="Co-Authorizer"
                 />
               </Grid>
@@ -488,11 +455,7 @@ function TestMasterForm(props: any) {
                 options={auths}
                 sx={{ width: 250 }}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Co-Authorizer"
-                    variant="standard"
-                  />
+                  <TextField {...params} label="Co-Authorizer" variant="standard" />
                 )}
               />
             </Grid>
@@ -507,11 +470,7 @@ function TestMasterForm(props: any) {
               options={analyteList}
               sx={{ width: 300 }}
               renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Analyte Name"
-                  variant="standard"
-                />
+                <TextField {...params} label="Analyte Name" variant="standard" />
               )}
             />
           </Grid>
@@ -528,15 +487,11 @@ function TestMasterForm(props: any) {
           </Grid>
           <Grid item xs={3}>
             <FormControlLabel
-              control={
-                <Checkbox color="secondary" name="isHeader" value="yes" />
-              }
+              control={<Checkbox color="secondary" name="isHeader" value="yes" />}
               label="Header"
             />
             <FormControlLabel
-              control={
-                <Checkbox color="secondary" name="isHeader" value="yes" />
-              }
+              control={<Checkbox color="secondary" name="isHeader" value="yes" />}
               label="Mandatory"
             />
           </Grid>
@@ -546,9 +501,7 @@ function TestMasterForm(props: any) {
               label="Active"
             />
             <FormControlLabel
-              control={
-                <Checkbox color="secondary" name="isHeader" value="yes" />
-              }
+              control={<Checkbox color="secondary" name="isHeader" value="yes" />}
               label="Reportable"
             />
           </Grid>
@@ -560,10 +513,7 @@ function TestMasterForm(props: any) {
             </Button>
           </Grid>
           <Grid item xs={5} style={{ textAlign: "left" }}>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "lightgray", color: "black" }}
-            >
+            <Button variant="contained" style={{ backgroundColor: "lightgray", color: "black" }}>
               Cancel
             </Button>
           </Grid>
@@ -602,6 +552,6 @@ function TestMasterForm(props: any) {
         </Grid>
       </TabPanel>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(TestMasterForm);
+export default withRouter(TestMasterForm)

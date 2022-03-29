@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
 import {
   Button,
   Table,
@@ -11,19 +11,13 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import custstyle from "../../style.module.css";
-import * as api from "../../../utils/api";
+} from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import custstyle from "../../style.module.css"
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,7 +27,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -43,69 +37,69 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function InstrumentTypes(props: any) {
-  console.log(props);
-  const [data, setData] = useState([] as any);
+  console.log(props)
+  const [data, setData] = useState<any>([])
   useEffect(() => {
-    clearInputs(1);
-    console.log("Show form " + props.showForm);
-    MethodGet(props.editrow);
-  }, [props.showForm]);
+    clearInputs(1)
+    console.log("Show form " + props.showForm)
+    MethodGet(props.editrow)
+  }, [props.showForm])
 
   const MethodGet = (rowid) => {
-    (async () => {
+    ;(async () => {
       if (rowid !== 0) {
-        const singleRow = await api.getSingleMethod(rowid);
+        const singleRow = await api.getSingleMethod(rowid)
         // //setData(facilitydata)
-        console.log("LAst one here =" + singleRow);
+        console.log("LAst one here =" + singleRow)
 
-        setRowid(rowid);
-        setType(singleRow.name);
-        setDescription(singleRow.description);
-        setActive(singleRow.active);
+        setRowid(rowid)
+        setType(singleRow.name)
+        setDescription(singleRow.description)
+        setActive(singleRow.active)
       }
 
-      console.log("New two = " + rowid);
-    })();
-  };
-  const [rowid, setRowid] = useState(0);
-  const [type, setType] = useState("");
-  const [description, setDescription] = useState("");
-  const [active, setActive] = useState(true);
-  const [refreshKey, setRefreshKey] = useState(0);
+      console.log("New two = " + rowid)
+    })()
+  }
+  const [rowid, setRowid] = useState(0)
+  const [type, setType] = useState("")
+  const [description, setDescription] = useState("")
+  const [active, setActive] = useState(true)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    event.preventDefault()
     var sampledata = {
       rowid: rowid,
       type: type,
       description: description,
       active: active,
-    };
-    console.log("data");
-    console.log(sampledata);
-    const metatypes = await api.setMetaType(sampledata);
-    console.log("API Response");
-    console.log(metatypes);
-    console.log("API Response Nds here");
-    setRefreshKey((oldKey) => oldKey + 1);
-  };
+    }
+    console.log("data")
+    console.log(sampledata)
+    const metatypes = await api.setMetaType(sampledata)
+    console.log("API Response")
+    console.log(metatypes)
+    console.log("API Response Nds here")
+    setRefreshKey((oldKey) => oldKey + 1)
+  }
   const clearInputs = (flag) => {
-    setRowid(0);
-    setType("");
-    setDescription("");
-    setActive(flag);
-  };
+    setRowid(0)
+    setType("")
+    setDescription("")
+    setActive(flag)
+  }
 
   useEffect(() => {
-    (async () => {
-      const allrows = await api.getMetaTypes();
-      console.log("reloading data");
-      setData(allrows);
-    })();
-  }, [refreshKey]);
+    ;(async () => {
+      const allrows = await api.getMetaTypes()
+      console.log("reloading data")
+      setData(allrows)
+    })()
+  }, [refreshKey])
 
   return (
     <React.Fragment>
@@ -125,7 +119,7 @@ export default function InstrumentTypes(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setType(e.target.value);
+                  setType(e.target.value)
                 }}
                 value={type}
               />
@@ -140,20 +134,18 @@ export default function InstrumentTypes(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  setDescription(e.target.value)
                 }}
                 value={description}
               />
             </Grid>
             <Grid item xs={3}>
               <FormControlLabel
-                control={
-                  <Checkbox color="secondary" name="status" id="status" />
-                }
+                control={<Checkbox color="secondary" name="status" id="status" />}
                 label="Active"
                 checked={active}
                 onClick={(e) => {
-                  setActive(!active);
+                  setActive(!active)
                 }}
               />
             </Grid>
@@ -208,5 +200,5 @@ export default function InstrumentTypes(props: any) {
         </Grid>
       </Dialog>
     </React.Fragment>
-  );
+  )
 }

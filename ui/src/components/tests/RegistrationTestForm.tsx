@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -15,13 +15,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
+} from "@mui/material"
 
 function RegistrationTestForm(props: any) {
   const testList = [
     { label: "CBC", value: "1" },
     { label: "Calcium", value: "2" },
-  ];
+  ]
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -30,17 +30,11 @@ function RegistrationTestForm(props: any) {
             id="testName"
             options={testList}
             sx={{ width: 400 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Test Name" variant="standard" />
-            )}
+            renderInput={(params) => <TextField {...params} label="Test Name" variant="standard" />}
           />
         </Grid>
         <Grid item xs={false}>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={props.togglePage}
-          >
+          <Button variant="contained" color="success" onClick={props.togglePage}>
             Add
           </Button>
         </Grid>
@@ -86,6 +80,6 @@ function RegistrationTestForm(props: any) {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(RegistrationTestForm);
+export default withRouter(RegistrationTestForm)

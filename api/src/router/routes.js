@@ -130,6 +130,7 @@ router.route("/tariffcard/:id").get(tariffCardController.get)
 router.route("/tariffcard").post(tariffCardController.add)
 router.route("/tariffcard/:id").put(tariffCardController.update)
 router.route("/tariffcard/:id").delete(tariffCardController.remove)
+router.route("/tariffcard/:id/services").get(tariffCardController.getServices)
 
 router.route("/prices").get(pricesController.list)
 router.route("/prices/test").post(pricesController.get)

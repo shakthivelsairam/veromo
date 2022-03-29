@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,19 +12,19 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
+} from "@mui/material"
 
 function PatientForm(props: any) {
-  const [titles, setTitles] = React.useState("0");
-  const [gender, setGender] = React.useState("");
-  const [ageValue, setAgeValue] = React.useState("Year(s)");
-  const [state, setState] = React.useState("tamilnadu");
-  const [country, setCountry] = React.useState("india");
-  const [uidType, setUidType] = React.useState("");
+  const [titles, setTitles] = React.useState("0")
+  const [gender, setGender] = React.useState("")
+  const [ageValue, setAgeValue] = React.useState("Year(s)")
+  const [state, setState] = React.useState("tamilnadu")
+  const [country, setCountry] = React.useState("india")
+  const [uidType, setUidType] = React.useState("")
   const clientList = [
     { label: "Apollo", value: "1" },
     { label: "Priyam", value: "2" },
-  ];
+  ]
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -231,6 +225,6 @@ function PatientForm(props: any) {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(PatientForm);
+export default withRouter(PatientForm)

@@ -1,27 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  Typography,
-  Grid,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import TariffMasterForm from "./Form";
-import custstyle from "../../style.module.css";
-import * as api from "../../../utils/api";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import TariffMasterForm from "./Form"
+import custstyle from "../../style.module.css"
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,7 +17,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -41,34 +27,34 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function TariffMaster() {
-  const [data, setData] = useState([] as any);
-  const [showForm, setShowForm] = useState(false);
-  const [editForm, setEditForm] = useState(false);
-  const [row, setRow] = useState(0);
+  const [data, setData] = useState<any>([])
+  const [showForm, setShowForm] = useState(false)
+  const [editForm, setEditForm] = useState(false)
+  const [row, setRow] = useState(0)
   const togglePage = () => {
-    setShowForm(!showForm);
-  };
+    setShowForm(!showForm)
+  }
   const pageType = (editForm: boolean, rowId: number) => {
-    setEditForm(editForm);
-    setRow(rowId);
-    togglePage();
-  };
+    setEditForm(editForm)
+    setRow(rowId)
+    togglePage()
+  }
 
   const removeTariffCard = async (rowId: number) => {
-    const deleteTariffCard = await api.removeTariffCard(rowId);
-    const tariffCard = await api.getTariffCards();
-    setData(tariffCard);
-  };
+    const deleteTariffCard = await api.removeTariffCard(rowId)
+    const tariffCard = await api.getTariffCards()
+    setData(tariffCard)
+  }
 
   useEffect(() => {
-    (async () => {
-      const tariffCard = await api.getTariffCards();
-      setData(tariffCard);
-    })();
-  }, [showForm]);
+    ;(async () => {
+      const tariffCard = await api.getTariffCards()
+      setData(tariffCard)
+    })()
+  }, [showForm])
 
   return (
     <div>
@@ -84,11 +70,7 @@ export default function TariffMaster() {
               Add
             </Button>
           </Grid>
-          <TariffMasterForm
-            showForm={showForm}
-            editrow={row}
-            togglePage={togglePage}
-          />
+          <TariffMasterForm showForm={showForm} editrow={row} togglePage={togglePage} />
         </Grid>
         <div style={{ height: 400, width: "100%", marginTop: 5 }}>
           <Table size="small">
@@ -110,20 +92,12 @@ export default function TariffMaster() {
                     <StyledTableCell>{row.code}</StyledTableCell>
                     <StyledTableCell>{row.name}</StyledTableCell>
                     <StyledTableCell>{row.is_default}</StyledTableCell>
-                    <StyledTableCell>
-                      {row.active === 1 ? "Active" : "In-Active"}
-                    </StyledTableCell>
+                    <StyledTableCell>{row.active === 1 ? "Active" : "In-Active"}</StyledTableCell>
                     <StyledTableCell align="center">
-                      <Button
-                        size="small"
-                        onClick={() => pageType(true, row.id)}
-                      >
+                      <Button size="small" onClick={() => pageType(true, row.id)}>
                         <EditIcon fontSize="small"></EditIcon>
                       </Button>
-                      <Button
-                        size="small"
-                        onClick={() => removeTariffCard(row.id)}
-                      >
+                      <Button size="small" onClick={() => removeTariffCard(row.id)}>
                         <DeleteIcon fontSize="small"></DeleteIcon>
                       </Button>
                     </StyledTableCell>
@@ -134,5 +108,5 @@ export default function TariffMaster() {
         </div>
       </React.Fragment>
     </div>
-  );
+  )
 }

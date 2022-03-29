@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,17 +12,17 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
+} from "@mui/material"
 
 function ClientTariffMappingForm(props: any) {
   const clientList = [
     { label: "Client 1", value: "1" },
     { label: "Client 2", value: "2" },
-  ];
+  ]
   const tariffList = [
     { label: "General", value: "1" },
     { label: "L2L Rate", value: "2" },
-  ];
+  ]
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -86,6 +80,6 @@ function ClientTariffMappingForm(props: any) {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(ClientTariffMappingForm);
+export default withRouter(ClientTariffMappingForm)

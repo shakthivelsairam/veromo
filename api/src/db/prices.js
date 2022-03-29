@@ -6,10 +6,16 @@ export async function get(tariffCardId, identifyingId, identifyingType) {
     const sqlQuery = `SELECT p.id, tc.id AS tariff_card_id, t.id AS test_id, tc.name AS tariff_card_name, t.code AS test_code,
                         t.name AS test_name, p.price, p.start, p.end, p.schedule_days
                         FROM tariff_card tc
-                        INNER JOIN tests t ON tc.tenant_id=t.tenant_id
+                        INNER JOIN tariff_card_service tcs ON tc.tenant_id=tcs.tenant_id AND tc.id=tcs.tariff_card_id
+                        INNER JOIN tests t ON tc.tenant_id=t.tenant_id AND tcs.identifying_id=t.id AND tcs.identifying_type=?
                         LEFT JOIN prices p ON tc.id=p.tariff_card_id AND tc.tenant_id=p.tenant_id AND t.id=p.identifying_id AND p.identifying_type=?
                         WHERE tc.id=? AND t.id=COALESCE(?,t.id)`
-    const sqlResult = await dbPool.query(sqlQuery, [identifyingType, tariffCardId, identifyingId])
+    const sqlResult = await dbPool.query(sqlQuery, [
+      identifyingType,
+      identifyingType,
+      tariffCardId,
+      identifyingId,
+    ])
     if (sqlResult && sqlResult.length > 0) {
       console.log("db.prices.get details = " + JSON.stringify(sqlResult))
       return sqlResult

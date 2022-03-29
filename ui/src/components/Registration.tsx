@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,17 +12,11 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
-import PatientForm from "./patient/Form";
-import RegistrationTestForm from "./tests/RegistrationTestForm";
-import PaymentForm from "./payments/PaymentForm";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
+} from "@mui/material"
+import PatientForm from "./patient/Form"
+import RegistrationTestForm from "./tests/RegistrationTestForm"
+import PaymentForm from "./payments/PaymentForm"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
 
 function Registration(props: any) {
   return (
@@ -58,6 +46,6 @@ function Registration(props: any) {
         </Button>
       </DialogActions>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(Registration);
+export default withRouter(Registration)

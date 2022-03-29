@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,21 +12,21 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
+} from "@mui/material"
 
 function PatientForm(props: any) {
-  const [org, setOrg] = React.useState("");
-  const [tariffNameTyp, setTariffNameTyp] = React.useState("");
-  const [tariffSubType, setTariffSubType] = React.useState("");
-  const [tariffName, setTariffName] = React.useState("");
-  const [priceType, setPriceType] = React.useState("");
-  const [appliedTo, setAppliedTo] = React.useState("");
+  const [org, setOrg] = React.useState("")
+  const [tariffNameTyp, setTariffNameTyp] = React.useState("")
+  const [tariffSubType, setTariffSubType] = React.useState("")
+  const [tariffName, setTariffName] = React.useState("")
+  const [priceType, setPriceType] = React.useState("")
+  const [appliedTo, setAppliedTo] = React.useState("")
   const clientList = [
     { label: "General", value: "1" },
     { label: "Special", value: "2" },
-  ];
-  const [selectData, setSelectData] = useState("");
-  const [metaTitle, setMetaTitle] = useState("");
+  ]
+  const [selectData, setSelectData] = useState("")
+  const [metaTitle, setMetaTitle] = useState("")
   return (
     <React.Fragment>
       <Grid container spacing={5} style={{ marginLeft: 40 }}>
@@ -190,11 +184,7 @@ function PatientForm(props: any) {
           </Grid>
           <Grid container spacing={6} style={{ marginTop: 1 }}>
             <Grid item xs={5} style={{ textAlign: "right" }}>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={props.togglePage}
-              >
+              <Button variant="contained" color="success" onClick={props.togglePage}>
                 Save
               </Button>
             </Grid>
@@ -211,6 +201,6 @@ function PatientForm(props: any) {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(PatientForm);
+export default withRouter(PatientForm)

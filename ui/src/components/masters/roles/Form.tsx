@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,27 +12,27 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
-import Box from "@mui/material/Box";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+} from "@mui/material"
+import Box from "@mui/material/Box"
+import PropTypes from "prop-types"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
 
-import Stack from "@mui/material/Stack";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import TimePicker from "@mui/lab/TimePicker";
-import DateTimePicker from "@mui/lab/DateTimePicker";
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-import MobileDatePicker from "@mui/lab/MobileDatePicker";
+import Stack from "@mui/material/Stack"
+import AdapterDateFns from "@mui/lab/AdapterDateFns"
+import LocalizationProvider from "@mui/lab/LocalizationProvider"
+import TimePicker from "@mui/lab/TimePicker"
+import DateTimePicker from "@mui/lab/DateTimePicker"
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker"
+import MobileDatePicker from "@mui/lab/MobileDatePicker"
 
 function TabPanel(props: any) {
   interface Props {
-    children: string;
-    value: number;
-    index: number;
+    children: string
+    value: number
+    index: number
   }
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -54,28 +48,28 @@ function TabPanel(props: any) {
         </Box>
       )}
     </div>
-  );
+  )
 }
 
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
-};
+}
 
 function a11yProps(index: any) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
-  };
+  }
 }
 
 export default function BasicTabs(props: any) {
-  const [value, setValue] = React.useState(0);
-  const [role, setRole] = React.useState("0");
+  const [value, setValue] = React.useState(0)
+  const [role, setRole] = React.useState("0")
   const handleChange = (event: any, newValue: any) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   return (
     <React.Fragment>
@@ -114,11 +108,7 @@ export default function BasicTabs(props: any) {
           />
         </Grid>
         <Grid item xs={3}>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={props.togglePage}
-          >
+          <Button variant="contained" color="success" onClick={props.togglePage}>
             Add new role
           </Button>
         </Grid>
@@ -151,38 +141,23 @@ export default function BasicTabs(props: any) {
               <FormControlLabel control={<Checkbox />} label="Client Master" />
             </Grid>
             <Grid item xs={2}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Client Batch Master"
-              />
+              <FormControlLabel control={<Checkbox />} label="Client Batch Master" />
             </Grid>
             <Grid item xs={2}>
               <FormControlLabel control={<Checkbox />} label="Create Test" />
             </Grid>
             <Grid item xs={2}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Employee Master"
-              />
+              <FormControlLabel control={<Checkbox />} label="Employee Master" />
             </Grid>
             <Grid item xs={2}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Facility Master"
-              />
+              <FormControlLabel control={<Checkbox />} label="Facility Master" />
             </Grid>
 
             <Grid item xs={2}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Hospital Master"
-              />
+              <FormControlLabel control={<Checkbox />} label="Hospital Master" />
             </Grid>
             <Grid item xs={2}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Instrument Mapping"
-              />
+              <FormControlLabel control={<Checkbox />} label="Instrument Mapping" />
             </Grid>
             <Grid item xs={2}>
               <FormControlLabel control={<Checkbox />} label="Meta Master" />
@@ -210,25 +185,16 @@ export default function BasicTabs(props: any) {
               <FormControlLabel control={<Checkbox />} label="Address Book" />
             </Grid>
             <Grid item xs={2}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Bill Search(Billing)"
-              />
+              <FormControlLabel control={<Checkbox />} label="Bill Search(Billing)" />
             </Grid>
             <Grid item xs={2}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Cash Closure(Admin)"
-              />
+              <FormControlLabel control={<Checkbox />} label="Cash Closure(Admin)" />
             </Grid>
             <Grid item xs={2}>
               <FormControlLabel control={<Checkbox />} label="Collections" />
             </Grid>
             <Grid item xs={2}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Pattern Mapping"
-              />
+              <FormControlLabel control={<Checkbox />} label="Pattern Mapping" />
             </Grid>
             <Grid item xs={2}>
               <FormControlLabel control={<Checkbox />} label="Test Report" />
@@ -237,10 +203,7 @@ export default function BasicTabs(props: any) {
               <FormControlLabel control={<Checkbox />} label="ReportList" />
             </Grid>
             <Grid item xs={2}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Invoice Generation"
-              />
+              <FormControlLabel control={<Checkbox />} label="Invoice Generation" />
             </Grid>
           </Grid>
         </TabPanel>
@@ -258,5 +221,5 @@ export default function BasicTabs(props: any) {
         </TabPanel>
       </Box>
     </React.Fragment>
-  );
+  )
 }

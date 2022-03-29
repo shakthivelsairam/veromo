@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,17 +12,17 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
+} from "@mui/material"
 
 function InstrumentAnalyteMappingForm(props: any) {
   const instrumentList = [
     { label: "Device 1", value: "1" },
     { label: "Device 2", value: "2" },
-  ];
+  ]
   const analyteList = [
     { label: "HBV-DNA detection by PCR", value: "1" },
     { label: "1.25 Dihydroxy Vitamin D", value: "2" },
-  ];
+  ]
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -38,11 +32,7 @@ function InstrumentAnalyteMappingForm(props: any) {
             options={instrumentList}
             sx={{ width: 300 }}
             renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Instrument Name"
-                variant="standard"
-              />
+              <TextField {...params} label="Instrument Name" variant="standard" />
             )}
           />
         </Grid>
@@ -91,19 +81,12 @@ function InstrumentAnalyteMappingForm(props: any) {
 
         <Grid item xs={3}>
           <FormControlLabel
-            control={
-              <Checkbox
-                color="secondary"
-                name="active"
-                value="yes"
-                defaultChecked
-              />
-            }
+            control={<Checkbox color="secondary" name="active" value="yes" defaultChecked />}
             label="Active"
           />
         </Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(InstrumentAnalyteMappingForm);
+export default withRouter(InstrumentAnalyteMappingForm)

@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -19,56 +13,50 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import custstyle from "../../style.module.css";
-import * as api from "../../../utils/api";
+} from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import custstyle from "../../style.module.css"
+import * as api from "../../../utils/api"
 
 const Input = styled("input")({
   display: "none",
-});
+})
 
 function ContainerMasterForm(props: any) {
-  const [options, setOptions] = React.useState([]);
+  const [options, setOptions] = React.useState([])
   useEffect(() => {
-    clearInputs(true);
-    console.log("Show form " + props.showForm);
-    ContainerGet(props.editrow);
-  }, [props.showForm]);
+    clearInputs(true)
+    console.log("Show form " + props.showForm)
+    ContainerGet(props.editrow)
+  }, [props.showForm])
 
   const ContainerGet = (rowid) => {
-    (async () => {
+    ;(async () => {
       if (rowid !== 0) {
-        const sampleData = await api.getSingleContainer(rowid);
+        const sampleData = await api.getSingleContainer(rowid)
         // //setData(facilitydata)
-        console.log("LAst one here =" + sampleData);
+        console.log("LAst one here =" + sampleData)
 
-        setRowid(rowid);
-        setContainercode(sampleData.code);
-        setContainername(sampleData.name);
-        setContainermnemonic(sampleData.mnemonicCode);
-        setContainerdisplayname(sampleData.displayname);
-        setContaineractive(sampleData.active);
+        setRowid(rowid)
+        setContainercode(sampleData.code)
+        setContainername(sampleData.name)
+        setContainermnemonic(sampleData.mnemonicCode)
+        setContainerdisplayname(sampleData.displayname)
+        setContaineractive(sampleData.active)
       }
 
-      console.log("New two = " + rowid);
-    })();
-  };
-  const [rowid, setRowid] = useState(0);
-  const [containercode, setContainercode] = useState("");
-  const [containername, setContainername] = useState("");
-  const [containermnemonic, setContainermnemonic] = useState("");
-  const [containerdisplayname, setContainerdisplayname] = useState("");
-  const [containeractive, setContaineractive] = useState(true);
+      console.log("New two = " + rowid)
+    })()
+  }
+  const [rowid, setRowid] = useState(0)
+  const [containercode, setContainercode] = useState("")
+  const [containername, setContainername] = useState("")
+  const [containermnemonic, setContainermnemonic] = useState("")
+  const [containerdisplayname, setContainerdisplayname] = useState("")
+  const [containeractive, setContaineractive] = useState(true)
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    event.preventDefault()
     var sampledata = {
       rowid: rowid,
       containercode: containercode,
@@ -76,30 +64,30 @@ function ContainerMasterForm(props: any) {
       containermnemonic: containermnemonic,
       containerdisplayname: containerdisplayname,
       containeractive: containeractive,
-    };
-    const container = await api.setContainer(sampledata);
-    console.log("API Response");
-    console.log(container);
-    console.log("API Response Nds here");
-    if (container.status === 200) {
-      clearInputs(false);
-      props.togglePage();
     }
-  };
+    const container = await api.setContainer(sampledata)
+    console.log("API Response")
+    console.log(container)
+    console.log("API Response Nds here")
+    if (container.status === 200) {
+      clearInputs(false)
+      props.togglePage()
+    }
+  }
   const clearInputs = (flag) => {
-    setRowid(0);
-    setContainercode("");
-    setContainername("");
-    setContainermnemonic("");
-    setContainerdisplayname("");
-    setContaineractive(true);
-  };
+    setRowid(0)
+    setContainercode("")
+    setContainername("")
+    setContainermnemonic("")
+    setContainerdisplayname("")
+    setContaineractive(true)
+  }
 
   const popualtedispname = async (dispname: string) => {
     if (containerdisplayname == "") {
-      setContainerdisplayname(dispname);
+      setContainerdisplayname(dispname)
     }
-  };
+  }
   return (
     <React.Fragment>
       <Dialog fullWidth={true} maxWidth={false} open={props.showForm}>
@@ -118,7 +106,7 @@ function ContainerMasterForm(props: any) {
                 variant="standard"
                 style={{ width: 300, marginRight: 15 }}
                 onChange={(e) => {
-                  setContainercode(e.target.value);
+                  setContainercode(e.target.value)
                 }}
                 value={containercode}
               />
@@ -134,7 +122,7 @@ function ContainerMasterForm(props: any) {
                 variant="standard"
                 style={{ width: 300, marginRight: 2 }}
                 onChange={(e) => {
-                  setContainermnemonic(e.target.value);
+                  setContainermnemonic(e.target.value)
                 }}
                 value={containermnemonic}
               />
@@ -149,10 +137,10 @@ function ContainerMasterForm(props: any) {
                 variant="standard"
                 style={{ width: 300, marginRight: 2 }}
                 onChange={(e) => {
-                  setContainername(e.target.value);
+                  setContainername(e.target.value)
                 }}
                 onBlur={(e) => {
-                  popualtedispname(e.target.value);
+                  popualtedispname(e.target.value)
                 }}
                 value={containername}
               />
@@ -165,7 +153,7 @@ function ContainerMasterForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setContainerdisplayname(e.target.value);
+                  setContainerdisplayname(e.target.value)
                 }}
                 value={containerdisplayname}
               />
@@ -174,25 +162,18 @@ function ContainerMasterForm(props: any) {
           <Grid container spacing={3} style={{ marginTop: 1 }}>
             <Grid item xs={2}>
               <FormControlLabel
-                control={
-                  <Checkbox color="secondary" name="status" id="status" />
-                }
+                control={<Checkbox color="secondary" name="status" id="status" />}
                 label="Active"
                 checked={containeractive}
                 onClick={(e) => {
-                  setContaineractive(!containeractive);
+                  setContaineractive(!containeractive)
                 }}
               />
             </Grid>
             <Grid item xs={2}>
               <label htmlFor="contained-button-file">
                 Sample &nbsp;
-                <Input
-                  accept="image/*"
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                />
+                <Input accept="image/*" id="contained-button-file" multiple type="file" />
                 <Button variant="contained" component="span">
                   Upload
                 </Button>
@@ -214,6 +195,6 @@ function ContainerMasterForm(props: any) {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(ContainerMasterForm);
+export default withRouter(ContainerMasterForm)

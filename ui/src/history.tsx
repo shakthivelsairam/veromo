@@ -1,11 +1,11 @@
-import { createBrowserHistory } from "history";
+import { createBrowserHistory } from "history"
 
-let history = createBrowserHistory();
+let history = createBrowserHistory()
 
-const location = history.location;
-console.log("browser history initial location: ", location);
+const location = history.location
+console.log("browser history initial location: ", location)
 history.listen((location) => {
-  console.log("browser history location change: ", location);
-});
+  console.log("browser history location change: ", location)
+})
 
-export default history;
+export default history

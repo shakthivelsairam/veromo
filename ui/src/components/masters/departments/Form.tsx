@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -14,57 +8,51 @@ import {
   Button,
   Typography,
   Autocomplete,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import custstyle from "../../style.module.css";
-import * as api from "../../../utils/api";
+} from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import custstyle from "../../style.module.css"
+import * as api from "../../../utils/api"
 
 function DepartmentForm(props: any) {
-  const [options, setOptions] = React.useState([{ label: "", value: 0 }]);
-  const [drowid, setDrowid] = useState(0);
-  const [ddeptcode, setDdeptcode] = useState("");
-  const [ddeptname, setDdeptname] = useState("");
-  const [ddispname, setDdispname] = useState("");
-  const [dmnemonic, setDmnemonic] = useState("");
-  const [dseqNo, setDseqNo] = useState("");
-  const [dactive, setDactive] = useState(true);
-  const [dprintSep, setDprintSep] = useState(false);
+  const [options, setOptions] = React.useState([{ label: "", value: 0 }])
+  const [drowid, setDrowid] = useState(0)
+  const [ddeptcode, setDdeptcode] = useState("")
+  const [ddeptname, setDdeptname] = useState("")
+  const [ddispname, setDdispname] = useState("")
+  const [dmnemonic, setDmnemonic] = useState("")
+  const [dseqNo, setDseqNo] = useState("")
+  const [dactive, setDactive] = useState(true)
+  const [dprintSep, setDprintSep] = useState(false)
 
   useEffect(() => {
-    clearInputs(0);
+    clearInputs(0)
     //console.log("Show form "+props.showForm)
-    (async () => {
-      await DeptsGet(props.editrow);
-    })();
-  }, [props.showForm]);
+    ;(async () => {
+      await DeptsGet(props.editrow)
+    })()
+  }, [props.showForm])
 
   const DeptsGet = async (rowid) => {
     if (rowid !== 0) {
-      const deptData = await api.getSingleDept(rowid);
+      const deptData = await api.getSingleDept(rowid)
       // //setData(facilitydata)
-      console.log("LAst one here =" + deptData);
-      setDrowid(rowid);
-      setDdeptcode(deptData.code);
-      setDdeptname(deptData.name);
-      setDdispname(deptData.displayname);
-      setDmnemonic(deptData.mnemonicCode);
-      setDseqNo(deptData.sequence_no);
+      console.log("LAst one here =" + deptData)
+      setDrowid(rowid)
+      setDdeptcode(deptData.code)
+      setDdeptname(deptData.name)
+      setDdispname(deptData.displayname)
+      setDmnemonic(deptData.mnemonicCode)
+      setDseqNo(deptData.sequence_no)
 
-      setDactive(deptData.active);
-      setDprintSep(deptData.isprintable);
+      setDactive(deptData.active)
+      setDprintSep(deptData.isprintable)
     }
 
-    console.log("New two = " + rowid);
-  };
+    console.log("New two = " + rowid)
+  }
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    event.preventDefault()
     var deptdata = {
       drowid: drowid,
       ddeptcode: ddeptcode,
@@ -74,31 +62,31 @@ function DepartmentForm(props: any) {
       dseqNo: dseqNo,
       dactive: dactive,
       dprintSep: dprintSep,
-    };
-    const department = await api.setDepartment(deptdata);
-    console.log("API Response");
-    console.log(deptdata);
-    console.log("API Response Nds here");
-    if (department.status === 200) {
-      clearInputs(0);
-      props.togglePage();
     }
-  };
+    const department = await api.setDepartment(deptdata)
+    console.log("API Response")
+    console.log(deptdata)
+    console.log("API Response Nds here")
+    if (department.status === 200) {
+      clearInputs(0)
+      props.togglePage()
+    }
+  }
   const clearInputs = (flag) => {
-    setDrowid(0);
-    setDdeptcode("");
-    setDdeptname("");
-    setDdispname("");
-    setDmnemonic("");
-    setDseqNo("");
-    setDactive(true);
-    setDprintSep(false);
-  };
+    setDrowid(0)
+    setDdeptcode("")
+    setDdeptname("")
+    setDdispname("")
+    setDmnemonic("")
+    setDseqNo("")
+    setDactive(true)
+    setDprintSep(false)
+  }
   const popualtedispname = async (dispname: string) => {
     if (ddispname == "") {
-      setDdispname(dispname);
+      setDdispname(dispname)
     }
-  };
+  }
 
   return (
     <React.Fragment>
@@ -117,7 +105,7 @@ function DepartmentForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setDdeptcode(e.target.value);
+                  setDdeptcode(e.target.value)
                 }}
                 value={ddeptcode}
               />
@@ -131,10 +119,10 @@ function DepartmentForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setDdeptname(e.target.value);
+                  setDdeptname(e.target.value)
                 }}
                 onBlur={(e) => {
-                  popualtedispname(e.target.value);
+                  popualtedispname(e.target.value)
                 }}
                 value={ddeptname}
               />
@@ -148,7 +136,7 @@ function DepartmentForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setDdispname(e.target.value);
+                  setDdispname(e.target.value)
                 }}
                 value={ddispname}
               />
@@ -161,7 +149,7 @@ function DepartmentForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setDmnemonic(e.target.value);
+                  setDmnemonic(e.target.value)
                 }}
                 value={dmnemonic}
               />
@@ -176,36 +164,28 @@ function DepartmentForm(props: any) {
                 fullWidth
                 variant="standard"
                 onChange={(e) => {
-                  setDseqNo(e.target.value);
+                  setDseqNo(e.target.value)
                 }}
                 value={dseqNo}
               />
             </Grid>
             <Grid item xs={3}>
               <FormControlLabel
-                control={
-                  <Checkbox color="secondary" name="status" id="status" />
-                }
+                control={<Checkbox color="secondary" name="status" id="status" />}
                 label="Active"
                 checked={dactive}
                 onClick={(e) => {
-                  setDactive(!dactive);
+                  setDactive(!dactive)
                 }}
               />
             </Grid>
             <Grid item xs={3}>
               <FormControlLabel
-                control={
-                  <Checkbox
-                    color="secondary"
-                    name="printSeparately"
-                    id="printSeparately"
-                  />
-                }
+                control={<Checkbox color="secondary" name="printSeparately" id="printSeparately" />}
                 label="Print separately in report"
                 checked={dprintSep}
                 onClick={(e) => {
-                  setDprintSep(!dprintSep);
+                  setDprintSep(!dprintSep)
                 }}
               />
             </Grid>
@@ -225,6 +205,6 @@ function DepartmentForm(props: any) {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(DepartmentForm);
+export default withRouter(DepartmentForm)

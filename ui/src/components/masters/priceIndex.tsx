@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,17 +12,17 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
-import PriceForm from "./priceForm";
-import PriceList from "./priceList";
+} from "@mui/material"
+import PriceForm from "./priceForm"
+import PriceList from "./priceList"
 
 function MetaData(props: any) {
-  const [showForm, setShowForm] = useState(false);
-  const [showList, setShowList] = useState(true);
+  const [showForm, setShowForm] = useState(false)
+  const [showList, setShowList] = useState(true)
   const togglePage = () => {
-    setShowForm(!showForm);
-    setShowList(!showList);
-  };
+    setShowForm(!showForm)
+    setShowList(!showList)
+  }
   return (
     <React.Fragment>
       <div>
@@ -61,7 +55,7 @@ function MetaData(props: any) {
         )}
       </div>
     </React.Fragment>
-  );
+  )
 }
 
-export default withRouter(MetaData);
+export default withRouter(MetaData)

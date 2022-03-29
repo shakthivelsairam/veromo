@@ -1,26 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  Typography,
-  Grid,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ClientTariffMappingForm from "./Form";
-import custstyle from "../../style.module.css";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import ClientTariffMappingForm from "./Form"
+import custstyle from "../../style.module.css"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,7 +16,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -40,19 +26,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function ClientTariffMapping() {
-  const [data, setData] = useState([] as any);
-  const [showForm, setShowForm] = useState(false);
-  const [editForm, setEditForm] = useState(false);
+  const [data, setData] = useState<any>([])
+  const [showForm, setShowForm] = useState(false)
+  const [editForm, setEditForm] = useState(false)
   const togglePage = () => {
-    setShowForm(!showForm);
-  };
+    setShowForm(!showForm)
+  }
   const pageType = (editForm: boolean) => {
-    togglePage();
-    setEditForm(editForm);
-  };
+    togglePage()
+    setEditForm(editForm)
+  }
   useEffect(() => {
     const rows = [
       {
@@ -71,9 +57,9 @@ export default function ClientTariffMapping() {
         valid_to: "2021-10-21 12:00 AM",
         status: "Inactive",
       },
-    ];
-    setData(rows);
-  }, []);
+    ]
+    setData(rows)
+  }, [])
 
   return (
     <div>
@@ -145,5 +131,5 @@ export default function ClientTariffMapping() {
         </div>
       </React.Fragment>
     </div>
-  );
+  )
 }

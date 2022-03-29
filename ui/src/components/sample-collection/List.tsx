@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import SampleCollectionForm from "./Form";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Button, Table, TableBody, TableHead, TableRow, Typography } from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
+import SampleCollectionForm from "./Form"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -20,7 +13,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -30,16 +23,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function SampleCollectionList() {
-  const [sampleCollectionData, setSampleCollectionData] = useState([] as any);
-  const [showForm, setShowForm] = useState(false);
-  const [showList, setShowList] = useState(true);
+  const [sampleCollectionData, setSampleCollectionData] = useState<any>([])
+  const [showForm, setShowForm] = useState(false)
+  const [showList, setShowList] = useState(true)
   const togglePage = () => {
-    setShowForm(!showForm);
-    setShowList(!showList);
-  };
+    setShowForm(!showForm)
+    setShowList(!showList)
+  }
 
   useEffect(() => {
     const rows = [
@@ -59,9 +52,9 @@ export default function SampleCollectionList() {
         ref_doctor: "Self",
         bill_date: "28-Nov-2021 12:17 PM",
       },
-    ];
-    setSampleCollectionData(rows);
-  }, []);
+    ]
+    setSampleCollectionData(rows)
+  }, [])
 
   return (
     <div>
@@ -89,20 +82,14 @@ export default function SampleCollectionList() {
                     <StyledTableCell component="th" scope="row">
                       {row.id}
                     </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.lab_number}
-                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.lab_number}</StyledTableCell>
                     <StyledTableCell align="right">
                       {row.patient_name}
                       <br />
                       {row.patient_details}
                     </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.ref_doctor}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.bill_date}
-                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.ref_doctor}</StyledTableCell>
+                    <StyledTableCell align="right">{row.bill_date}</StyledTableCell>
                     <StyledTableCell align="right">
                       <Button size="small" onClick={togglePage}>
                         <ArrowForwardIosIcon fontSize="small"></ArrowForwardIosIcon>
@@ -116,5 +103,5 @@ export default function SampleCollectionList() {
         </React.Fragment>
       )}
     </div>
-  );
+  )
 }

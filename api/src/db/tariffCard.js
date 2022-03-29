@@ -21,6 +21,25 @@ export async function get(tariffCardId) {
   return null
 }
 
+export async function getServices(tariffCardId) {
+  const dbPool = await db.getPool()
+  try {
+    const sqlQuery = `SELECT tcs.id, tcs.identifying_id, t.code as identifying_code, t.name as identifying_name,
+                        tcs.identifying_type
+                        FROM tariff_card_service tcs
+                        INNER JOIN tests t ON t.id=tcs.identifying_id AND t.tenant_id=tcs.tenant_id
+                        WHERE tcs.tariff_card_id=? AND tcs.identifying_type=?`
+    const sqlResult = await dbPool.query(sqlQuery, [tariffCardId, "Test"])
+    if (sqlResult && sqlResult.length > 0) {
+      console.log("db.tariffCard.getServices = " + JSON.stringify(sqlResult))
+      return sqlResult
+    }
+  } catch (err) {
+    console.error("db.tariffCard.getServices error = ", JSON.stringify(err))
+  }
+  return null
+}
+
 export async function list() {
   const dbPool = await db.getPool()
   try {
@@ -65,7 +84,7 @@ export async function add(tariffCard) {
       tenantId,
       dbConnection
     )
-
+    await addTariffCardService(tariffCardDBId, tariffCard.tariffService, tenantId, dbConnection)
     await dbConnection.commit()
     console.log("after commit")
     return
@@ -104,6 +123,7 @@ export async function update(tariffCardId, tariffCard) {
       tenantId,
       dbConnection
     )
+    await updateTariffCardService(tariffCardId, tariffCard.tariffService, tenantId, dbConnection)
     return sqlResult.affectedRows
   } catch (err) {
     console.error("db.tariffCard.update error = ", JSON.stringify(err))
@@ -221,4 +241,75 @@ const getTariffCardTestCategory = async (tariffCardId, dbConnection) => {
   let query = "SELECT test_category_id FROM tariff_card_test_category WHERE tariff_card_id=?"
   let getTariffCardTestCategoryResult = await dbConnection.query(query, [tariffCardId])
   return getTariffCardTestCategoryResult
+}
+
+const addTariffCardService = async (tariffCardId, tariffCardService, tenantId, dbConnection) => {
+  for (var j = 0; j < tariffCardService.length; j++) {
+    const tariffCardServiceResult = await dbConnection.query(
+      "INSERT INTO tariff_card_service(tariff_card_id, identifying_id, identifying_type, tenant_id, created_by) values(?,?,?,?,?)",
+      [
+        tariffCardId,
+        tariffCardService[j].identifying_id,
+        tariffCardService[j].identifying_type,
+        tenantId,
+        "system",
+      ]
+    )
+    console.log("addTariffCardService: ", tariffCardServiceResult)
+  }
+}
+
+const updateTariffCardService = async (tariffCardId, tariffCardService, tenantId, dbConnection) => {
+  console.log("tariffCardService = ", tariffCardService)
+  if (Array.isArray(tariffCardService) && tariffCardService.length > 0) {
+    let existingTariffCardService = await getTariffCardService(tariffCardId, dbConnection)
+    let deleteTariffCardService = tariffCardService.filter(
+      (service) =>
+        existingTariffCardService.filter(
+          (existingService) =>
+            existingService.identifying_id != service.identifying_id &&
+            existingService.identifying_type == service.identifying_type
+        ).length === 0
+    )
+    console.log("deleteTariffCardService = ", deleteTariffCardService)
+    if (Array.isArray(deleteTariffCardService) && deleteTariffCardService.length > 0) {
+      for (var j = 0; j < deleteTariffCardService.length; j++) {
+        let query =
+          "DELETE FROM tariff_card_service WHERE tariff_card_id=? AND identifying_id=? AND identifying_type=?"
+        let deleteNotMappedServiceResult = await dbConnection.query(query, [
+          tariffCardId,
+          deleteTariffCardService[j].identifying_id,
+          deleteTariffCardService[j].identifying_type,
+        ])
+        console.log(
+          "db.tariffCard.updateTariffCardService deleteNotMappedServiceResult = ",
+          deleteNotMappedServiceResult
+        )
+      }
+    }
+  } else {
+    let query = "DELETE FROM tariff_card_service WHERE tariff_card_id=?"
+    let deleteNotMappedServiceResult = await dbConnection.query(query, [tariffCardId])
+  }
+  let existingTariffCardService = await getTariffCardService(tariffCardId, dbConnection)
+  console.log("2 existingTariffCardService = ", existingTariffCardService)
+  let newTariffCardService = tariffCardService.filter(
+    (service) =>
+      existingTariffCardService.filter(
+        (existingService) =>
+          existingService.identifying_id == service.identifying_id &&
+          existingService.identifying_type == service.identifying_type
+      ).length === 0
+  )
+  console.log("newTariffCardService = ", newTariffCardService)
+  if (Array.isArray(newTariffCardService) && newTariffCardService.length > 0) {
+    await addTariffCardService(tariffCardId, newTariffCardService, tenantId, dbConnection)
+  }
+}
+
+const getTariffCardService = async (tariffCardId, dbConnection) => {
+  let query =
+    "SELECT identifying_id, identifying_type FROM tariff_card_service WHERE tariff_card_id=?"
+  let getTariffCardServiceResult = await dbConnection.query(query, [tariffCardId])
+  return getTariffCardServiceResult
 }

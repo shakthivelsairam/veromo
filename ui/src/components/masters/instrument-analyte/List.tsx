@@ -1,27 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  Typography,
-  Grid,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import InstrumentAnalyteMappingForm from "./Form";
-import custstyle from "../../style.module.css";
-import * as api from "../../../utils/api";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import InstrumentAnalyteMappingForm from "./Form"
+import custstyle from "../../style.module.css"
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,7 +17,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -41,28 +27,28 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function InstrumentAnalyteMapping() {
-  const [data, setData] = useState([] as any);
-  const [showForm, setShowForm] = useState(false);
-  const [editForm, setEditForm] = useState(false);
-  const [row, setRow] = useState(0);
+  const [data, setData] = useState<any>([])
+  const [showForm, setShowForm] = useState(false)
+  const [editForm, setEditForm] = useState(false)
+  const [row, setRow] = useState(0)
   const togglePage = () => {
-    setShowForm(!showForm);
-  };
+    setShowForm(!showForm)
+  }
   const pageType = (editForm: boolean, rowId: number) => {
-    togglePage();
-    setEditForm(editForm);
-    setRow(rowId);
-  };
+    togglePage()
+    setEditForm(editForm)
+    setRow(rowId)
+  }
 
   useEffect(() => {
-    (async () => {
-      const deptdata = await api.getInstrumentAnalyte();
-      setData(deptdata);
-    })();
-  }, [showForm]);
+    ;(async () => {
+      const deptdata = await api.getInstrumentAnalyte()
+      setData(deptdata)
+    })()
+  }, [showForm])
 
   return (
     <React.Fragment>
@@ -118,10 +104,7 @@ export default function InstrumentAnalyteMapping() {
                     <StyledTableCell>{row.assay_code}</StyledTableCell>
                     <StyledTableCell>{row.status}</StyledTableCell>
                     <StyledTableCell align="center">
-                      <Button
-                        size="small"
-                        onClick={() => pageType(true, row.id)}
-                      >
+                      <Button size="small" onClick={() => pageType(true, row.id)}>
                         <EditIcon fontSize="small"></EditIcon>
                       </Button>
                       <Button size="small">
@@ -135,5 +118,5 @@ export default function InstrumentAnalyteMapping() {
         </Table>
       </div>
     </React.Fragment>
-  );
+  )
 }

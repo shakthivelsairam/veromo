@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -18,119 +12,103 @@ import {
   InputLabel,
   FormControl,
   Autocomplete,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import custstyle from "../../style.module.css";
-import * as api from "../../../utils/api";
+} from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import custstyle from "../../style.module.css"
+import * as api from "../../../utils/api"
 
 function InstrumentForm(props: any) {
   // Look ups data
-  const [opttenant, setOpttenant] = React.useState([{ label: "", value: 0 }]);
-  const [optInsttype, setOptInsttype] = React.useState([
-    { label: "", value: 0 },
-  ]);
-  const [optfacility, setOptfacility] = React.useState([
-    { label: "", value: 0 },
-  ]);
-  const [optservicegrp, setOptservicegrp] = React.useState([
-    { label: "", value: 0 },
-  ]);
+  const [opttenant, setOpttenant] = React.useState([{ label: "", value: 0 }])
+  const [optInsttype, setOptInsttype] = React.useState([{ label: "", value: 0 }])
+  const [optfacility, setOptfacility] = React.useState([{ label: "", value: 0 }])
+  const [optservicegrp, setOptservicegrp] = React.useState([{ label: "", value: 0 }])
 
   // Local variables
-  const [rowid, setRowid] = useState(0);
-  const [instcode, setInstcode] = useState("");
-  const [insttype, setInsttype] = useState({ label: "", value: 0 });
-  const [sltedinsttype, setSltedinsttype] = useState(0);
-  const [manufacturer, setManufacturer] = useState("");
-  const [modelnumber, setModelnumber] = useState("");
-  const [serialnumber, setSerialnumber] = useState("");
-  const [department, setDepartment] = useState("");
-  const [facility, setFacility] = useState({ label: "", value: 0 });
-  const [sltfacility, setSltfacility] = useState(0); //// Selected Facility
-  const [contractexpires, setContractexpires] = useState("");
-  const [tenantid, setTenantid] = useState({ label: "", value: 0 });
-  const [slttenantid, setSltTenantid] = useState(0); //// Selected Tenant Id
-  const [servicegroup, setServicegroup] = useState({ label: "", value: 0 });
-  const [sltservicegroup, setSltServicegroup] = useState(0); // Selected Service group
-  const [lastmaint, setLastmaint] = useState("");
-  const [nextmaint, setNextmaint] = useState("");
-  const [active, setActive] = useState(true);
+  const [rowid, setRowid] = useState(0)
+  const [instcode, setInstcode] = useState("")
+  const [insttype, setInsttype] = useState({ label: "", value: 0 })
+  const [sltedinsttype, setSltedinsttype] = useState(0)
+  const [manufacturer, setManufacturer] = useState("")
+  const [modelnumber, setModelnumber] = useState("")
+  const [serialnumber, setSerialnumber] = useState("")
+  const [department, setDepartment] = useState("")
+  const [facility, setFacility] = useState({ label: "", value: 0 })
+  const [sltfacility, setSltfacility] = useState(0) //// Selected Facility
+  const [contractexpires, setContractexpires] = useState("")
+  const [tenantid, setTenantid] = useState({ label: "", value: 0 })
+  const [slttenantid, setSltTenantid] = useState(0) //// Selected Tenant Id
+  const [servicegroup, setServicegroup] = useState({ label: "", value: 0 })
+  const [sltservicegroup, setSltServicegroup] = useState(0) // Selected Service group
+  const [lastmaint, setLastmaint] = useState("")
+  const [nextmaint, setNextmaint] = useState("")
+  const [active, setActive] = useState(true)
 
   useEffect(() => {
-    clearInputs(true);
-    LoadLookups();
-    LoadSingleInstrument(props.editmetadata);
-  }, [props.showFormMetadata]);
+    clearInputs(true)
+    LoadLookups()
+    LoadSingleInstrument(props.editmetadata)
+  }, [props.showFormMetadata])
   const LoadLookups = () => {
-    (async () => {
+    ;(async () => {
       // tenants
-      const tenants = await api.getLookupTenant();
-      setOpttenant(tenants);
+      const tenants = await api.getLookupTenant()
+      setOpttenant(tenants)
       // Load instrument types
-      const insttypes = await api.getLookupInstrumentType();
-      setOptInsttype(insttypes);
+      const insttypes = await api.getLookupInstrumentType()
+      setOptInsttype(insttypes)
       // Load Facility
-      const facilities = await api.getLookupFacility();
-      setOptfacility(facilities);
+      const facilities = await api.getLookupFacility()
+      setOptfacility(facilities)
       // Load Serviec Group
-      const servicegrp = await api.getLookupServiceGroup();
-      setOptservicegrp(servicegrp);
-    })();
-  };
+      const servicegrp = await api.getLookupServiceGroup()
+      setOptservicegrp(servicegrp)
+    })()
+  }
   const LoadSingleInstrument = async (rowid) => {
-    console.log("Load single");
-    console.log(rowid);
+    console.log("Load single")
+    console.log(rowid)
     if (rowid !== 0) {
-      const insData = await api.getSingleInstrumentData(rowid);
+      const insData = await api.getSingleInstrumentData(rowid)
       //console.log("Esingle");
-      console.log(insData);
-      setRowid(rowid);
-      setInstcode(insData.code);
-      console.log(insData.instrument_type + "DSD");
-      setSltedinsttype(insData.instrument_type);
-      const instypesl = optInsttype.find(
-        (v) => v.value === insData.instrument_type
-      );
+      console.log(insData)
+      setRowid(rowid)
+      setInstcode(insData.code)
+      console.log(insData.instrument_type + "DSD")
+      setSltedinsttype(insData.instrument_type)
+      const instypesl = optInsttype.find((v) => v.value === insData.instrument_type)
       if (instypesl) {
-        setInsttype(instypesl);
+        setInsttype(instypesl)
       }
-      setManufacturer(insData.manufacturer);
-      setModelnumber(insData.model_number);
-      setSerialnumber(insData.serial_number);
-      setDepartment(insData.department);
-      setSltfacility(insData.facility_id);
-      const sltFac = optfacility.find((v) => v.value === insData.facility_id);
+      setManufacturer(insData.manufacturer)
+      setModelnumber(insData.model_number)
+      setSerialnumber(insData.serial_number)
+      setDepartment(insData.department)
+      setSltfacility(insData.facility_id)
+      const sltFac = optfacility.find((v) => v.value === insData.facility_id)
       if (sltFac) {
-        setFacility(sltFac);
+        setFacility(sltFac)
       }
-      setContractexpires(insData.contract_expires);
-      setSltTenantid(insData.tenant_id);
-      const slttnt = opttenant.find((v) => v.value === insData.tenant_id);
+      setContractexpires(insData.contract_expires)
+      setSltTenantid(insData.tenant_id)
+      const slttnt = opttenant.find((v) => v.value === insData.tenant_id)
       if (slttnt) {
-        setTenantid(slttnt);
+        setTenantid(slttnt)
       }
-      setSltServicegroup(insData.service_group_id);
-      const servgrp = optservicegrp.find(
-        (v) => v.value === insData.service_group_id
-      );
+      setSltServicegroup(insData.service_group_id)
+      const servgrp = optservicegrp.find((v) => v.value === insData.service_group_id)
       if (servgrp) {
-        setServicegroup(servgrp);
+        setServicegroup(servgrp)
       }
-      setLastmaint(insData.last_maintenance_date);
-      setNextmaint(insData.next_maintenance_date);
-      setActive(false);
-      if (insData.active === 1) setActive(true);
+      setLastmaint(insData.last_maintenance_date)
+      setNextmaint(insData.next_maintenance_date)
+      setActive(false)
+      if (insData.active === 1) setActive(true)
     }
-  };
-  const clearInputs = (flag) => {};
+  }
+  const clearInputs = (flag) => {}
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    event.preventDefault()
     var sampledata = {
       rowid: rowid,
       instcode: instcode,
@@ -146,42 +124,42 @@ function InstrumentForm(props: any) {
       lastmaint: lastmaint,
       nextmaint: nextmaint,
       active: active,
-    };
-    console.log(sampledata);
-    const metatypes = await api.setInstrumentData(sampledata);
-    console.log(metatypes);
-    clearInputs(0);
-    props.togglePageMeta();
-  };
+    }
+    console.log(sampledata)
+    const metatypes = await api.setInstrumentData(sampledata)
+    console.log(metatypes)
+    clearInputs(0)
+    props.togglePageMeta()
+  }
 
   const handleTenantFormChangeAuto = (event: any, values: any) => {
-    setTenantid({ label: "", value: 0 });
+    setTenantid({ label: "", value: 0 })
     if (values != null) {
-      setSltTenantid(values.value);
-      setTenantid(values);
+      setSltTenantid(values.value)
+      setTenantid(values)
     }
-  };
+  }
   const handleInstTypeFormChangeAuto = (event: any, values: any) => {
-    setInsttype({ label: "", value: 0 });
+    setInsttype({ label: "", value: 0 })
     if (values != null) {
-      setSltedinsttype(values.value);
-      setInsttype(values);
+      setSltedinsttype(values.value)
+      setInsttype(values)
     }
-  };
+  }
   const handleFacilityFormChangeAuto = (event: any, values: any) => {
-    setFacility({ label: "", value: 0 });
+    setFacility({ label: "", value: 0 })
     if (values != null) {
-      setSltfacility(values.value);
-      setFacility(values);
+      setSltfacility(values.value)
+      setFacility(values)
     }
-  };
+  }
   const handleServiceGrpFormChangeAuto = (event: any, values: any) => {
-    setServicegroup({ label: "", value: 0 });
+    setServicegroup({ label: "", value: 0 })
     if (values != null) {
-      setSltServicegroup(values.value);
-      setServicegroup(values);
+      setSltServicegroup(values.value)
+      setServicegroup(values)
     }
-  };
+  }
 
   return (
     <React.Fragment>
@@ -201,7 +179,7 @@ function InstrumentForm(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setInstcode(e.target.value);
+                  setInstcode(e.target.value)
                 }}
                 value={instcode}
               />
@@ -212,11 +190,7 @@ function InstrumentForm(props: any) {
                 options={optInsttype}
                 sx={{ width: 300 }}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Instrument Type"
-                    variant="standard"
-                  />
+                  <TextField {...params} label="Instrument Type" variant="standard" />
                 )}
                 onChange={handleInstTypeFormChangeAuto}
                 value={insttype}
@@ -231,7 +205,7 @@ function InstrumentForm(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setManufacturer(e.target.value);
+                  setManufacturer(e.target.value)
                 }}
                 value={manufacturer}
               />
@@ -245,7 +219,7 @@ function InstrumentForm(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setModelnumber(e.target.value);
+                  setModelnumber(e.target.value)
                 }}
                 value={modelnumber}
               />
@@ -261,7 +235,7 @@ function InstrumentForm(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setSerialnumber(e.target.value);
+                  setSerialnumber(e.target.value)
                 }}
                 value={serialnumber}
               />
@@ -275,7 +249,7 @@ function InstrumentForm(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setDepartment(e.target.value);
+                  setDepartment(e.target.value)
                 }}
                 value={department}
               />
@@ -301,7 +275,7 @@ function InstrumentForm(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setContractexpires(e.target.value);
+                  setContractexpires(e.target.value)
                 }}
                 value={contractexpires}
               />
@@ -326,11 +300,7 @@ function InstrumentForm(props: any) {
                 options={optservicegrp}
                 sx={{ width: 300 }}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Service Group"
-                    variant="standard"
-                  />
+                  <TextField {...params} label="Service Group" variant="standard" />
                 )}
                 onChange={handleServiceGrpFormChangeAuto}
                 value={servicegroup}
@@ -345,7 +315,7 @@ function InstrumentForm(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setLastmaint(e.target.value);
+                  setLastmaint(e.target.value)
                 }}
                 value={lastmaint}
               />
@@ -359,7 +329,7 @@ function InstrumentForm(props: any) {
                 variant="standard"
                 style={{ width: 250 }}
                 onChange={(e) => {
-                  setNextmaint(e.target.value);
+                  setNextmaint(e.target.value)
                 }}
                 value={nextmaint}
               />
@@ -368,13 +338,11 @@ function InstrumentForm(props: any) {
           <Grid container spacing={3}>
             <Grid item xs={3}>
               <FormControlLabel
-                control={
-                  <Checkbox color="secondary" name="status" id="status" />
-                }
+                control={<Checkbox color="secondary" name="status" id="status" />}
                 label="Active"
                 checked={active}
                 onClick={(e) => {
-                  setActive(!active);
+                  setActive(!active)
                 }}
               />
             </Grid>
@@ -394,6 +362,6 @@ function InstrumentForm(props: any) {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(InstrumentForm);
+export default withRouter(InstrumentForm)

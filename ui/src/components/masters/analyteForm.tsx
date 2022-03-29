@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Route, Link, Switch, withRouter, RouteComponentProps } from "react-router-dom"
 import {
   Grid,
   TextField,
@@ -24,15 +18,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+} from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 function TestMasterForm(props: any) {
-  const [dept, setDept] = React.useState("0");
-  const [testPerformed, setTestPerformed] = React.useState("0");
-  const [sample, setSample] = React.useState("0");
-  const [container, setContainer] = React.useState("0");
-  const [method, setMethod] = React.useState("0");
+  const [dept, setDept] = React.useState("0")
+  const [testPerformed, setTestPerformed] = React.useState("0")
+  const [sample, setSample] = React.useState("0")
+  const [container, setContainer] = React.useState("0")
+  const [method, setMethod] = React.useState("0")
   return (
     <React.Fragment>
       <Typography component="h1" variant="h5">
@@ -143,20 +137,13 @@ function TestMasterForm(props: any) {
           </FormControl>
         </Grid>
         <Grid item xs={3}>
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="Is Active"
-          />
+          <FormControlLabel control={<Checkbox defaultChecked />} label="Is Active" />
         </Grid>
       </Grid>
 
       <Grid container spacing={6} style={{ marginTop: 1 }}>
         <Grid item xs={5} style={{ textAlign: "right" }}>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={props.togglePage}
-          >
+          <Button variant="contained" color="success" onClick={props.togglePage}>
             Save
           </Button>
         </Grid>
@@ -196,6 +183,6 @@ function TestMasterForm(props: any) {
         <Grid item xs={4} style={{ textAlign: "right" }}></Grid>
       </Grid>
     </React.Fragment>
-  );
+  )
 }
-export default withRouter(TestMasterForm);
+export default withRouter(TestMasterForm)

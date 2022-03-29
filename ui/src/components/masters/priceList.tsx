@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Link,
-  Route,
-  useRouteMatch,
-} from "react-router-dom";
-import { DataGrid } from "@mui/x-data-grid";
-import { Grid, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react"
+import { BrowserRouter as Router, Link, Route, useRouteMatch } from "react-router-dom"
+import { DataGrid } from "@mui/x-data-grid"
+import { Grid, Typography } from "@mui/material"
 
 export default function DepartmentList() {
-  const [testCodeData, setTestCodeData] = useState([]);
+  const [testCodeData, setTestCodeData] = useState([])
 
   const columns = [
     { field: "org", headerName: "Organization", width: 200 },
@@ -18,7 +13,7 @@ export default function DepartmentList() {
     { field: "tariffName", headerName: "Tariff Name", width: 200 },
     { field: "priceType", headerName: "Price Type", width: 200 },
     { field: "appliedTo", headerName: "Applied To", width: 200 },
-  ];
+  ]
 
   //
   const rows = [
@@ -40,7 +35,7 @@ export default function DepartmentList() {
       priceType: "Cash,Card",
       appliedTo: "Mapped Services",
     },
-  ];
+  ]
   return (
     <React.Fragment>
       <div style={{ height: 400, width: "100%" }}>
@@ -53,5 +48,5 @@ export default function DepartmentList() {
         />
       </div>
     </React.Fragment>
-  );
+  )
 }

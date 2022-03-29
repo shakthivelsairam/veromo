@@ -1,26 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  Typography,
-  Grid,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import TestMasterForm from "./Form";
-import custstyle from "../../style.module.css";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import TestMasterForm from "./Form"
+import custstyle from "../../style.module.css"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,7 +16,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -40,23 +26,23 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function TestMasterList() {
-  const [testMasterData, setTestMasterData] = useState([] as any);
-  const [showForm, setShowForm] = useState(false);
-  const [editForm, setEditForm] = useState(false);
-  const [testCode, setTestCode] = useState("");
+  const [testMasterData, setTestMasterData] = useState<any>([])
+  const [showForm, setShowForm] = useState(false)
+  const [editForm, setEditForm] = useState(false)
+  const [testCode, setTestCode] = useState("")
   const togglePage = () => {
-    setShowForm(!showForm);
-  };
+    setShowForm(!showForm)
+  }
   const pageType = (editForm: boolean, testCode: string) => {
-    togglePage();
-    setEditForm(editForm);
+    togglePage()
+    setEditForm(editForm)
     if (testCode !== "") {
-      setTestCode(" - " + testCode);
+      setTestCode(" - " + testCode)
     }
-  };
+  }
 
   useEffect(() => {
     const rows = [
@@ -78,12 +64,12 @@ export default function TestMasterList() {
         dept: "Hematology",
         status: "Inactive",
       },
-    ];
-    setTestMasterData(rows);
-  }, []);
+    ]
+    setTestMasterData(rows)
+  }, [])
   const CustomTitleBar = () => {
-    return <span className="k-icon k-i-print">{testCode}</span>;
-  };
+    return <span className="k-icon k-i-print">{testCode}</span>
+  }
   return (
     <div>
       <React.Fragment>
@@ -148,10 +134,7 @@ export default function TestMasterList() {
                   <StyledTableCell>{row.dept}</StyledTableCell>
                   <StyledTableCell>{row.status}</StyledTableCell>
                   <StyledTableCell align="center">
-                    <Button
-                      size="small"
-                      onClick={() => pageType(true, row.code)}
-                    >
+                    <Button size="small" onClick={() => pageType(true, row.code)}>
                       <EditIcon fontSize="small"></EditIcon>
                     </Button>
                     <Button size="small">
@@ -165,5 +148,5 @@ export default function TestMasterList() {
         </div>
       </React.Fragment>
     </div>
-  );
+  )
 }

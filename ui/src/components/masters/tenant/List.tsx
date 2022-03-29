@@ -1,27 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  Typography,
-  Grid,
-} from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import TenantForm from "./Form";
-import * as api from "../../../utils/api";
-import set from "date-fns/fp/set/index";
+import React, { useEffect, useState } from "react"
+import { styled } from "@mui/material/styles"
+import { Button, Table, TableBody, TableHead, TableRow, Typography, Grid } from "@mui/material"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import TenantForm from "./Form"
+import * as api from "../../../utils/api"
+import set from "date-fns/fp/set/index"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,7 +17,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
-}));
+}))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -41,54 +27,54 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
-}));
+}))
 
 export default function TenantList() {
-  const [data, setData] = useState([] as any);
-  const [showForm, setShowForm] = useState(false);
-  const [editForm, setEditForm] = useState(false);
-  const [tenantId, setTenantId] = useState(0);
-  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
+  const [data, setData] = useState<any>([])
+  const [showForm, setShowForm] = useState(false)
+  const [editForm, setEditForm] = useState(false)
+  const [tenantId, setTenantId] = useState(0)
+  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false)
   const togglePage = () => {
-    setShowForm(!showForm);
-  };
+    setShowForm(!showForm)
+  }
 
   const closeForm = async (refresh: boolean) => {
-    togglePage();
+    togglePage()
     if (refresh) {
-      await loadTenants();
+      await loadTenants()
     }
-  };
+  }
 
   const pageType = (editForm: boolean, tenantId: number) => {
-    togglePage();
-    setEditForm(editForm);
-    setTenantId(tenantId);
-  };
+    togglePage()
+    setEditForm(editForm)
+    setTenantId(tenantId)
+  }
 
   const deleteTenant = async (tenantId: number) => {
-    setTenantId(tenantId);
-    setOpenDeleteConfirm(true);
-  };
+    setTenantId(tenantId)
+    setOpenDeleteConfirm(true)
+  }
 
   const onCloseDeleteConfirm = async () => {
-    const deleteResult = await api.deleteTenant(tenantId);
+    const deleteResult = await api.deleteTenant(tenantId)
     if (deleteResult && deleteResult.status === "success") {
-      loadTenants();
+      loadTenants()
     }
-    setOpenDeleteConfirm(false);
-  };
+    setOpenDeleteConfirm(false)
+  }
 
   const loadTenants = async () => {
-    const tenants = await api.getTenants();
-    setData(tenants);
-  };
+    const tenants = await api.getTenants()
+    setData(tenants)
+  }
 
   useEffect(() => {
-    (async () => {
-      await loadTenants();
-    })();
-  }, []);
+    ;(async () => {
+      await loadTenants()
+    })()
+  }, [])
 
   return (
     <div>
@@ -118,9 +104,7 @@ export default function TenantList() {
             open={openDeleteConfirm}
           >
             <DialogTitle>Delete Confirmation</DialogTitle>
-            <DialogContent dividers>
-              Are you sure you want to delete?
-            </DialogContent>
+            <DialogContent dividers>Are you sure you want to delete?</DialogContent>
             <DialogActions>
               <Button autoFocus onClick={() => setOpenDeleteConfirm(false)}>
                 No
@@ -147,14 +131,9 @@ export default function TenantList() {
                     <StyledTableCell>{row.code}</StyledTableCell>
                     <StyledTableCell>{row.name}</StyledTableCell>
                     <StyledTableCell>{row.display_name}</StyledTableCell>
-                    <StyledTableCell>
-                      {row.active ? "Active" : "Inactive"}
-                    </StyledTableCell>
+                    <StyledTableCell>{row.active ? "Active" : "Inactive"}</StyledTableCell>
                     <StyledTableCell align="center">
-                      <Button
-                        size="small"
-                        onClick={() => pageType(true, row.id)}
-                      >
+                      <Button size="small" onClick={() => pageType(true, row.id)}>
                         <EditIcon fontSize="small"></EditIcon>
                       </Button>
                       <Button size="small" onClick={() => deleteTenant(row.id)}>
@@ -168,5 +147,5 @@ export default function TenantList() {
         </div>
       </React.Fragment>
     </div>
-  );
+  )
 }
