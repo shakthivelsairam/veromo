@@ -17,6 +17,7 @@ import Box from "@mui/material/Box"
 import PropTypes from "prop-types"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
+import * as api from "../../../utils/api"
 
 import Stack from "@mui/material/Stack"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
@@ -25,6 +26,9 @@ import TimePicker from "@mui/lab/TimePicker"
 import DateTimePicker from "@mui/lab/DateTimePicker"
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker"
 import MobileDatePicker from "@mui/lab/MobileDatePicker"
+import { Label } from "@mui/icons-material"
+import custstyle from "../../style.module.css"
+import { Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from "@mui/material"
 
 function TabPanel(props: any) {
   interface Props {
@@ -50,7 +54,6 @@ function TabPanel(props: any) {
     </div>
   )
 }
-
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
@@ -67,12 +70,139 @@ function a11yProps(index: any) {
 export default function BasicTabs(props: any) {
   const [value, setValue] = React.useState(0)
   const [role, setRole] = React.useState("0")
+  const [data, setData] = useState<any>([])
+  const [dataread, setDataread] = useState<any>([])
+  const [dataadd, setDataadd] = useState<any>([])
+  const [dataedit, setDataedit] = useState<any>([])
+  const [datadelete, setDatadelete] = useState<any>([])
+  const [rowid, setRowid] = useState(0)
+  const [rolename,setRolename] = useState("") 
+  const [roledispname,setRoledispname] = useState("") 
+  const [roledesc,setRoledesc] = useState("") 
+
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue)
   }
+  useEffect(() => {
+    (async () => {
+      clearInputs(0)
+      const sampledata = await api.getPageList()
+      setData(sampledata);
+      setDataread(sampledata);
+      // console.log("*********************");
+      // console.log(sampledata[0].name);
+      // console.log(sampledata[1].name);
+      // console.log(sampledata[2].name);
+      // console.log(sampledata[3].name);
+      // console.log("*********************");
+      await LoadSingleRole(props.editrow)
+    })()
+    }, [props.showForm])
+    const LoadSingleRole = async (rowid: number) => {
+      if (rowid !== 0) {
+        setRowid(rowid)
+      }
+    }
+    
+    const handleReadChecks = (event: any, values: any) => {
+     
+     
+      if (event.target.checked==true)
+      {
+        dataread[values].read=1
+      }
+      else
+      {
+        dataread[values].read=0
+      }
+      console.log(dataread)
+    }
+    const handleAddChecks = (event: any, values: any) => {
+      if (event.target.checked==true)
+      {
+        dataread[values].write=1
+      }
+      else
+      {
+        dataread[values].write=0
+      }
+    }
+    const handleEditChecks = (event: any, values: any) => {
+      if (event.target.checked==true)
+      {
+        dataread[values].edit=1
+      }
+      else
+      {
+        dataread[values].edit=0
+      }
+    }
+    const handleDeleteChecks = (event: any, values: any) => {
+      if (event.target.checked==true)
+      {
+        dataread[values].delete=1
+      }
+      else
+      {
+        dataread[values].delete=0
+      }
+    }
+    const handleSubmit = async (event: any) => {
+      event.preventDefault()
+      for(let j=0;j<dataread.length;j++)
+      {
+        delete dataread[j].name;
+      }
+      var saverole = {
+        rowid: rowid,
+        rolecode:rolename,
+        roledispname:roledispname,
+        roledesc:roledesc,
+        dataread:dataread
+      }
+      
+      const saveres = await api.saveRole(saverole)
+      console.log("API Response")
+      console.log(saveres)
+      // console.log("API Response Nds here");
+      // if (sample.status===200)
+      // {
+      //   clearInputs(0)
+      //   props.togglePage()
+      // }
+      //clearInputs(0)
+      props.togglePage()
 
+      // var sampledata = {
+      //   rowid: rowid,
+      //   type: sltType,
+      //   code: code,
+      //   name: name,
+      //   active: active,
+      // }
+      // console.log(sampledata)
+      // const metatypes = await api.setMetaData(sampledata)
+      // console.log(metatypes)
+      // clearInputs(0)
+      props.togglePage()
+    }
+    const clearInputs = (flag) => {
+      setDataread([]);
+      setDataadd([]);
+      setDataedit([]);
+      setDatadelete([])
+      setRowid(0);
+      setRolename("");
+      setRoledispname("");
+      setRoledesc("");
+    }
   return (
     <React.Fragment>
+       <Dialog fullWidth={true} maxWidth={false} open={props.showForm}>
+       <DialogTitle className={custstyle.addeditmenu}>
+          {props.editrow>0 ? "Edit" : "Add"} Role
+        </DialogTitle>
+       <DialogContent dividers className={custstyle.popupheight}>
       <Grid container spacing={3}>
         <Grid item xs={3}>
           <TextField
@@ -83,6 +213,10 @@ export default function BasicTabs(props: any) {
             size="small"
             variant="standard"
             style={{ width: 250 }}
+            onChange={(e) => {
+              setRolename(e.target.value)
+            }}
+            value={rolename}
           />
         </Grid>
         <Grid item xs={3}>
@@ -94,6 +228,11 @@ export default function BasicTabs(props: any) {
             size="small"
             variant="standard"
             style={{ width: 250 }}
+            onChange={(e) => {
+              setRoledispname(e.target.value)
+            }}
+            value={roledispname}
+            
           />
         </Grid>
         <Grid item xs={3}>
@@ -105,16 +244,16 @@ export default function BasicTabs(props: any) {
             size="small"
             variant="standard"
             style={{ width: 250 }}
+            onChange={(e) => {
+              setRoledesc(e.target.value)
+            }}
+            value={roledesc}
+
           />
         </Grid>
-        <Grid item xs={3}>
-          <Button variant="contained" color="success" onClick={props.togglePage}>
-            Add new role
-          </Button>
-        </Grid>
-        <Grid item xs={3}></Grid>
+       
       </Grid>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%",marginTop:2 }}>
         <Box sx={{ border: 4, borderColor: "divider" }}>
           <Tabs
             value={value}
@@ -133,79 +272,82 @@ export default function BasicTabs(props: any) {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <Grid container>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Policy Master" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Client Master" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Client Batch Master" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Create Test" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Employee Master" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Facility Master" />
-            </Grid>
-
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Hospital Master" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Instrument Mapping" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Meta Master" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Tariff Name" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="User Master" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="ManagePackage" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="RoleMenuMapper" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Test Master" />
-            </Grid>
-          </Grid>
-        </TabPanel>
+        
+            {data.map((row: any) => (
+              <Grid container style={{ marginTop: 1 }}>
+                    <Grid item xs={4}>
+                    <FormControlLabel
+                      key={row.id}
+                      label={row.name}
+                      control={(
+                        <Grid                         
+                        />
+                      )}
+                    />
+                    </Grid>
+                    <Grid item xs={2}>
+                    <FormControlLabel
+                      key={row.id+"-read"}
+                      label="Read"
+                      control={(
+                        <Checkbox
+                          
+                        />
+                      )}
+                      onChange={(e) => {
+                        handleReadChecks(e,row.id)
+                      }}
+                    />
+                    </Grid>
+                    <Grid item xs={2}>
+                    <FormControlLabel
+                      key={row.id+"-add"}
+                      label="Add"
+                      control={(
+                        <Checkbox
+                          
+                        />
+                      )}
+                      onChange={(e) => {
+                        handleAddChecks(e,row.id)
+                      }}
+                    />
+                    </Grid>
+                    <Grid item xs={2}>
+                    <FormControlLabel
+                      key={row.id+"-edit"}
+                      label="Edit"
+                      control={(
+                        <Checkbox
+                          
+                        />
+                      )}
+                      onChange={(e) => {
+                        handleEditChecks(e,row.id)
+                      }}
+                    />
+                    </Grid>   
+                    <Grid item xs={2}>
+                    <FormControlLabel
+                      key={row.id+"-delete"}
+                      label="Delete"
+                      control={(
+                        <Checkbox
+                          
+                        />
+                      )}
+                      onChange={(e) => {
+                        handleDeleteChecks(e,row.id)
+                      }}
+                    />
+                    </Grid>                   
+                    </Grid>
+                  )
+              )}
+        
+          </TabPanel>
         <TabPanel value={value} index={1}>
-          <Grid container style={{ marginTop: 1 }}>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Address Book" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Bill Search(Billing)" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Cash Closure(Admin)" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Collections" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Pattern Mapping" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Test Report" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="ReportList" />
-            </Grid>
-            <Grid item xs={2}>
-              <FormControlLabel control={<Checkbox />} label="Invoice Generation" />
-            </Grid>
-          </Grid>
+          General
         </TabPanel>
         <TabPanel value={value} index={2}>
           Patient Menus
@@ -220,6 +362,20 @@ export default function BasicTabs(props: any) {
           Manage Referral
         </TabPanel>
       </Box>
+      </DialogContent>
+      <DialogActions>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "lightgray", color: "black" }}
+            onClick={props.togglePage}
+          >
+            Cancel
+          </Button>
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            {props.editrow>0 ? "Update" : "Save"}
+          </Button>
+        </DialogActions>
+        </Dialog>
     </React.Fragment>
   )
 }

@@ -139,5 +139,9 @@ router.route("/prices").post(pricesController.add)
 
 router.route("/roles").get(userController.rolelookup)
 
+// Role Master
+router.route("/role").post(roleController.add)
+router.route("/role").get(roleController.list)
+
 // Export API routes
 export const apiRoutes = router

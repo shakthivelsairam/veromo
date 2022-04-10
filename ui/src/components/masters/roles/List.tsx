@@ -7,6 +7,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import RoleMasterForm from "./Form"
 import custstyle from "../../style.module.css"
+import * as api from "../../../utils/api"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,31 +33,24 @@ export default function TariffMaster() {
   const [data, setData] = useState<any>([])
   const [showForm, setShowForm] = useState(false)
   const [editForm, setEditForm] = useState(false)
+  const [row, setRow] = useState(0)
   const togglePage = () => {
     setShowForm(!showForm)
   }
-  const pageType = (editForm: boolean) => {
-    togglePage()
+  const pageType = (editForm: boolean, rowId: number) => {
+    
     setEditForm(editForm)
+    setRow(rowId)
+    togglePage()
+    
   }
 
   useEffect(() => {
-    const rows = [
-      {
-        id: 1,
-        rolename: "Administrator",
-        role_display_name: "Administrator",
-        roledesc: "Administrartor",
-      },
-      {
-        id: 2,
-        rolename: "Accession",
-        role_display_name: "Accession",
-        roledesc: "Accession",
-      },
-    ]
-    setData(rows)
-  }, [])
+    (async () => {
+      const sampledata = await api.getRoleList()
+      setData(sampledata)
+    })()
+  }, [showForm])
 
   return (
     <div>
@@ -68,30 +62,12 @@ export default function TariffMaster() {
             </Typography>
           </Grid>
           <Grid item xs={6} style={{ textAlign: "right" }}>
-            <Button variant="contained" onClick={() => pageType(false)}>
+            <Button variant="contained" onClick={() => pageType(false, 0)}>
               Add
             </Button>
           </Grid>
-          <Dialog fullWidth={true} maxWidth={false} open={showForm}>
-            <DialogTitle className={custstyle.addeditmenu}>
-              {editForm ? "Edit" : "Add"} Role
-            </DialogTitle>
-            <DialogContent dividers className={custstyle.popupheight}>
-              <RoleMasterForm togglePage={togglePage} />
-            </DialogContent>
-            <DialogActions>
-              <Button
-                variant="contained"
-                style={{ backgroundColor: "lightgray", color: "black" }}
-                onClick={togglePage}
-              >
-                Cancel
-              </Button>
-              <Button variant="contained" color="primary" onClick={togglePage}>
-                {editForm ? "Update" : "Save"}
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <RoleMasterForm showForm={showForm} editrow={row} togglePage={togglePage} />
+          
         </Grid>
         <div style={{ height: 400, width: "100%", marginTop: 5 }}>
           <Table size="small">
@@ -106,11 +82,11 @@ export default function TariffMaster() {
             <TableBody>
               {data.map((row: any) => (
                 <StyledTableRow key={row.id}>
-                  <StyledTableCell>{row.rolename}</StyledTableCell>
-                  <StyledTableCell>{row.role_display_name}</StyledTableCell>
-                  <StyledTableCell>{row.roledesc}</StyledTableCell>
+                  <StyledTableCell>{row.name}</StyledTableCell>
+                  <StyledTableCell>{row.code}</StyledTableCell>
+                  <StyledTableCell>{row.displayname}</StyledTableCell>
                   <StyledTableCell align="center">
-                    <Button size="small" onClick={() => pageType(true)}>
+                    <Button size="small" onClick={() => pageType(true,row.id)}>
                       <EditIcon fontSize="small"></EditIcon>
                     </Button>
                     <Button size="small">

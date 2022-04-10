@@ -1312,3 +1312,56 @@ export async function getTestsLookup() {
     throw new Error("Unauthorized")
   }
 }
+
+export async function getPageList() {
+  try {
+    console.log("getPageList apiBaseURL = ", apiBaseURL)
+    const response = await wrappedFetch(`${apiBaseURL}/role/pagelist`, {
+      method: "GET",
+    })
+    console.log("getPageList response = ", response)
+    if (response.status === 401) {
+      throw new Error("Unauthorized")
+    } else {
+      return response.json()
+    }
+  } catch (error) {
+    console.error("getPageList error: ", error)
+    throw new Error("Unauthorized")
+  }
+}
+export async function saveRole(roledata) {
+  try {
+    console.log("saveRole apiBaseURL = ", apiBaseURL)
+    const response = await wrappedFetch(`${apiBaseURL}/role`, {
+      method: "POST",
+      body: JSON.stringify(roledata),
+    })
+    console.log("saveRole response = ", response)
+    if (response.status === 401) {
+      throw new Error("Unauthorized")
+    } else {
+      return response
+    }
+  } catch (error) {
+    console.error("saveRole error: ", error)
+    throw new Error("Unauthorized")
+  }
+}
+export async function getRoleList() {
+  try {
+    console.log("getPageList apiBaseURL = ", apiBaseURL)
+    const response = await wrappedFetch(`${apiBaseURL}/role`, {
+      method: "GET",
+    })
+    console.log("getPageList response = ", response)
+    if (response.status === 401) {
+      throw new Error("Unauthorized")
+    } else {
+      return response.json()
+    }
+  } catch (error) {
+    console.error("getPageList error: ", error)
+    throw new Error("Unauthorized")
+  }
+}
