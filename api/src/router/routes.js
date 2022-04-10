@@ -56,6 +56,7 @@ router.route("/users/:id").get(userController.get)
 router.route("/users").get(userController.list)
 router.route("/users").post(userController.add)
 router.route("/users/:id").put(userController.update)
+router.route("/users/roles").get(userController.rolelookup)
 
 //Clients routes
 router.route("/clients/:id").get(clientsController.get)
@@ -135,6 +136,8 @@ router.route("/tariffcard/:id/services").get(tariffCardController.getServices)
 router.route("/prices").get(pricesController.list)
 router.route("/prices/test").post(pricesController.get)
 router.route("/prices").post(pricesController.add)
+
+router.route("/roles").get(userController.rolelookup)
 
 // Export API routes
 export const apiRoutes = router

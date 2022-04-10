@@ -50,3 +50,13 @@ export async function lookup(req, res) {
     res.status(500).json()
   }
 }
+
+export async function rolelookup(req, res) {
+  try {
+    const metatypes = await userDB.rolelookup()
+    res.status(200).json(metatypes)
+  } catch (err) {
+    console.error("controller.roleDB.list - Error: " + JSON.stringify(err))
+    res.status(500).json()
+  }
+}

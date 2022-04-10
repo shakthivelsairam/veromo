@@ -58,6 +58,7 @@ export async function lookupmeta(type) {
     if (type === "InvoiceCycle") metatype = 12
     if (type === "NotificationType") metatype = 13
     if (type === "ClientType") metatype = 16
+    if (type === "Religion") metatype = 17
     const sqlQuery = "SELECT id as value,code as label FROM meta_data where type=?"
     console.log(sqlQuery)
     const sqlResult = await dbPool.query(sqlQuery, [metatype])

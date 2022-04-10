@@ -269,6 +269,26 @@ export async function getUsers() {
     throw new Error("Unauthorized")
   }
 }
+
+export async function setUsers(userData) {
+  try {
+    console.log("setUsers apiBaseURL = ", userData)
+    const response = await wrappedFetch(`${apiBaseURL}/users`, {
+      method: "POST",
+      body: JSON.stringify(userData),
+    })
+    console.log("setUsers response = ", response)
+    if (response.status === 401) {
+      throw new Error("Unauthorized")
+    } else {
+      return response
+    }
+  } catch (error) {
+    console.error("setUsers error: ", error)
+    throw new Error("Unauthorized")
+  }
+}
+
 // Container
 export async function getContainer() {
   try {
@@ -1048,6 +1068,25 @@ export async function getLookupMetaData(type) {
     throw new Error("Unauthorized")
   }
 }
+
+export async function getLookupRole() {
+  try {
+    console.log("role types apiBaseURL = ", apiBaseURL)
+    const response = await wrappedFetch(`${apiBaseURL}/roles`, {
+      method: "GET",
+    })
+    console.log("servicelookup response = ", response)
+    if (response.status === 401) {
+      throw new Error("Unauthorized")
+    } else {
+      return response.json()
+    }
+  } catch (error) {
+    console.error("servicelookup error: ", error)
+    throw new Error("Unauthorized")
+  }
+}
+
 export async function getLookupDevice(type) {
   try {
     console.log("getLookupDevice types apiBaseURL = ", type)
